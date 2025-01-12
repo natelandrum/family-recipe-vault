@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Family Recipe Vault
 
-First, run the development server:
+The **Family Recipe Vault** is a secure and collaborative digital platform designed to preserve, organize, and share family recipes. This project aims to address the challenge of maintaining family culinary traditions by providing a centralized space for recipe storage, historical context, and collaboration among family members.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Purpose
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The Family Recipe Vault enables users to:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Securely store family recipes.
+- Add historical notes or stories behind each recipe.
+- Share recipes within family groups.
+- Control access levels (editable or view-only) for shared recipes.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features
 
-## Learn More
+### Recipe Management
 
-To learn more about Next.js, take a look at the following resources:
+- Upload recipes with step-by-step instructions and photos.
+- Categorize recipes by tags (e.g., ingredients, cuisine type, difficulty).
+- Add historical notes to document recipe origins or stories.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Sharing and Collaboration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Share recipes with family members through a secure access system.
+- Enable collaborative editing or view-only access for shared recipes.
 
-## Deploy on Vercel
+### Search and Filtering
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Search recipes by keywords, tags, or specific ingredients.
+- Filter recipes based on dietary restrictions, cooking time, or meal type.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Media Management
+
+- Upload and store photos or videos demonstrating cooking techniques.
+- Optimize media files for fast loading.
+
+### User Accounts and Permissions
+
+- User authentication for secure access to the application.
+- Family-based access control for shared recipes.
+- Recipe publishers decide whether recipes are editable or view-only.
+
+### Additional Features (Optional Enhancements)
+
+- Automatic ingredient-to-shopping-list conversion.
+- Generate sharable recipe PDFs.
+- Cooking mode with timers, step completion tracking, and notes.
+
+## Technology Stack
+
+### Frontend
+
+- **Framework**: React with Next.js (App Router).
+- **Styling**: Tailwind CSS.
+
+### Backend
+
+- **Framework**: Next.js API routes for CRUD operations.
+- **Authentication**: NextAuth.js for user login and access control.
+
+### Database
+
+- **Database**: PostgreSQL hosted on Vercel.
+
+### Media Storage
+
+- **Storage**: Cloudinary for storing and managing media files.
+
+## Team
+
+- **Team Members**: Alma Sofia Benavides Belalcazar, Lenora Rosemarie Stevens, Mouhamed Jean Patrick Koko, Nathan Ray Landrum.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
