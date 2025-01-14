@@ -71,6 +71,9 @@ The Family Recipe Vault enables users to:
 
 - **Team Members**: Alma Sofia Benavides Belalcazar, Lenora Rosemarie Stevens, Mouhamed Jean Patrick Koko, Nathan Ray Landrum.
 
+## Team Favorite Quotes
+- **Lenora Stevens**: “Don't give up what you want most, for what you want now.” President Thomas S. Monson
+
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
