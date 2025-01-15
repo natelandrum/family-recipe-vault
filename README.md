@@ -74,6 +74,7 @@ The Family Recipe Vault enables users to:
 
 - **Lenora Stevens**: “Don't give up what you want most, for what you want now.” President Thomas S. Monson
 - **Nathan Landrum:** "Many of life's failures are people who did not realize how close they were to success when they gave up." Thomas A. Edison
+- **Mouhamed Koko:** "Things which matter most must never be at the mercy of things which matter least." Johann Goethe
 
 ## License
 
