@@ -1,4 +1,3 @@
-
 # Family Recipe Vault
 
 The **Family Recipe Vault** is a secure and collaborative digital platform designed to preserve, organize, and share family recipes. This project aims to address the challenge of maintaining family culinary traditions by providing a centralized space for recipe storage, historical context, and collaboration among family members.
@@ -70,6 +69,11 @@ The Family Recipe Vault enables users to:
 ## Team
 
 - **Team Members**: Alma Sofia Benavides Belalcazar, Lenora Rosemarie Stevens, Mouhamed Jean Patrick Koko, Nathan Ray Landrum.
+
+## Team Favorite Quotes
+
+- **Lenora Stevens**: “Don't give up what you want most, for what you want now.” President Thomas S. Monson
+- **Nathan Landrum:** "Many of life's failures are people who did not realize how close they were to success when they gave up." Thomas A. Edison
 
 ## License
 
