@@ -1,9 +1,8 @@
 export interface User {
     id: number;
     name: string;
-    email: string;
+    email: string; //constrained as Unique
     password: string;
-    emailUnique: boolean;
 };
 
 export interface Family {
@@ -48,7 +47,7 @@ export interface RecipeTag {
 
 export interface Ingredient {
     ingredient_id: number;
-    ingredient_name: string;
+    ingredient_name: string; //constrained as Unique
 }
 
 export interface RecipeIngredient {
@@ -65,4 +64,33 @@ export interface HistoricalNote {
     user_id: number;
     recipe_id: number;
     created_on: string;
+}
+
+export interface MealPlan {
+    plan_id: number;
+    date: string;
+    user_id: number;
+}
+
+export interface MealPlanRecipe {
+    mp_recipe_id: number;
+    plan_id: number;
+    recipe_id: number;
+    total_servings: number;
+    meal_type: MealType;
+}
+
+export interface ShoppingList {
+    list_id: number;
+    plan_id: number;
+    created_on: Date;
+}
+
+export interface ShoppingListItem {
+    item_id: number;
+    list_id: number;
+    ingredient_id: number;
+    quantity: number;
+    units: string;
+    is_checked: boolean;
 }

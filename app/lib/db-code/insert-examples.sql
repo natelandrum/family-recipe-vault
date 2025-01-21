@@ -56,3 +56,29 @@ VALUES
     ('This recipe was updated to be vegan in 2024.', 1, 1),
     ('Originally, this recipe used dairy, but now it is dairy-free.', 1, 1);
 
+-- Insert example for meal_plan table:
+INSERT INTO meal_plan (date, user_id) 
+VALUES ('2025-01-21', 1);
+
+-- Insert example for meal_plan_recipe table:
+INSERT INTO meal_plan_recipe (plan_id, recipe_id, total_servings, meal_type) 
+VALUES (1, 2, 4, 'Dinner');
+
+-- Insert example for shopping_list table (only needs the plan_id):
+INSERT INTO shopping_list (plan_id)
+VALUES (1) -- Replace with the desired meal_plan ID
+RETURNING list_id;
+
+-- Insert example for shopping_list_item table:
+INSERT INTO shopping_list_item (list_id, ingredient_id, quantity, units)
+SELECT 
+    $1 AS list_id,                 -- Replace with the generated list_id
+    i.ingredient_id, 
+    SUM(ri.quantity * mpr.total_servings) AS total_quantity,
+    ri.unit
+FROM meal_plan_recipe mpr
+INNER JOIN recipe_ingredient ri ON mpr.recipe_id = ri.recipe_id
+INNER JOIN ingredient i ON ri.ingredient_id = i.ingredient_id
+WHERE mpr.plan_id = 1             -- Replace with the desired meal_plan ID
+GROUP BY i.ingredient_id, ri.unit;
+
