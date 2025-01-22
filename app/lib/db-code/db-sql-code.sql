@@ -18,7 +18,7 @@ CREATE TABLE family (
     family_name VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE user_family_group (
+CREATE TABLE IF NOT EXISTS familyUser (
     id INT NOT NULL,
     family_id INT NOT NULL,
     PRIMARY KEY (id, family_id),
@@ -41,12 +41,12 @@ CREATE TABLE IF NOT EXISTS public.recipe
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
-CREATE TABLE tags (
+CREATE TABLE IF NOT EXISTS tags (
     tag_id SERIAL PRIMARY KEY,
     tag_name VARCHAR(100) NOT NULL UNIQUE
 );
 
-CREATE TABLE recipe_tags (
+CREATE TABLE IF NOT EXISTS recipe_tags (
     recipe_id INT NOT NULL,
     tag_id INT NOT NULL,
     PRIMARY KEY (recipe_id, tag_id),
@@ -54,12 +54,12 @@ CREATE TABLE recipe_tags (
     CONSTRAINT fk_tag FOREIGN KEY (tag_id) REFERENCES tags (tag_id) ON DELETE CASCADE
 );
 
-CREATE TABLE ingredients (
+CREATE TABLE IF NOT EXISTS ingredients (
     ingredient_id SERIAL PRIMARY KEY,
     ingredient_name VARCHAR(255) NOT NULL UNIQUE
 );
 
-CREATE TABLE recipe_ingredients (
+CREATE TABLE IF NOT EXISTS recipe_ingredients (
     recipe_id INT NOT NULL,
     ingredient_id INT NOT NULL,
     quantity INT NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE recipe_ingredients (
     CONSTRAINT fk_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredients (ingredient_id) ON DELETE CASCADE
 );
 
-CREATE TABLE historical_note (
+CREATE TABLE IF NOT EXISTS historical_note (
     note_id SERIAL PRIMARY KEY,
     note VARCHAR(255) NOT NULL,
     user_id INT NOT NULL,
@@ -80,14 +80,14 @@ CREATE TABLE historical_note (
     CONSTRAINT fk_recipe FOREIGN KEY (recipe_id) REFERENCES recipe (recipe_id) ON DELETE CASCADE
 );
 
-CREATE TABLE meal_plan (
+CREATE TABLE IF NOT EXISTS meal_plan (
     plan_id SERIAL PRIMARY KEY,
     date DATE NOT NULL,
     user_id INT NOT NULL,
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
-CREATE TABLE meal_plan_recipe (
+CREATE TABLE IF NOT EXISTS meal_plan_recipe (
     mp_recipe_id SERIAL PRIMARY KEY,
     plan_id INT NOT NULL,
     recipe_id INT NOT NULL,
@@ -97,14 +97,14 @@ CREATE TABLE meal_plan_recipe (
     CONSTRAINT fk_recipe FOREIGN KEY (recipe_id) REFERENCES recipe (recipe_id) ON DELETE CASCADE
 );
 
-CREATE TABLE shopping_list (
+CREATE TABLE IF NOT EXISTS shopping_list (
     list_id SERIAL PRIMARY KEY,
     plan_id INT NOT NULL,
     created_on TIMESTAMP NOT NULL DEFAULT NOW(),
     CONSTRAINT fk_plan FOREIGN KEY (plan_id) REFERENCES meal_plan (plan_id) ON DELETE CASCADE
 );
 
-CREATE TABLE shopping_list_item (
+CREATE TABLE IF NOT EXISTS shopping_list_item (
     item_id SERIAL PRIMARY KEY,
     list_id INT NOT NULL,
     ingredient_id INT NOT NULL,

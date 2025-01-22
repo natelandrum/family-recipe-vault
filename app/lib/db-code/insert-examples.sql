@@ -9,7 +9,7 @@ VALUES
 INSERT INTO family (family_name) VALUES ('Smith Family'), ('Johnson Family');
 
 -- Insert example for user_family_group table:
-INSERT INTO family_users (user_id, family_id) VALUES
+INSERT INTO familyUsers (user_id, family_id) VALUES
 (1, 1),  -- John Doe belongs to Smith Family
 (2, 1),  -- Jane Doe also belongs to Smith Family
 (2, 2);  -- Jane Doe also belongs to Johnson Family
