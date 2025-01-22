@@ -86,7 +86,7 @@ export const families = [
 ];
 
 
-export const familyUsers = [
+export const family_users = [
   { user_id: 1, family_id: 1 }, // John Doe belongs to Smith Family
   { user_id: 2, family_id: 1 }, // Jane Smith also belongs to Smith Family
   { user_id: 2, family_id: 2 }, // Jane Smith also belongs to Johnson Family

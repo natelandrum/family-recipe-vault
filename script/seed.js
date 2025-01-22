@@ -7,7 +7,7 @@ dotenv.config();
 import {
   users,
   families,
-  familyUsers,
+  family_users,
   recipes,
   tags,
   recipeTags,
@@ -19,6 +19,7 @@ import {
   shoppingLists,
   shoppingListItems,
 } from './seedData.js';
+import bcrypt from 'bcrypt';
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -31,13 +32,16 @@ const seedDatabase = async () => {
   try {
     console.log('🌱 Seeding database...');
 
-    // Seed `users`
-    for (const user of users) {
-      await pool.query(
-        `INSERT INTO public.users (name, email, password) VALUES ($1, $2, $3)`,
-        [user.name, user.email, user.password]
-      );
-    }
+   // Seed `users`
+const insertedUsers = await Promise.all(
+  users.map(async (user) => {
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    return pool.query(
+      `INSERT INTO public.users (name, email, password) VALUES ($1, $2, $3)`,
+      [user.name, user.email, hashedPassword]
+    );
+  })
+);
 
     // Seed `families`
     for (const family of families) {
@@ -45,7 +49,7 @@ const seedDatabase = async () => {
     }
 
     // Seed `family_users`
-    for (const familyUser of familyUsers) {
+    for (const familyUser of family_users) {
       await pool.query(
         `INSERT INTO family_users (user_id, family_id) VALUES ($1, $2)`,
         [familyUser.user_id, familyUser.family_id]
