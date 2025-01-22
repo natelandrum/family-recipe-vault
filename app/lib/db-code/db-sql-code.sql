@@ -13,12 +13,12 @@ CREATE TABLE IF NOT EXISTS public.users
     CONSTRAINT unique_email UNIQUE (email)
 );
 
-CREATE TABLE IF NOT EXISTS family_users (
+CREATE TABLE family (
     family_id SERIAL PRIMARY KEY,
     family_name VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS user_family_group (
+CREATE TABLE IF NOT EXISTS familyUser (
     id INT NOT NULL,
     family_id INT NOT NULL,
     PRIMARY KEY (id, family_id),

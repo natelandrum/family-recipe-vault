@@ -7,7 +7,7 @@ dotenv.config();
 import {
   users,
   families,
-  family_users,
+  familyUsers,
   recipes,
   tags,
   recipeTags,
@@ -48,10 +48,10 @@ const insertedUsers = await Promise.all(
       await pool.query(`INSERT INTO family (family_name) VALUES ($1)`, [family.family_name]);
     }
 
-    // Seed `family_users`
-    for (const familyUser of family_users) {
+    // Seed `familyUsers`
+    for (const familyUser of familyUsers) {
       await pool.query(
-        `INSERT INTO family_users (user_id, family_id) VALUES ($1, $2)`,
+        `INSERT INTO familyUser (user_id, family_id) VALUES ($1, $2)`,
         [familyUser.user_id, familyUser.family_id]
       );
     }

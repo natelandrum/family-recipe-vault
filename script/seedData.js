@@ -1,44 +1,6 @@
 export const users = [
-  { name: 'John Doe', email: 'john.doe@example.com', password: 'password123' },
-  { name: 'Jane Smith', email: 'jane.smith@example.com', password: 'securepass456' },
-  { name: 'Alice Johnson', email: 'alice.johnson@example.com', password: 'mysecretpass' },
-  { name: 'Michael Brown', email: 'michael.brown@example.com', password: 'passw0rd' },
-  { name: 'Emily Davis', email: 'emily.davis@example.com', password: 'strongpass' },
-  { name: 'David Wilson', email: 'david.wilson@example.com', password: 'mypassword' },
-  { name: 'Sophia Martinez', email: 'sophia.martinez@example.com', password: 'safepass789' },
-  { name: 'James Taylor', email: 'james.taylor@example.com', password: 'topsecret' },
-  { name: 'Olivia Anderson', email: 'olivia.anderson@example.com', password: 'hiddenpass' },
-  { name: 'Lucas Thomas', email: 'lucas.thomas@example.com', password: 'letmein123' },
-  { name: 'Benjamin Clark', email: 'benjamin.clark@example.com', password: 'benpass123' },
-  { name: 'Natalie Walker', email: 'natalie.walker@example.com', password: 'natsecure45' },
-  { name: 'Ethan Harris', email: 'ethan.harris@example.com', password: 'ethanpass99' },
-  { name: 'Grace Lewis', email: 'grace.lewis@example.com', password: 'graceful123' },
-  { name: 'Noah Hall', email: 'noah.hall@example.com', password: 'noahpass67' },
-  { name: 'Mia Adams', email: 'mia.adams@example.com', password: 'miapass89' },
-  { name: 'Liam Allen', email: 'liam.allen@example.com', password: 'liamsecure' },
-  { name: 'Chloe King', email: 'chloe.king@example.com', password: 'chloekey123' },
-  { name: 'Jacob Wright', email: 'jacob.wright@example.com', password: 'wrightpass77' },
-  { name: 'Ella Scott', email: 'ella.scott@example.com', password: 'ellasecure12' },
-  { name: 'Daniel Perez', email: 'daniel.perez@example.com', password: 'danpass432' },
-  { name: 'Victoria Campbell', email: 'victoria.campbell@example.com', password: 'vicsecure12' },
-  { name: 'Elijah Mitchell', email: 'elijah.mitchell@example.com', password: 'elipass998' },
-  { name: 'Zoe Roberts', email: 'zoe.roberts@example.com', password: 'zoepass007' },
-  { name: 'Alexander Carter', email: 'alex.carter@example.com', password: 'alexpass02' },
-  { name: 'Isabella Turner', email: 'isabella.turner@example.com', password: 'turnpass12' },
-  { name: 'Matthew Phillips', email: 'matthew.phillips@example.com', password: 'mattpass89' },
-  { name: 'Sophia Evans', email: 'sophia.evans@example.com', password: 'sofevan45' },
-  { name: 'Ryan Rivera', email: 'ryan.rivera@example.com', password: 'ryanpass78' },
-  { name: 'Abigail White', email: 'abigail.white@example.com', password: 'abipass34' },
-  { name: 'Nathan Rodriguez', email: 'nathan.rodriguez@example.com', password: 'nathrod999' },
-  { name: 'Hannah Martinez', email: 'hannah.martinez@example.com', password: 'hansecure88' },
-  { name: 'Ethan Moore', email: 'ethan.moore@example.com', password: 'mooreethan123' },
-  { name: 'Samantha Gonzalez', email: 'samantha.gonzalez@example.com', password: 'sampass234' },
-  { name: 'Joshua Ward', email: 'joshua.ward@example.com', password: 'joshsecure' },
-  { name: 'Ava Howard', email: 'ava.howard@example.com', password: 'avapass09' },
-  { name: 'Andrew Torres', email: 'andrew.torres@example.com', password: 'torrand99' },
-  { name: 'Elizabeth Ramirez', email: 'elizabeth.ramirez@example.com', password: 'elizpass76' },
-  { name: 'Christopher Bailey', email: 'christopher.bailey@example.com', password: 'chrispass45' },
-  { name: 'Madison Cooper', email: 'madison.cooper@example.com', password: 'madpass123' },
+  
+  { name: 'Madison Cooper', email: 'madis.cooper@example.com', password: 'madpass123' },
 ];
 
 
@@ -86,7 +48,7 @@ export const families = [
 ];
 
 
-export const family_users = [
+export const familyUsers = [
   { user_id: 1, family_id: 1 }, // John Doe belongs to Smith Family
   { user_id: 2, family_id: 1 }, // Jane Smith also belongs to Smith Family
   { user_id: 2, family_id: 2 }, // Jane Smith also belongs to Johnson Family
