@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS public.users
     name character varying NOT NULL,
     email character varying NOT NULL,
     password character varying NOT NULL,
-    emailUnique boolean NOT NULL,
-    CONSTRAINT id_pkey PRIMARY KEY (id)
+    CONSTRAINT id_pkey PRIMARY KEY (id),
+    CONSTRAINT unique_email UNIQUE (email)
 );
 
 CREATE TABLE family (
@@ -78,4 +78,39 @@ CREATE TABLE historical_note (
     created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     CONSTRAINT fk_recipe FOREIGN KEY (recipe_id) REFERENCES recipe (recipe_id) ON DELETE CASCADE
+);
+
+CREATE TABLE meal_plan (
+    plan_id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    user_id INT NOT NULL,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+
+CREATE TABLE meal_plan_recipe (
+    mp_recipe_id SERIAL PRIMARY KEY,
+    plan_id INT NOT NULL,
+    recipe_id INT NOT NULL,
+    total_servings INT NOT NULL,
+    meal_type meal_type NOT NULL,
+    CONSTRAINT fk_plan FOREIGN KEY (plan_id) REFERENCES meal_plan (plan_id) ON DELETE CASCADE,
+    CONSTRAINT fk_recipe FOREIGN KEY (recipe_id) REFERENCES recipe (recipe_id) ON DELETE CASCADE
+);
+
+CREATE TABLE shopping_list (
+    list_id SERIAL PRIMARY KEY,
+    plan_id INT NOT NULL,
+    created_on TIMESTAMP NOT NULL DEFAULT NOW(),
+    CONSTRAINT fk_plan FOREIGN KEY (plan_id) REFERENCES meal_plan (plan_id) ON DELETE CASCADE
+);
+
+CREATE TABLE shopping_list_item (
+    item_id SERIAL PRIMARY KEY,
+    list_id INT NOT NULL,
+    ingredient_id INT NOT NULL,
+    quantity INT NOT NULL,
+    units VARCHAR(20),
+    is_checked BOOLEAN DEFAULT FALSE,
+    CONSTRAINT fk_list FOREIGN KEY (list_id) REFERENCES shopping_list (list_id) ON DELETE CASCADE,
+    CONSTRAINT fk_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredients (ingredient_id) ON DELETE CASCADE
 );
