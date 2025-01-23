@@ -9,9 +9,9 @@ import {
   families,
   familyUsers,
   recipes,
-  tags,
+  tag,
   recipeTags,
-  ingredients,
+  ingredient,
   recipeIngredients,
   historicalNotes,
   mealPlans,
@@ -49,10 +49,10 @@ const insertedUsers = await Promise.all(
     }
 
     // Seed `familyUsers`
-    for (const familyUser of familyUsers) {
+    for (const user_family_group of familyUsers) {
       await pool.query(
-        `INSERT INTO familyUser (user_id, family_id) VALUES ($1, $2)`,
-        [familyUser.user_id, familyUser.family_id]
+        `INSERT INTO user_family_group (id, family_id) VALUES ($1, $2)`,
+        [user_family_group.id, user_family_group.family_id]
       );
     }
 
@@ -74,86 +74,86 @@ const insertedUsers = await Promise.all(
     }
 
     // Seed `tags`
-    for (const tag of tags) {
-      await pool.query(`INSERT INTO public.tag (tag_name) VALUES ($1)`, [tag.tag_name]);
+    for (const tags of tag) {
+      await pool.query(`INSERT INTO public.tags (tag_name) VALUES ($1)`, [tags.tag_name]);
     }
 
     // Seed `recipe_tags`
-    for (const recipeTag of recipeTags) {
+    for (const recipe_tags of recipeTags) {
       await pool.query(
-        `INSERT INTO public.recipe_tag (recipe_id, tag_id) VALUES ($1, $2)`,
-        [recipeTag.recipe_id, recipeTag.tag_id]
+        `INSERT INTO public.recipe_tags (recipe_id, tag_id) VALUES ($1, $2)`,
+        [recipe_tags.recipe_id, recipe_tags.tag_id]
       );
     }
 
     // Seed `ingredients`
-    for (const ingredient of ingredients) {
+    for (const ingredients of ingredient) {
       await pool.query(
-        `INSERT INTO public.ingredient (ingredient_name) VALUES ($1)`,
-        [ingredient.ingredient_name]
+        `INSERT INTO public.ingredients (ingredient_name) VALUES ($1)`,
+        [ingredients.ingredient_name]
       );
     }
 
     // Seed `recipe_ingredients`
-    for (const recipeIngredient of recipeIngredients) {
+    for (const recipe_ingredients of recipeIngredients) {
       await pool.query(
-        `INSERT INTO public.recipe_ingredient (recipe_id, ingredient_id, quantity, unit, preparation_method) VALUES ($1, $2, $3, $4, $5)`,
+        `INSERT INTO public.recipe_ingredients (recipe_id, ingredient_id, quantity, unit, preparation_method) VALUES ($1, $2, $3, $4, $5)`,
         [
-          recipeIngredient.recipe_id,
-          recipeIngredient.ingredient_id,
-          recipeIngredient.quantity,
-          recipeIngredient.unit,
-          recipeIngredient.preparation_method,
+          recipe_ingredients.recipe_id,
+          recipe_ingredients.ingredient_id,
+          recipe_ingredients.quantity,
+          recipe_ingredients.unit,
+          recipe_ingredients.preparation_method,
         ]
       );
     }
 
     // Seed `historical_notes`
-    for (const historicalNote of historicalNotes) {
+    for (const historical_note of historicalNotes) {
       await pool.query(
         `INSERT INTO public.historical_note (note, user_id, recipe_id) VALUES ($1, $2, $3)`,
-        [historicalNote.note, historicalNote.user_id, historicalNote.recipe_id]
+        [historical_note.note, historical_note.user_id, historical_note.recipe_id]
       );
     }
 
     // Seed `meal_plans`
-    for (const mealPlan of mealPlans) {
+    for (const meal_plan of mealPlans) {
       await pool.query(
         `INSERT INTO public.meal_plan (date, user_id) VALUES ($1, $2)`,
-        [mealPlan.date, mealPlan.user_id]
+        [meal_plan.date, meal_plan.user_id]
       );
     }
 
     // Seed `meal_plan_recipes`
-    for (const mealPlanRecipe of mealPlanRecipes) {
+    for (const meal_plan_recipe of mealPlanRecipes) {
       await pool.query(
         `INSERT INTO public.meal_plan_recipe (plan_id, recipe_id, total_servings, meal_type) VALUES ($1, $2, $3, $4)`,
         [
-          mealPlanRecipe.plan_id,
-          mealPlanRecipe.recipe_id,
-          mealPlanRecipe.total_servings,
-          mealPlanRecipe.meal_type,
+          meal_plan_recipe.plan_id,
+          meal_plan_recipe.recipe_id,
+          meal_plan_recipe.total_servings,
+          meal_plan_recipe.meal_type,
         ]
       );
     }
 
     // Seed `shopping_lists`
-    for (const shoppingList of shoppingLists) {
+    for (const shopping_list of shoppingLists) {
       await pool.query(
         `INSERT INTO public.shopping_list (plan_id) VALUES ($1)`,
-        [shoppingList.plan_id]
+        [shopping_list.plan_id]
       );
     }
 
     // Seed `shopping_list_items`
-    for (const shoppingListItem of shoppingListItems) {
+    for (const shopping_list_item of shoppingListItems) {
       await pool.query(
-        `INSERT INTO public.shopping_list_item (list_id, ingredient_id, quantity, unit) VALUES ($1, $2, $3, $4)`,
+        `INSERT INTO public.shopping_list_item (list_id, ingredient_id, quantity, units) VALUES ($1, $2, $3, $4)`,
         [
-          shoppingListItem.list_id,
-          shoppingListItem.ingredient_id,
-          shoppingListItem.quantity,
-          shoppingListItem.unit,
+          shopping_list_item.list_id,
+          shopping_list_item.ingredient_id,
+          shopping_list_item.quantity,
+          shopping_list_item.units,
         ]
       );
     }
