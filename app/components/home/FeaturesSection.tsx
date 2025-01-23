@@ -27,7 +27,7 @@ export default function FeaturesSection() {
     <section className="py-16 bg-gray-50 text-center">
       <div className="container mx-auto px-6 md:px-12">
         <h2 className="text-4xl font-bold text-gray-800 mb-8">
-          Why Choose <span className="text-red-500">Family Recipe Vault</span>?
+          Why Choose <span className="text-red-500 text-5xl">Family Recipe Vault</span>?
         </h2>
         <div className="grid gap-12 md:grid-cols-3">
           {features.map((feature, index) => (
@@ -36,7 +36,7 @@ export default function FeaturesSection() {
               className="flex flex-col items-center bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl transition duration-300"
             >
               <div className="mb-4">{feature.icon}</div>
-              <h3 className="text-2xl font-semibold text-gray-800">
+              <h3 className="text-4xl font-semibold text-gray-800">
                 {feature.title}
               </h3>
               <p className="mt-4 text-gray-600">{feature.description}</p>
