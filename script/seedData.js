@@ -1,6 +1,44 @@
 export const users = [
-  
-  { name: 'Madison Cooper', email: 'madis.cooper@example.com', password: 'madpass123' },
+  { name: 'John Doe', email: 'john.doe@example.com', password: 'password123' },
+  { name: 'Jane Smith', email: 'jane.smith@example.com', password: 'securepass456' },
+  { name: 'Alice Johnson', email: 'alice.johnson@example.com', password: 'mysecretpass' },
+  { name: 'Michael Brown', email: 'michael.brown@example.com', password: 'passw0rd' },
+  { name: 'Emily Davis', email: 'emily.davis@example.com', password: 'strongpass' },
+  { name: 'David Wilson', email: 'david.wilson@example.com', password: 'mypassword' },
+  { name: 'Sophia Martinez', email: 'sophia.martinez@example.com', password: 'safepass789' },
+  { name: 'James Taylor', email: 'james.taylor@example.com', password: 'topsecret' },
+  { name: 'Olivia Anderson', email: 'olivia.anderson@example.com', password: 'hiddenpass' },
+  { name: 'Lucas Thomas', email: 'lucas.thomas@example.com', password: 'letmein123' },
+  { name: 'Benjamin Clark', email: 'benjamin.clark@example.com', password: 'benpass123' },
+  { name: 'Natalie Walker', email: 'natalie.walker@example.com', password: 'natsecure45' },
+  { name: 'Ethan Harris', email: 'ethan.harris@example.com', password: 'ethanpass99' },
+  { name: 'Grace Lewis', email: 'grace.lewis@example.com', password: 'graceful123' },
+  { name: 'Noah Hall', email: 'noah.hall@example.com', password: 'noahpass67' },
+  { name: 'Mia Adams', email: 'mia.adams@example.com', password: 'miapass89' },
+  { name: 'Liam Allen', email: 'liam.allen@example.com', password: 'liamsecure' },
+  { name: 'Chloe King', email: 'chloe.king@example.com', password: 'chloekey123' },
+  { name: 'Jacob Wright', email: 'jacob.wright@example.com', password: 'wrightpass77' },
+  { name: 'Ella Scott', email: 'ella.scott@example.com', password: 'ellasecure12' },
+  { name: 'Daniel Perez', email: 'daniel.perez@example.com', password: 'danpass432' },
+  { name: 'Victoria Campbell', email: 'victoria.campbell@example.com', password: 'vicsecure12' },
+  { name: 'Elijah Mitchell', email: 'elijah.mitchell@example.com', password: 'elipass998' },
+  { name: 'Zoe Roberts', email: 'zoe.roberts@example.com', password: 'zoepass007' },
+  { name: 'Alexander Carter', email: 'alex.carter@example.com', password: 'alexpass02' },
+  { name: 'Isabella Turner', email: 'isabella.turner@example.com', password: 'turnpass12' },
+  { name: 'Matthew Phillips', email: 'matthew.phillips@example.com', password: 'mattpass89' },
+  { name: 'Sophia Evans', email: 'sophia.evans@example.com', password: 'sofevan45' },
+  { name: 'Ryan Rivera', email: 'ryan.rivera@example.com', password: 'ryanpass78' },
+  { name: 'Abigail White', email: 'abigail.white@example.com', password: 'abipass34' },
+  { name: 'Nathan Rodriguez', email: 'nathan.rodriguez@example.com', password: 'nathrod999' },
+  { name: 'Hannah Martinez', email: 'hannah.martinez@example.com', password: 'hansecure88' },
+  { name: 'Ethan Moore', email: 'ethan.moore@example.com', password: 'mooreethan123' },
+  { name: 'Samantha Gonzalez', email: 'samantha.gonzalez@example.com', password: 'sampass234' },
+  { name: 'Joshua Ward', email: 'joshua.ward@example.com', password: 'joshsecure' },
+  { name: 'Ava Howard', email: 'ava.howard@example.com', password: 'avapass09' },
+  { name: 'Andrew Torres', email: 'andrew.torres@example.com', password: 'torrand99' },
+  { name: 'Elizabeth Ramirez', email: 'elizabeth.ramirez@example.com', password: 'elizpass76' },
+  { name: 'Christopher Bailey', email: 'christopher.bailey@example.com', password: 'chrispass45' },
+  { name: 'Madison Cooper', email: 'madison.cooper@example.com', password: 'madpass123' },
 ];
 
 
@@ -49,47 +87,47 @@ export const families = [
 
 
 export const familyUsers = [
-  { user_id: 1, family_id: 1 }, // John Doe belongs to Smith Family
-  { user_id: 2, family_id: 1 }, // Jane Smith also belongs to Smith Family
-  { user_id: 2, family_id: 2 }, // Jane Smith also belongs to Johnson Family
-  { user_id: 3, family_id: 2 }, // Alice Johnson belongs to Johnson Family
-  { user_id: 4, family_id: 3 }, // Michael Brown belongs to Brown Family
-  { user_id: 5, family_id: 4 }, // Emily Davis belongs to Davis Family
-  { user_id: 6, family_id: 5 }, // David Wilson belongs to Wilson Family
-  { user_id: 7, family_id: 6 }, // Sophia Martinez belongs to Martinez Family
-  { user_id: 8, family_id: 7 }, // James Taylor belongs to Taylor Family
-  { user_id: 9, family_id: 8 }, // Olivia Anderson belongs to Anderson Family
-  { user_id: 10, family_id: 9 }, // Lucas Thomas belongs to Thomas Family
-  { user_id: 11, family_id: 10 }, // Benjamin Clark belongs to Clark Family
-  { user_id: 12, family_id: 11 }, // Natalie Walker belongs to Walker Family
-  { user_id: 13, family_id: 12 }, // Ethan Harris belongs to Harris Family
-  { user_id: 14, family_id: 13 }, // Grace Lewis belongs to Lewis Family
-  { user_id: 15, family_id: 14 }, // Noah Hall belongs to Hall Family
-  { user_id: 16, family_id: 15 }, // Mia Adams belongs to Adams Family
-  { user_id: 17, family_id: 16 }, // Liam Allen belongs to Allen Family
-  { user_id: 18, family_id: 17 }, // Chloe King belongs to King Family
-  { user_id: 19, family_id: 18 }, // Jacob Wright belongs to Wright Family
-  { user_id: 20, family_id: 19 }, // Ella Scott belongs to Scott Family
-  { user_id: 21, family_id: 20 }, // Daniel Perez belongs to Perez Family
-  { user_id: 22, family_id: 21 }, // Victoria Campbell belongs to Campbell Family
-  { user_id: 23, family_id: 22 }, // Elijah Mitchell belongs to Mitchell Family
-  { user_id: 24, family_id: 23 }, // Zoe Roberts belongs to Roberts Family
-  { user_id: 25, family_id: 24 }, // Alexander Carter belongs to Carter Family
-  { user_id: 26, family_id: 25 }, // Isabella Turner belongs to Turner Family
-  { user_id: 27, family_id: 26 }, // Matthew Phillips belongs to Phillips Family
-  { user_id: 28, family_id: 27 }, // Sophia Evans belongs to Evans Family
-  { user_id: 29, family_id: 28 }, // Ryan Rivera belongs to Rivera Family
-  { user_id: 30, family_id: 29 }, // Abigail White belongs to White Family
-  { user_id: 31, family_id: 30 }, // Nathan Rodriguez belongs to Rodriguez Family
-  { user_id: 32, family_id: 31 }, // Hannah Martinez belongs to Gonzalez Family
-  { user_id: 33, family_id: 32 }, // Ethan Moore belongs to Moore Family
-  { user_id: 34, family_id: 33 }, // Samantha Gonzalez belongs to Gonzalez Family
-  { user_id: 35, family_id: 34 }, // Joshua Ward belongs to Howard Family
-  { user_id: 36, family_id: 35 }, // Ava Howard belongs to Howard Family
-  { user_id: 37, family_id: 36 }, // Andrew Torres belongs to Torres Family
-  { user_id: 38, family_id: 37 }, // Elizabeth Ramirez belongs to Ramirez Family
-  { user_id: 39, family_id: 38 }, // Christopher Bailey belongs to Bailey Family
-  { user_id: 40, family_id: 39 }, // Madison Cooper belongs to Cooper Family
+  { id: 1, family_id: 1 }, // John Doe belongs to Smith Family
+  { id: 2, family_id: 1 }, // Jane Smith also belongs to Smith Family
+  { id: 2, family_id: 2 }, // Jane Smith also belongs to Johnson Family
+  { id: 3, family_id: 2 }, // Alice Johnson belongs to Johnson Family
+  { id: 4, family_id: 3 }, // Michael Brown belongs to Brown Family
+  { id: 5, family_id: 4 }, // Emily Davis belongs to Davis Family
+  { id: 6, family_id: 5 }, // David Wilson belongs to Wilson Family
+  { id: 7, family_id: 6 }, // Sophia Martinez belongs to Martinez Family
+  { id: 8, family_id: 7 }, // James Taylor belongs to Taylor Family
+  { id: 9, family_id: 8 }, // Olivia Anderson belongs to Anderson Family
+  { id: 10, family_id: 9 }, // Lucas Thomas belongs to Thomas Family
+  { id: 11, family_id: 10 }, // Benjamin Clark belongs to Clark Family
+  { id: 12, family_id: 11 }, // Natalie Walker belongs to Walker Family
+  { id: 13, family_id: 12 }, // Ethan Harris belongs to Harris Family
+  { id: 14, family_id: 13 }, // Grace Lewis belongs to Lewis Family
+  { id: 15, family_id: 14 }, // Noah Hall belongs to Hall Family
+  { id: 16, family_id: 15 }, // Mia Adams belongs to Adams Family
+  { id: 17, family_id: 16 }, // Liam Allen belongs to Allen Family
+  { id: 18, family_id: 17 }, // Chloe King belongs to King Family
+  { id: 19, family_id: 18 }, // Jacob Wright belongs to Wright Family
+  { id: 20, family_id: 19 }, // Ella Scott belongs to Scott Family
+  { id: 21, family_id: 20 }, // Daniel Perez belongs to Perez Family
+  { id: 22, family_id: 21 }, // Victoria Campbell belongs to Campbell Family
+  { id: 23, family_id: 22 }, // Elijah Mitchell belongs to Mitchell Family
+  { id: 24, family_id: 23 }, // Zoe Roberts belongs to Roberts Family
+  { id: 25, family_id: 24 }, // Alexander Carter belongs to Carter Family
+  { id: 26, family_id: 25 }, // Isabella Turner belongs to Turner Family
+  { id: 27, family_id: 26 }, // Matthew Phillips belongs to Phillips Family
+  { id: 28, family_id: 27 }, // Sophia Evans belongs to Evans Family
+  { id: 29, family_id: 28 }, // Ryan Rivera belongs to Rivera Family
+  { id: 30, family_id: 29 }, // Abigail White belongs to White Family
+  { id: 31, family_id: 30 }, // Nathan Rodriguez belongs to Rodriguez Family
+  { id: 32, family_id: 31 }, // Hannah Martinez belongs to Gonzalez Family
+  { id: 33, family_id: 32 }, // Ethan Moore belongs to Moore Family
+  { id: 34, family_id: 33 }, // Samantha Gonzalez belongs to Gonzalez Family
+  { id: 35, family_id: 34 }, // Joshua Ward belongs to Howard Family
+  { id: 36, family_id: 35 }, // Ava Howard belongs to Howard Family
+  { id: 37, family_id: 36 }, // Andrew Torres belongs to Torres Family
+  { id: 38, family_id: 37 }, // Elizabeth Ramirez belongs to Ramirez Family
+  { id: 39, family_id: 38 }, // Christopher Bailey belongs to Bailey Family
+  { id: 40, family_id: 39 }, // Madison Cooper belongs to Cooper Family
 ];
 
 
@@ -118,10 +156,27 @@ export const recipes = [
   { recipe_name: 'Beef Burritos', recipe_servings: 4, recipe_description: 'Burritos filled with seasoned beef and cheese.', recipe_instructions: ['Step 1: Cook beef', 'Step 2: Prepare burrito fillings', 'Step 3: Assemble and serve'], meal_type: 'Dinner', recipe_image: 'beef_burritos.jpg', created_on: new Date(), user_id: 22 },
   { recipe_name: 'Vegetable Soup', recipe_servings: 6, recipe_description: 'A comforting soup made with a variety of vegetables.', recipe_instructions: ['Step 1: Prepare vegetables', 'Step 2: Simmer soup', 'Step 3: Serve'], meal_type: 'Dinner', recipe_image: 'vegetable_soup.jpg', created_on: new Date(), user_id: 23 },
   { recipe_name: 'Eggplant Parmesan', recipe_servings: 4, recipe_description: 'Breaded eggplant topped with marinara sauce and mozzarella.', recipe_instructions: ['Step 1: Bread eggplant', 'Step 2: Fry and top with sauce', 'Step 3: Bake and serve'], meal_type: 'Dinner', recipe_image: 'eggplant_parmesan.jpg', created_on: new Date(), user_id: 24 },
+
+  { recipe_name: 'BBQ Ribs', recipe_servings: 6, recipe_description: 'Tender ribs with a smoky BBQ glaze.', recipe_instructions: ['Step 1: Prepare ribs', 'Step 2: Apply BBQ sauce', 'Step 3: Grill and serve'], meal_type: 'Dinner', recipe_image: 'bbq_ribs.jpg', created_on: new Date(), user_id: 25 },
+    { recipe_name: 'French Onion Soup', recipe_servings: 4, recipe_description: 'A rich soup with caramelized onions and melted cheese.', recipe_instructions: ['Step 1: Caramelize onions', 'Step 2: Prepare broth', 'Step 3: Top with bread and cheese'], meal_type: 'Dinner', recipe_image: 'french_onion_soup.jpg', created_on: new Date(), user_id: 26 },
+    { recipe_name: 'Quiche Lorraine', recipe_servings: 6, recipe_description: 'A savory pie with bacon and cheese.', recipe_instructions: ['Step 1: Prepare crust', 'Step 2: Make filling', 'Step 3: Bake and serve'], meal_type: 'Breakfast', recipe_image: 'quiche_lorraine.jpg', created_on: new Date(), user_id: 27 },
+    { recipe_name: 'Chicken Noodle Soup', recipe_servings: 4, recipe_description: 'A comforting soup with chicken and noodles.', recipe_instructions: ['Step 1: Cook chicken', 'Step 2: Add noodles and vegetables', 'Step 3: Simmer and serve'], meal_type: 'Lunch', recipe_image: 'chicken_noodle_soup.jpg', created_on: new Date(), user_id: 28 },
+    { recipe_name: 'Stuffed Bell Peppers', recipe_servings: 4, recipe_description: 'Bell peppers filled with ground meat and rice.', recipe_instructions: ['Step 1: Hollow peppers', 'Step 2: Prepare filling', 'Step 3: Stuff peppers and bake'], meal_type: 'Dinner', recipe_image: 'stuffed_bell_peppers.jpg', created_on: new Date(), user_id: 29 },
+    { recipe_name: 'Banana Bread', recipe_servings: 8, recipe_description: 'A moist bread made with ripe bananas.', recipe_instructions: ['Step 1: Mix ingredients', 'Step 2: Bake bread', 'Step 3: Slice and serve'], meal_type: 'Snack', recipe_image: 'banana_bread.jpg', created_on: new Date(), user_id: 30 },
+    { recipe_name: 'Fish Tacos', recipe_servings: 4, recipe_description: 'Tacos filled with crispy fish and fresh toppings.', recipe_instructions: ['Step 1: Prepare fish', 'Step 2: Make toppings', 'Step 3: Assemble tacos'], meal_type: 'Dinner', recipe_image: 'fish_tacos.jpg', created_on: new Date(), user_id: 31 },
+    { recipe_name: 'Tomato Basil Soup', recipe_servings: 4, recipe_description: 'A creamy soup made with fresh tomatoes and basil.', recipe_instructions: ['Step 1: Roast tomatoes', 'Step 2: Blend with basil', 'Step 3: Simmer and serve'], meal_type: 'Lunch', recipe_image: 'tomato_basil_soup.jpg', created_on: new Date(), user_id: 32 },
+    { recipe_name: 'Shepherd\'s Pie', recipe_servings: 6, recipe_description: 'A comforting casserole with meat and mashed potatoes.', recipe_instructions: ['Step 1: Prepare meat filling', 'Step 2: Add mashed potatoes', 'Step 3: Bake and serve'], meal_type: 'Dinner', recipe_image: 'shepherds_pie.jpg', created_on: new Date(), user_id: 33 },
+    { recipe_name: 'Veggie Burger', recipe_servings: 4, recipe_description: 'A plant-based burger patty served with toppings.', recipe_instructions: ['Step 1: Prepare patties', 'Step 2: Cook patties', 'Step 3: Assemble burgers'], meal_type: 'Dinner', recipe_image: 'veggie_burger.jpg', created_on: new Date(), user_id: 34 },
+    { recipe_name: 'Fettuccine Carbonara', recipe_servings: 4, recipe_description: 'A creamy pasta dish with bacon and eggs.', recipe_instructions: ['Step 1: Cook pasta', 'Step 2: Prepare sauce', 'Step 3: Combine and serve'], meal_type: 'Dinner', recipe_image: 'fettuccine_carbonara.jpg', created_on: new Date(), user_id: 35 },
+    { recipe_name: 'Lentil Soup', recipe_servings: 6, recipe_description: 'A hearty soup made with lentils and vegetables.', recipe_instructions: ['Step 1: Prepare ingredients', 'Step 2: Simmer soup', 'Step 3: Serve'], meal_type: 'Dinner', recipe_image: 'lentil_soup.jpg', created_on: new Date(), user_id: 36 },
+    { recipe_name: 'Mushroom Risotto', recipe_servings: 4, recipe_description: 'A creamy rice dish with mushrooms and parmesan.', recipe_instructions: ['Step 1: Sauté mushrooms', 'Step 2: Cook rice with broth', 'Step 3: Stir in cheese and serve'], meal_type: 'Dinner', recipe_image: 'mushroom_risotto.jpg', created_on: new Date(), user_id: 37 },
+    { recipe_name: 'Tiramisu', recipe_servings: 8, recipe_description: 'A classic Italian dessert with coffee and mascarpone.', recipe_instructions: ['Step 1: Prepare coffee-soaked layers', 'Step 2: Add mascarpone cream', 'Step 3: Chill and serve'], meal_type: 'Dessert', recipe_image: 'tiramisu.jpg', created_on: new Date(), user_id: 38 },
+    { recipe_name: 'Caprese Salad', recipe_servings: 4, recipe_description: 'A fresh salad with mozzarella, tomatoes, and basil.', recipe_instructions: ['Step 1: Slice ingredients', 'Step 2: Assemble on a plate', 'Step 3: Drizzle with olive oil'], meal_type: 'Lunch', recipe_image: 'caprese_salad.jpg', created_on: new Date(), user_id: 39 },
+    { recipe_name: 'Chocolate Mousse', recipe_servings: 6, recipe_description: 'A rich and creamy chocolate dessert.', recipe_instructions: ['Step 1: Melt chocolate', 'Step 2: Whisk with cream', 'Step 3: Chill and serve'], meal_type: 'Dessert', recipe_image: 'chocolate_mousse.jpg', created_on: new Date(), user_id: 40 },
 ];
 
 
-export const tags = [
+export const tag = [
   { tag_name: 'Vegan' },
   { tag_name: 'Gluten-Free' },
   { tag_name: 'Low Carb' },
@@ -209,7 +264,7 @@ export const recipeTags = [
 ];
 
 
-export const ingredients = [
+export const ingredient = [
   { ingredient_name: 'Tomato' },
   { ingredient_name: 'Garlic' },
   { ingredient_name: 'Olive Oil' },
@@ -477,44 +532,44 @@ export const shoppingLists = [
 
 
 export const shoppingListItems = [
-  { list_id: 1, ingredient_id: 1, quantity: 2, unit: 'Tomatoes' },
-  { list_id: 2, ingredient_id: 2, quantity: 3, unit: 'Garlic cloves' },
-  { list_id: 3, ingredient_id: 3, quantity: 1, unit: 'Olive Oil tablespoon' },
-  { list_id: 4, ingredient_id: 4, quantity: 2, unit: 'Lemon' },
-  { list_id: 5, ingredient_id: 5, quantity: 1, unit: 'Cucumber' },
-  { list_id: 6, ingredient_id: 6, quantity: 1, unit: 'Red Onion' },
-  { list_id: 7, ingredient_id: 7, quantity: 4, unit: 'Eggs' },
-  { list_id: 8, ingredient_id: 8, quantity: 2, unit: 'Bell Pepper' },
-  { list_id: 9, ingredient_id: 9, quantity: 3, unit: 'Carrots' },
-  { list_id: 10, ingredient_id: 10, quantity: 1, unit: 'Potato' },
-  { list_id: 11, ingredient_id: 11, quantity: 1, unit: 'Chicken Breast' },
-  { list_id: 12, ingredient_id: 12, quantity: 2, unit: 'Avocados' },
-  { list_id: 13, ingredient_id: 13, quantity: 5, unit: 'Tomato' },
-  { list_id: 14, ingredient_id: 14, quantity: 3, unit: 'Garlic clove' },
-  { list_id: 15, ingredient_id: 15, quantity: 2, unit: 'Red Onion' },
-  { list_id: 16, ingredient_id: 16, quantity: 2, unit: 'Bell Pepper' },
-  { list_id: 17, ingredient_id: 17, quantity: 1, unit: 'Lettuce head' },
-  { list_id: 18, ingredient_id: 18, quantity: 4, unit: 'Eggs' },
-  { list_id: 19, ingredient_id: 19, quantity: 2, unit: 'Carrots' },
-  { list_id: 20, ingredient_id: 20, quantity: 1, unit: 'Chicken Breast' },
-  { list_id: 21, ingredient_id: 21, quantity: 1, unit: 'Spinach' },
-  { list_id: 22, ingredient_id: 22, quantity: 1, unit: 'Sweet Potato' },
-  { list_id: 23, ingredient_id: 23, quantity: 1, unit: 'Cucumber' },
-  { list_id: 24, ingredient_id: 24, quantity: 1, unit: 'Feta Cheese' },
-  { list_id: 25, ingredient_id: 25, quantity: 2, unit: 'Zucchini' },
-  { list_id: 26, ingredient_id: 26, quantity: 1, unit: 'Bacon strip' },
-  { list_id: 27, ingredient_id: 27, quantity: 2, unit: 'Chicken Legs' },
-  { list_id: 28, ingredient_id: 28, quantity: 3, unit: 'Tomatoes' },
-  { list_id: 29, ingredient_id: 29, quantity: 1, unit: 'Olive Oil' },
-  { list_id: 30, ingredient_id: 30, quantity: 2, unit: 'Bell Pepper' },
-  { list_id: 31, ingredient_id: 31, quantity: 2, unit: 'Lettuce' },
-  { list_id: 32, ingredient_id: 32, quantity: 3, unit: 'Carrots' },
-  { list_id: 33, ingredient_id: 33, quantity: 4, unit: 'Garlic clove' },
-  { list_id: 34, ingredient_id: 34, quantity: 1, unit: 'Spinach' },
-  { list_id: 35, ingredient_id: 35, quantity: 2, unit: 'Eggs' },
-  { list_id: 36, ingredient_id: 36, quantity: 1, unit: 'Sweet Potato' },
-  { list_id: 37, ingredient_id: 37, quantity: 2, unit: 'Red Onion' },
-  { list_id: 38, ingredient_id: 38, quantity: 1, unit: 'Avocado' },
-  { list_id: 39, ingredient_id: 39, quantity: 1, unit: 'Cucumber' },
-  { list_id: 40, ingredient_id: 40, quantity: 3, unit: 'Tomatoes' },
+  { list_id: 1, ingredient_id: 1, quantity: 2, units: 'Tomatoes' },
+  { list_id: 2, ingredient_id: 2, quantity: 3, units: 'Garlic cloves' },
+  { list_id: 3, ingredient_id: 3, quantity: 1, units: 'Olive Oil tablespoon' },
+  { list_id: 4, ingredient_id: 4, quantity: 2, units: 'Lemon' },
+  { list_id: 5, ingredient_id: 5, quantity: 1, units: 'Cucumber' },
+  { list_id: 6, ingredient_id: 6, quantity: 1, units: 'Red Onion' },
+  { list_id: 7, ingredient_id: 7, quantity: 4, units: 'Eggs' },
+  { list_id: 8, ingredient_id: 8, quantity: 2, units: 'Bell Pepper' },
+  { list_id: 9, ingredient_id: 9, quantity: 3, units: 'Carrots' },
+  { list_id: 10, ingredient_id: 10, quantity: 1, units: 'Potato' },
+  { list_id: 11, ingredient_id: 11, quantity: 1, units: 'Chicken Breast' },
+  { list_id: 12, ingredient_id: 12, quantity: 2, units: 'Avocados' },
+  { list_id: 13, ingredient_id: 13, quantity: 5, units: 'Tomato' },
+  { list_id: 14, ingredient_id: 14, quantity: 3, units: 'Garlic clove' },
+  { list_id: 15, ingredient_id: 15, quantity: 2, units: 'Red Onion' },
+  { list_id: 16, ingredient_id: 16, quantity: 2, units: 'Bell Pepper' },
+  { list_id: 17, ingredient_id: 17, quantity: 1, units: 'Lettuce head' },
+  { list_id: 18, ingredient_id: 18, quantity: 4, units: 'Eggs' },
+  { list_id: 19, ingredient_id: 19, quantity: 2, units: 'Carrots' },
+  { list_id: 20, ingredient_id: 20, quantity: 1, units: 'Chicken Breast' },
+  { list_id: 21, ingredient_id: 21, quantity: 1, units: 'Spinach' },
+  { list_id: 22, ingredient_id: 22, quantity: 1, units: 'Sweet Potato' },
+  { list_id: 23, ingredient_id: 23, quantity: 1, units: 'Cucumber' },
+  { list_id: 24, ingredient_id: 24, quantity: 1, units: 'Feta Cheese' },
+  { list_id: 25, ingredient_id: 25, quantity: 2, units: 'Zucchini' },
+  { list_id: 26, ingredient_id: 26, quantity: 1, units: 'Bacon strip' },
+  { list_id: 27, ingredient_id: 27, quantity: 2, units: 'Chicken Legs' },
+  { list_id: 28, ingredient_id: 28, quantity: 3, units: 'Tomatoes' },
+  { list_id: 29, ingredient_id: 29, quantity: 1, units: 'Olive Oil' },
+  { list_id: 30, ingredient_id: 30, quantity: 2, units: 'Bell Pepper' },
+  { list_id: 31, ingredient_id: 31, quantity: 2, units: 'Lettuce' },
+  { list_id: 32, ingredient_id: 32, quantity: 3, units: 'Carrots' },
+  { list_id: 33, ingredient_id: 33, quantity: 4, units: 'Garlic clove' },
+  { list_id: 34, ingredient_id: 34, quantity: 1, units: 'Spinach' },
+  { list_id: 35, ingredient_id: 35, quantity: 2, units: 'Eggs' },
+  { list_id: 36, ingredient_id: 36, quantity: 1, units: 'Sweet Potato' },
+  { list_id: 37, ingredient_id: 37, quantity: 2, units: 'Red Onion' },
+  { list_id: 38, ingredient_id: 38, quantity: 1, units: 'Avocado' },
+  { list_id: 39, ingredient_id: 39, quantity: 1, units: 'Cucumber' },
+  { list_id: 40, ingredient_id: 40, quantity: 3, units: 'Tomatoes' },
 ];
