@@ -24,7 +24,7 @@ export default function FeaturedRecipes() {
 
   return (
     <section className="py-16 bg-gray-100 text-center">
-      <h2 className="text-4xl font-bold text-gray-800 mb-8">
+      <h2 className="text-5xl font-bold text-gray-800 mb-8">
         Featured Recipes
       </h2>
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
@@ -43,7 +43,7 @@ export default function FeaturedRecipes() {
             </div>
 
             <div className="p-6">
-              <h3 className="text-2xl text-green-500 font-bold">{name}</h3>
+              <h3 className="text-3xl text-green-500 font-bold">{name}</h3>
               <p className="text-gray-600 mt-2">{description}</p>
             </div>
           </div>
