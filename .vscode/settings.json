@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "name": "Family Recipe Vault",
+            "connectString": "postgres://neondb_owner:npg_klOsAfi15cDd@ep-misty-firefly-a5yi0hah-pooler.us-east-2.aws.neon.tech/neondb?ssl=require"
+        }
+    ]
+}
