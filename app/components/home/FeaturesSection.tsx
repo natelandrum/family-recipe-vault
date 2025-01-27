@@ -3,19 +3,19 @@ import { FaClipboardList, FaUsers, FaLock } from "react-icons/fa";
 
 const features = [
   {
-    icon: <FaClipboardList className="text-5xl text-red-500" />,
-    title: "Organize Your Recipes",
+    icon: <FaClipboardList className="text-5xl text-[var(--color-dark)]" />,
+    title: "Organize Your Recipes" ,
     description:
       "Easily categorize and manage your family’s treasured recipes in one secure place.",
   },
   {
-    icon: <FaUsers className="text-5xl text-green-500" />,
+    icon: <FaUsers className="text-5xl text-[var(--color-dark)]" />,
     title: "Share with Family",
     description:
       "Invite family members to collaborate and share their favorite recipes effortlessly.",
   },
   {
-    icon: <FaLock className="text-5xl text-blue-500" />,
+    icon: <FaLock className="text-5xl text-[var(--color-dark)]" />,
     title: "Secure Your Memories",
     description:
       "Keep your cherished recipes safe with secure cloud storage and backup options.",
@@ -27,7 +27,7 @@ export default function FeaturesSection() {
     <section className="py-16 bg-gray-50 text-center">
       <div className="container mx-auto px-6 md:px-12">
         <h2 className="text-4xl font-bold text-gray-800 mb-8">
-          Why Choose <span className="text-red-500 text-5xl">Family Recipe Vault</span>?
+          Why Choose <span className="text-[var(--color-dark)] text-5xl">Family Recipe Vault</span>?
         </h2>
         <div className="grid gap-12 md:grid-cols-3">
           {features.map((feature, index) => (

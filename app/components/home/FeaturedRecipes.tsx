@@ -23,8 +23,8 @@ export default function FeaturedRecipes() {
   ];
 
   return (
-    <section className="py-16 bg-gray-100 text-center">
-      <h2 className="text-5xl font-bold text-gray-800 mb-8">
+    <section className="py-16 bg-[var(--color-primary)] text-center">
+      <h2 className="text-5xl text-[var(--color-accent)] font-bold mb-8">
         Featured Recipes
       </h2>
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
@@ -33,17 +33,17 @@ export default function FeaturedRecipes() {
             key={name}
             className="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl transition duration-300"
           >
-            <div className="relative w-full h-60">
+            <div className="relative w-40 h-40 mx-auto">
               <Image
                 src={image}
                 alt={alt}
                 fill={true}
-                className="object-cover"
+                className="rounded-full object-cover"
               />
             </div>
 
             <div className="p-6">
-              <h3 className="text-3xl text-green-500 font-bold">{name}</h3>
+              <h3 className="text-3xl text-[var(--color-dark)] font-bold">{name}</h3>
               <p className="text-gray-600 mt-2">{description}</p>
             </div>
           </div>
