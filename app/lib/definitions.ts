@@ -38,6 +38,10 @@ export interface Recipe {
     privacy_status: PrivacyStatus;
 }
 
+export interface RecipeWithAuthor extends Recipe {
+    author_name: string;
+}
+
 export interface Tag {
     tag_id: number;
     tag_name: string;
