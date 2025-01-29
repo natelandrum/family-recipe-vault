@@ -1,7 +1,7 @@
 "use client";
 
 import RecipesList from "@/app/components/public_recipes/RecipesList";
-import { getRecipes } from "@/app/lib/actions";
+import { getRecipes } from "@/app/lib/data";
 import { Recipe } from "@/app/lib/definitions";
 import { useState, useEffect } from "react";
 import Spinner from "../ui/Spinner";
