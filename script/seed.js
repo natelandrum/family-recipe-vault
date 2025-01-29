@@ -1,9 +1,3 @@
-import pkg from 'pg';
-const { Pool } = pkg;
-
-import dotenv from 'dotenv';
-dotenv.config();
-
 import {
   users,
   families,
@@ -20,13 +14,9 @@ import {
   shoppingListItems,
 } from './seedData.js';
 import bcrypt from 'bcrypt';
+import dbConnect from '../app/lib/dbConnect.ts'
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
+const pool = dbConnect()
 
 const seedDatabase = async () => {
   try {
