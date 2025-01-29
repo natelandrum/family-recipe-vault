@@ -55,7 +55,7 @@ export const HamburgerMenu = () => {
               </button>
             </>
           ) : (
-            <button type='button' className="hover:text-[var(--color-dark)] nav-text" onClick={() => { signIn(); toggleMenu(); }}>
+            <button type='button' className="bg-[var(--color-dark)] hover:bg-[var(--color-accent)] text-white nav-text py-1 px-4 rounded-lg" onClick={() => { signIn(); toggleMenu(); }}>
               Sign In
             </button>
           )}
