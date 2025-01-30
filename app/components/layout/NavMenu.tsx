@@ -49,6 +49,9 @@ export default function NavMenu() {
                     <Link href="/about" className="hover:text-[var(--color-accent)] nav-text">
                         About
                     </Link>
+                    <Link href="/recipes" className="hover:text-[var(--color-accent)] nav-text">
+                        Recipes
+                    </Link>
                     <AuthButton />
                 </div>
                 <HamburgerMenu />
