@@ -1,7 +1,8 @@
+
 "use server";
 
 import { sql } from "@vercel/postgres";
-import { Recipe } from "./definitions";
+import { Recipe, RecipeWithAuthor } from "./definitions";
 
 
 export async function getRecipesByUser(userId: number): Promise<Recipe[]> {
@@ -39,5 +40,28 @@ export async function getRecipeIngredients(recipeId: number): Promise<string[]> 
     } catch (error) {
         console.error("Error fetching recipe ingredients:", error);
         throw new Error("Failed to fetch recipe ingredients");
+
+
+export async function fetchRecipeWithAuthorById( recipe_id: string) {
+    try {
+        const data = await sql<RecipeWithAuthor>`
+            SELECT 
+                recipe.*, 
+                users.name AS author_name
+            FROM 
+                recipe
+            JOIN 
+                users 
+            ON 
+                recipe.user_id = users.id
+            WHERE 
+                recipe.recipe_id = ${recipe_id}; 
+        `;
+        const recipe = data.rows;
+        return recipe[0] as RecipeWithAuthor;
+    } catch (error) {
+        console.error('Databae Error:', error);
+        throw new Error('Failed to fecth recipe details.')
+
     }
 }

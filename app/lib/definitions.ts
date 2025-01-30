@@ -24,16 +24,21 @@ export enum MealType {
 }
 
 export interface Recipe {
-    recipe_id: number,
-    recipe_name: string,
-    recipe_servings: number,
-    recipe_description: string,
-    recipe_instructions: string[],
-    meal_type: MealType,
-    recipe_image?: string,
-    created_on: string,
-    user_id: number,
-    privacy_status: PrivacyStatus
+    recipe_id: number;
+    recipe_name: string;
+    recipe_servings: number;
+    recipe_description: string;
+    recipe_instructions: string[];
+    meal_type: MealType;
+    recipe_image?: string;
+    created_on: string;
+    user_id: number;
+    privacy_status: PrivacyStatus;
+}
+
+export interface RecipeWithAuthor extends Recipe {
+    author_name: string;
+
 }
 
 export interface Tag {
@@ -100,4 +105,5 @@ export enum PrivacyStatus {
     Community = 'Community',
     Private = 'Private',
     Family = 'Family'
+
 }

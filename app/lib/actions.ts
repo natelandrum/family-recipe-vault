@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";
 import { MealType, PrivacyStatus, Recipe, User } from "./definitions";
 
+
 const passwordValidation = new RegExp(
   /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*/
 );
@@ -264,5 +265,26 @@ export async function addTag(recipeId: number, tagName: string): Promise<void> {
     console.error("Error adding tag:", error);
     throw new Error("Failed to add tag");
   }
+}
+
+
+export async function getRecipes(): Promise<Recipe[]> {
+    try {
+        const result = await sql`SELECT * FROM recipe ORDER BY created_on DESC`;
+        return result.rows.map(row => ({
+            recipe_id: row.recipe_id,
+            recipe_name: row.recipe_name,
+            recipe_servings: row.recipe_servings,
+            recipe_description: row.recipe_description,
+            recipe_instructions: row.recipe_instructions,
+            meal_type: row.meal_type,
+            recipe_image: row.recipe_image || null,
+            created_on: row.created_on,
+            user_id: row.user_id,
+        })) as Recipe[];
+    } catch (error) {
+        console.error("Error fetching recipes:", error);
+        return [];
+    }
 }
 
