@@ -39,7 +39,7 @@ export default function NavMenu() {
                     <Link href="/about" className="text-red-500">
                         About
                     </Link>
-                    <Link href="/recipe" className="text-red-500">
+                    <Link href="/recipes" className="text-red-500">
                         Recipes
                     </Link>
                     <AuthButton />

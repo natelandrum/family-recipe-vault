@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
+import 'dotenv/config';
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const nextConfig = {
+  env: {
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+  },
 };
 
 export default nextConfig;
