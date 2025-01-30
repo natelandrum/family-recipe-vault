@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import { useState, startTransition } from "react";
 import { RecipeState, validateRecipeForm } from "@/app/lib/actions";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -198,9 +199,18 @@ export default function AddRecipeForm({ currentAdd, userId }: AddRecipeFormProps
         if (
           validatedState.errors &&
           Object.keys(validatedState.errors).length === 0
-        ) {
-          console.log("Success...");
-          let recipeId;
+        ) {     
+          if (imageFile) {
+            const reader = new FileReader();
+            reader.readAsDataURL(imageFile);
+            reader.onloadend = async () => {
+              const response = await axios.post('/api/image-upload', {file: reader.result});
+              const imageUrl = response.data.url;
+              formData.append("imageUrl", imageUrl);
+            };
+          }
+          
+            let recipeId;
           // Add recipe to database
           try {
             formData.append("userId", userId.toString());
@@ -224,6 +234,26 @@ export default function AddRecipeForm({ currentAdd, userId }: AddRecipeFormProps
           } catch (error) {
             console.error("Error adding recipe:", error);
           }
+
+          // Reset Form
+          setRecipeInfo({
+            name: "",
+            servings: 1,
+            description: "",
+            instructions: [""],
+            mealType: "Breakfast",
+            privacyStatus: "Community",
+          });
+          setIngredients([
+            {
+              ingredientName: "",
+              quantity: 1,
+              unit: "",
+              preparationMethod: "",
+            },
+          ]);
+          setTags([{ tagName: "" }]);
+          setIsVisible(false);
         } else {
           console.log("Validation errors:", validatedState.errors);
         }
