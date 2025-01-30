@@ -8,6 +8,7 @@ import { Button } from "@mui/material";
 import DragNDrop from "../media/DragNDrop";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import Image from "next/image";
 
 interface AddRecipeFormProps {
   currentAdd: { currentAdd: boolean };
@@ -15,8 +16,6 @@ interface AddRecipeFormProps {
 }
 
 export default function AddRecipeForm({ currentAdd, userId }: AddRecipeFormProps) {
-  // Error State
-  const [imageUrl, setImageUrl] = useState("");
   // Image File State
   const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -207,7 +206,6 @@ export default function AddRecipeForm({ currentAdd, userId }: AddRecipeFormProps
                 file: reader.result,
               });
               const uploadedUrl = response.data.url;
-              setImageUrl(uploadedUrl);
 
               const recipeResponse = await fetch("/api/add-recipe", {
                 method: "POST",
@@ -262,6 +260,7 @@ export default function AddRecipeForm({ currentAdd, userId }: AddRecipeFormProps
                 },
               ]);
               setTags([{ tagName: "" }]);
+              setImageFile(null);
               setIsVisible(false);
             };
           }
@@ -322,10 +321,15 @@ export default function AddRecipeForm({ currentAdd, userId }: AddRecipeFormProps
               <div>
                 {imageFile && (
                   <div className="mb-4">
-                    <img
+                    <Image
                       src={URL.createObjectURL(imageFile)}
-                      alt="Recipe Image"
-                      className="w-auto h-[200px] rounded"
+                      alt="Selected Recipe Image"
+                      style={
+                        {
+                          width: "auto",
+                          height: "200px",
+                        }
+                      }
                     />
                   </div>
                 )}
