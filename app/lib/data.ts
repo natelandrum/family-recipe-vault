@@ -40,7 +40,8 @@ export async function getRecipeIngredients(recipeId: number): Promise<string[]> 
     } catch (error) {
         console.error("Error fetching recipe ingredients:", error);
         throw new Error("Failed to fetch recipe ingredients");
-
+    }
+}
 
 export async function fetchRecipeWithAuthorById( recipe_id: string) {
     try {
@@ -61,7 +62,6 @@ export async function fetchRecipeWithAuthorById( recipe_id: string) {
         return recipe[0] as RecipeWithAuthor;
     } catch (error) {
         console.error('Databae Error:', error);
-        throw new Error('Failed to fecth recipe details.')
-
+        throw new Error('Failed to fecth recipe details.');
     }
 }
