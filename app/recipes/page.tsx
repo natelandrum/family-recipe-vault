@@ -4,11 +4,11 @@ import RecipesList from "@/app/components/public_recipes/RecipesList";
 import { getRecipes } from "@/app/lib/actions";
 import { Recipe } from "@/app/lib/definitions";
 import { useState, useEffect } from "react";
-import Spinner from '../components/ui/spinner';
+// import Spinner from '../components/ui/spinner';
 
 export default function RecipesPage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [loading, setLoading] = useState(true);
+//   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchRecipes() {
@@ -18,16 +18,16 @@ export default function RecipesPage() {
       } catch (error) {
         console.error("Error fetching recipes:", error);
       } finally {
-        setLoading(false);
+        // setLoading(false);
       }
     }
 
     fetchRecipes();
   }, []);
 
-  if (loading) {
-    return <Spinner loading={loading} />;
-  }
+//   if (loading) {
+//     return <Spinner loading={loading} />;
+//   }
 
   return (
     <div className="container mx-auto p-6">
