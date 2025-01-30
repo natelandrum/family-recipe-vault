@@ -32,7 +32,8 @@ export interface Recipe {
     meal_type: MealType,
     recipe_image?: string,
     created_on: string,
-    user_id: number
+    user_id: number,
+    privacy_status: PrivacyStatus
 }
 
 export interface Tag {
@@ -93,4 +94,10 @@ export interface ShoppingListItem {
     quantity: number;
     units: string;
     is_checked: boolean;
+}
+
+export enum PrivacyStatus {
+    Community = 'Community',
+    Private = 'Private',
+    Family = 'Family'
 }
