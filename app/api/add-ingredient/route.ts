@@ -13,7 +13,6 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { recipeId, ingredients } = body;
-    console.log('Adding ingredients:', recipeId, ingredients);
     await Promise.all(ingredients.map(async (ingredient: AddIngredientRequest) => {
       await addIngredient(recipeId, ingredient.ingredientName, ingredient.quantity, ingredient.unit, ingredient.preparationMethod);
     }));

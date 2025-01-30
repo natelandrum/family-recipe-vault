@@ -5,7 +5,6 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { name, servings, description, instructions, mealType, imageUrl, created, userId, privacyStatus } = body;
-    console.log('Adding recipe:', name, servings, description, instructions, mealType, imageUrl, created, userId, privacyStatus);
     const recipeId = await addRecipe(name, servings, description, instructions, mealType, imageUrl, created, userId, privacyStatus);
     return NextResponse.json({ recipeId }, { status: 200 });
   } catch (error) {

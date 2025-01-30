@@ -10,7 +10,6 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { recipeId, tags } = body;
-    console.log('Adding tags:', recipeId, tags);
     await Promise.all(tags.map(async (tag: AddTagRequest) => {
       await addTag(recipeId, tag.tagName);
     }));
