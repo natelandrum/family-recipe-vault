@@ -37,8 +37,9 @@ export default async function RecipePage(props: { params: Promise<{ recipe_id: s
         <Image
             width={800}
             height={450}
-            src="https://res.cloudinary.com/dz4hakm5w/image/upload/v1738013834/apple-pie_p4k2q6.jpg"
-            alt="Picture of pie"
+            layout = "intrinsic"
+            src={recipe.recipe_image || "/fallback-image.jpg"}
+            alt={recipe.recipe_name}
             className="rounded-lg object-cover w-full h-full"
         />
     </div>
