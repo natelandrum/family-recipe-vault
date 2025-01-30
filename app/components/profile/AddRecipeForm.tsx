@@ -16,8 +16,7 @@ interface AddRecipeFormProps {
 
 export default function AddRecipeForm({ currentAdd, userId }: AddRecipeFormProps) {
   // Error State
-  const [errors, setErrors] = useState("");
-
+  const [imageUrl, setImageUrl] = useState("");
   // Image File State
   const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -199,61 +198,74 @@ export default function AddRecipeForm({ currentAdd, userId }: AddRecipeFormProps
         if (
           validatedState.errors &&
           Object.keys(validatedState.errors).length === 0
-        ) {     
+        ) {
           if (imageFile) {
             const reader = new FileReader();
             reader.readAsDataURL(imageFile);
             reader.onloadend = async () => {
-              const response = await axios.post('/api/image-upload', {file: reader.result});
-              const imageUrl = response.data.url;
-              formData.append("imageUrl", imageUrl);
+              const response = await axios.post("/api/image-upload", {
+                file: reader.result,
+              });
+              const uploadedUrl = response.data.url;
+              setImageUrl(uploadedUrl);
+
+              const recipeResponse = await fetch("/api/add-recipe", {
+                method: "POST",
+                body: JSON.stringify({
+                  ...recipeInfo,
+                  imageUrl: uploadedUrl,
+                  userId,
+                  created: new Date().toISOString(),
+                }),
+              });
+
+              if (!recipeResponse.ok) {
+                throw new Error("Failed to add recipe");
+              }
+              const recipeIdJson = await recipeResponse.json();
+              const recipeId = recipeIdJson.recipeId;
+              const ingredientResponse = await fetch("/api/add-ingredient", {
+                method: "POST",
+                body: JSON.stringify({
+                  recipeId,
+                  ingredients,
+                }),
+              });
+              if (!ingredientResponse.ok) {
+                throw new Error("Failed to add ingredients");
+              }
+              const tagResponse = await fetch("/api/add-tag", {
+                method: "POST",
+                body: JSON.stringify({
+                  recipeId,
+                  tags,
+                }),
+              });
+              if (!tagResponse.ok) {
+                throw new Error("Failed to add tags");
+              }
+              // Reset Form
+              setRecipeInfo({
+                name: "",
+                servings: 1,
+                description: "",
+                instructions: [""],
+                mealType: "Breakfast",
+                privacyStatus: "Community",
+              });
+              setIngredients([
+                {
+                  ingredientName: "",
+                  quantity: 1,
+                  unit: "",
+                  preparationMethod: "",
+                },
+              ]);
+              setTags([{ tagName: "" }]);
+              setIsVisible(false);
             };
           }
           
-            let recipeId;
-          // Add recipe to database
-          try {
-            formData.append("userId", userId.toString());
-            const recipeResponse = await fetch("/api/add-recipe", {
-              method: "POST",
-              body: formData,
-            });
-            if (!recipeResponse.ok) {
-              throw new Error("Failed to add recipe");
-            }
-            recipeId = await recipeResponse.json();
-            formData.append("recipeId", recipeId.toString());
-            const ingredientResponse = await fetch("/api/add-ingredients", {
-              method: "POST",
-              body: formData,
-            });
-            if (!ingredientResponse.ok) {
-              throw new Error("Failed to add ingredients");
-            }
-            console.log("Recipe added successfully");
-          } catch (error) {
-            console.error("Error adding recipe:", error);
-          }
-
-          // Reset Form
-          setRecipeInfo({
-            name: "",
-            servings: 1,
-            description: "",
-            instructions: [""],
-            mealType: "Breakfast",
-            privacyStatus: "Community",
-          });
-          setIngredients([
-            {
-              ingredientName: "",
-              quantity: 1,
-              unit: "",
-              preparationMethod: "",
-            },
-          ]);
-          setTags([{ tagName: "" }]);
-          setIsVisible(false);
         } else {
           console.log("Validation errors:", validatedState.errors);
         }
@@ -580,7 +592,6 @@ export default function AddRecipeForm({ currentAdd, userId }: AddRecipeFormProps
                     name="tagName"
                     value={tag.tagName}
                     onChange={(e) => handleTagChange(index, e)}
-                    required
                     className="w-full p-3 border rounded"
                   />
                   <div className="mt-4">

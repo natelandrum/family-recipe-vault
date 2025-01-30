@@ -1,25 +1,22 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 import { addTag } from '@/app/lib/actions';
 
 interface AddTagRequest {
-    recipeId: number;
-    name: string;
+  recipeId: number;
+  tagName: string;
 }
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    try {
-      const { recipeId, tags } = req.body;
-    tags.forEach(async (tag: AddTagRequest) => {
-      await addTag(recipeId, tag.name);
-    });
-    } catch (error) {
-    console.error('Error adding tags:', error);
-      res.status(500).json({ error: 'Failed to add tags' });
-    }
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    const { recipeId, tags } = body;
+    console.log('Adding tags:', recipeId, tags);
+    await Promise.all(tags.map(async (tag: AddTagRequest) => {
+      await addTag(recipeId, tag.tagName);
+    }));
+    return NextResponse.json({ message: 'Success' }, { status: 200 });
+  } catch (error) {
+    console.error('Error adding recipe:', error);
+    return NextResponse.json({ error: 'Failed to add recipe' }, { status: 500 });
   }
 }
-
-export {handler as POST};

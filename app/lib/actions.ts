@@ -186,54 +186,83 @@ export async function getUser(email: string): Promise<User | null> {
 }
 
 
-export async function addRecipe(name: string, servings: number, description: string, instructions: string[], 
+export async function addRecipe(name: string, servings: number, description: string, instructions: string, 
     mealType: MealType, image: string, created: string, userId: number, privacyStatus: PrivacyStatus): Promise<Recipe["recipe_id"]> {
     try {
         const recipeId = await sql`INSERT INTO recipe (recipe_name, recipe_servings, recipe_description, recipe_instructions, meal_type, recipe_image, created_on, user_id, privacy_status)
-        VALUES (${name}, ${servings}, ${description}, ${JSON.stringify(instructions)}, ${mealType}, ${image}, ${created}, ${userId}, ${privacyStatus}) RETURNING recipe_id`;
+        VALUES (${name}, ${servings}, ${description}, ${instructions}, ${mealType}, ${image}, ${created}, ${userId}, ${privacyStatus}) RETURNING recipe_id`;
         return recipeId.rows[0].recipe_id;
     } catch (error) {
         console.error("Error adding recipe:", error);
         throw new Error("Failed to add recipe");
     }
 }
-
-function toTitleCase(str: string): string {
-    return str.replace(/\b\w+/g, (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase())
-              .replace(/-\w/g, (txt) => '-' + txt.charAt(1).toUpperCase());
+function toTitleCase(text: string | null | undefined): string {
+  if (!text) {
+    return "";
+  }
+  return text
+    .replace(/\b[a-zA-Z]\S*/g, (match) =>
+      match.charAt(0).toUpperCase() + match.slice(1).toLowerCase()
+    )
+    .replace(/-[a-zA-Z]/g, (match) =>
+      "-" + match.charAt(1).toUpperCase()
+    );
 }
 
 export async function addIngredient(recipeId: number, ingredientName: string, quantity: number, unit: string, preparationMethod: string): Promise<void> {
-    try {
-        ingredientName = toTitleCase(ingredientName);
-        let ingredientId = await sql`SELECT ingredient_id FROM ingredient WHERE ingredient_name = ${ingredientName}`;
-        if (!ingredientId.rowCount || ingredientId.rowCount === 0) {
-            ingredientId = await sql`INSERT INTO ingredient (ingredient_name) VALUES (${ingredientName}) RETURNING ingredient_id`;
-        }
+  try {
+    ingredientName = toTitleCase(ingredientName);
 
-        const ingredientIdValue = ingredientId.rows[0].ingredient_id;
+    // Insert if not present; do nothing on conflict
+    await sql`
+      INSERT INTO ingredients (ingredient_name) 
+      VALUES (${ingredientName})
+      ON CONFLICT (ingredient_name) DO NOTHING
+    `;
 
-        await sql`INSERT INTO recipe_ingredient (recipe_id, ingredient_id, quantity, unit, preparation_method) VALUES (${recipeId}, ${ingredientIdValue}, ${quantity}, ${unit}, ${preparationMethod})`;
-    } catch (error) {
-        console.error("Error adding ingredient:", error);
-        throw new Error("Failed to add ingredient");
-    }
+    // Fetch the ingredient ID always
+    const ingredientId = await sql`
+      SELECT ingredient_id FROM ingredients WHERE ingredient_name = ${ingredientName}
+    `;
+
+    const ingredientIdValue = ingredientId.rows[0].ingredient_id;
+
+    await sql`
+      INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, preparation_method) 
+      VALUES (${recipeId}, ${ingredientIdValue}, ${quantity}, ${unit}, ${preparationMethod})
+    `;
+  } catch (error) {
+    console.error("Error adding ingredient:", error);
+    throw new Error("Failed to add ingredient");
+  }
 }
 
 export async function addTag(recipeId: number, tagName: string): Promise<void> {
-    try {
-        tagName = toTitleCase(tagName);
-        let tagId = await sql`SELECT tag_id FROM tag WHERE tag_name = ${tagName}`;
-        if (!tagId.rowCount || tagId.rowCount === 0) {
-            tagId = await sql`INSERT INTO tag (tag_name) VALUES (${tagName}) RETURNING tag_id`;
-        }
+  try {
+    tagName = toTitleCase(tagName);
 
-        const tagIdValue = tagId.rows[0].tag_id;
+    // Insert if not present; do nothing on conflict
+    await sql`
+      INSERT INTO tags (tag_name) 
+      VALUES (${tagName})
+      ON CONFLICT (tag_name) DO NOTHING
+    `;
 
-        await sql`INSERT INTO recipe_tag (recipe_id, tag_id) VALUES (${recipeId}, ${tagIdValue})`;
-    } catch (error) {
-        console.error("Error adding tag:", error);
-        throw new Error("Failed to add tag");
-    }
+    // Fetch the tag ID always
+    const tagId = await sql`
+      SELECT tag_id FROM tags WHERE tag_name = ${tagName}
+    `;
+
+    const tagIdValue = tagId.rows[0].tag_id;
+
+    await sql`
+      INSERT INTO recipe_tags (recipe_id, tag_id) 
+      VALUES (${recipeId}, ${tagIdValue})
+    `;
+  } catch (error) {
+    console.error("Error adding tag:", error);
+    throw new Error("Failed to add tag");
+  }
 }
 
