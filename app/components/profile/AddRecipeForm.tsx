@@ -5,7 +5,7 @@ import { useState, startTransition } from "react";
 import { RecipeState, validateRecipeForm } from "@/app/lib/actions";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from "@mui/material";
-import DragNDrop from "@/app/components/media/DragNDrop";
+import DragNDrop from "@/app/components/media/ImageDragNDrop";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Image from "next/image";
