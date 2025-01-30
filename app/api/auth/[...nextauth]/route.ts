@@ -17,7 +17,7 @@ const authOptions = {
                     user = await getUser(credentials?.email)
                 }
                 if (user) {
-                    return { email: user?.email, name: user?.name, id: user?.id }
+                    return { email: user?.email, name: user?.name, id: user?.id.toString() }
                 }
                 return null;
             }

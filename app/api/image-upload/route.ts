@@ -12,12 +12,12 @@ cloudinary.config({
 export async function POST(request: NextRequest): Promise<NextResponse> {
     const data = await request.json();
     const { file } = data;
- 
+
     try {
         const result: UploadApiResponse = await cloudinary.uploader.upload(file, {
             upload_preset: 'ml_default',
         });
- 
+
         return NextResponse.json({ url: result.secure_url });
     } catch (error) {
         return NextResponse.json({ error }, { status: 500 });

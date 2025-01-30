@@ -23,8 +23,6 @@ export enum MealType {
     Dessert = 'Dessert'
 }
 
-export type PrivacyStatus = 'Private' | 'Family' | 'Community';
-
 export interface Recipe {
     recipe_id: number;
     recipe_name: string;
@@ -40,6 +38,7 @@ export interface Recipe {
 
 export interface RecipeWithAuthor extends Recipe {
     author_name: string;
+
 }
 
 export interface Tag {
@@ -100,4 +99,11 @@ export interface ShoppingListItem {
     quantity: number;
     units: string;
     is_checked: boolean;
+}
+
+export enum PrivacyStatus {
+    Community = 'Community',
+    Private = 'Private',
+    Family = 'Family'
+
 }
