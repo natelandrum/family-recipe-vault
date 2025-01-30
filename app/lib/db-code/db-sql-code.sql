@@ -109,3 +109,10 @@ CREATE TABLE IF NOT EXISTS shopping_list_item (
     CONSTRAINT fk_list FOREIGN KEY (list_id) REFERENCES shopping_list (list_id) ON DELETE CASCADE,
     CONSTRAINT fk_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredients (ingredient_id) ON DELETE CASCADE
 );
+CREATE TABLE contact_messages (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);
