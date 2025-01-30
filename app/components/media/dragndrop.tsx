@@ -21,7 +21,7 @@ const DragNDrop: React.FC<ImageUploaderProps> = ({ onUpload }) => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
-      "image/*": [],
+      'image/*': []
     },
     maxFiles: 1,
   });
