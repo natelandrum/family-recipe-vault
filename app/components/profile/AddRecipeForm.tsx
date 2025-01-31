@@ -63,7 +63,14 @@ export default function AddRecipeForm({ currentAdd, userId }: AddRecipeFormProps
     >
   ) => {
     const { name, value } = e.target;
-    setRecipeInfo((prev) => ({ ...prev, [name]: value }));
+    if (name === "description" && value.length > 1000) {
+
+      return;
+    } else {
+          setRecipeInfo((prev) => ({ ...prev, [name]: value }));
+
+    }
+    
   };
 
   // Handle Instruction Change
@@ -377,14 +384,20 @@ export default function AddRecipeForm({ currentAdd, userId }: AddRecipeFormProps
                 >
                   Description
                 </label>
-                <textarea
+                <div className="relative">
+                  <textarea
                   id="description"
                   name="description"
                   value={recipeInfo.description}
                   onChange={handleRecipeInfoChange}
                   required
                   className="w-full p-3 border rounded"
-                />
+                  />
+                  <p className="absolute right-2 text-gray-500">
+                    {recipeInfo.description.length} / 1000
+                  </p>
+                </div>
+                
               </div>
               <div className="mb-4">
                 {recipeInfo.instructions.map((instruction, index) => (
@@ -504,6 +517,7 @@ export default function AddRecipeForm({ currentAdd, userId }: AddRecipeFormProps
                   <input
                     id="quantity"
                     type="number"
+                    step="0.01"
                     name="quantity"
                     value={ingredient.quantity}
                     onChange={(e) => handleIngredientChange(index, e)}
