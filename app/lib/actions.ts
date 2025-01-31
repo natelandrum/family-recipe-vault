@@ -32,7 +32,8 @@ const RegistrationSchema = z.object({
 const RecipeSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
     servings: z.number().int().min(1, { message: "Servings must be at least 1" }),
-    description: z.string().min(1, { message: "Description is required" }),
+    description: z.string().min(1, { message: "Description is required" })
+    .max(1000, { message: "Description must be less than 1000 characters" }),
     instructions: z.array(z.string().min(1, { message: "Instruction is required" }))
     .min(1, { message: "At least one instruction is required" }),
     mealType: z.nativeEnum(MealType, { message: "Invalid meal type" }),
@@ -45,7 +46,7 @@ const RecipeSchema = z.object({
     privacyStatus: z.nativeEnum(PrivacyStatus, { message: "Invalid privacy status" }),
     ingredients: z.array(z.object({
         name: z.string().min(1, { message: "Ingredient name is required" }),
-        quantity: z.number().int().min(1, { message: "Quantity must be at least 1" }),
+        quantity: z.number().min(0.01, { message: "Quantity must be at least 0.01" }),
         unit: z.string().min(1, { message: "Unit is required" }),
         preparationMethod: z.string().optional().or(z.literal('')),
     })),
