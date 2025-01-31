@@ -45,6 +45,9 @@ export const HamburgerMenu = () => {
           <Link href="/about" className="text-2xl hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
             About
           </Link>
+          <Link href="/recipes" className="text-2xl hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
+            Recipes
+          </Link>
           {session ? (
             <>
               <Link href="/profile" className="hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
@@ -61,7 +64,6 @@ export const HamburgerMenu = () => {
           )}
         </div>
       </div>
-      {/* Capa de fondo oscuro */}
       {isOpen && (
         <div className='fixed inset-0 bg-black opacity-50 lg:hidden z-40' onClick={toggleMenu}></div>
       )}

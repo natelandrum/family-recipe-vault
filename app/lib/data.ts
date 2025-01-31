@@ -1,8 +1,7 @@
-
 "use server";
 
 import { sql } from "@vercel/postgres";
-import { Recipe, RecipeWithAuthor } from "./definitions";
+import { Family, Recipe, RecipeWithAuthor } from "./definitions";
 
 
 export async function getRecipesByUser(userId: number): Promise<Recipe[]> {
@@ -63,5 +62,20 @@ export async function fetchRecipeWithAuthorById( recipe_id: string) {
     } catch (error) {
         console.error('Databae Error:', error);
         throw new Error('Failed to fecth recipe details.');
+    }
+}
+
+export async function getFamilyGroupByUser(userId: number): Promise<Family[]> {
+    try {
+        const response = await sql`
+            SELECT family.family_id, family.family_name
+            FROM family
+            JOIN user_family_group 
+            ON family.family_id = user_family_group.family_id
+            WHERE user_family_group.id = ${userId}`;
+        return response.rows as Family[];
+    } catch (error) {
+        console.error("Error fetching family group by user:", error);
+        throw new Error("Failed to fetch family group by user");
     }
 }
