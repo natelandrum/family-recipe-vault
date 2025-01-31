@@ -83,7 +83,7 @@ export default function ContactPage() {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
+          className="bg-[var(--color-dark)] hover:bg-[var(--color-accent)] text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-300"
         >
         Send Message
         </motion.button>
