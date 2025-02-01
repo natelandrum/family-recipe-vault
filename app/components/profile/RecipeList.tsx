@@ -3,12 +3,10 @@
 import React from "react";
 import { Recipe } from "@/app/lib/definitions";
 import Link from "next/link";
-import RecipesList from "../public_recipes/RecipesList";
 
 interface RecipeListProps {
     recipes: Recipe[];
 }
-console.log(RecipesList)
 const RecipeList: React.FC<RecipeListProps> = ({ recipes }) => {
     return (
         <section className="p-4 bg-gray-100 rounded-lg mb-6">
