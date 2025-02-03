@@ -240,6 +240,8 @@ export default function RecipeForm({ mode, userId, onSubmit, existingRecipe }: A
           validatedState.errors &&
           Object.keys(validatedState.errors).length === 0
         ) {
+          let recipeId: number;
+
           const uploadImage = async () => {
             if (imageFile) {
               const reader = new FileReader();
@@ -257,46 +259,82 @@ export default function RecipeForm({ mode, userId, onSubmit, existingRecipe }: A
                 };
               });
             } else {
-              return "";
+              return existingRecipe?.recipe.recipe_image || "";
             }
           };
 
           const uploadedUrl = await uploadImage();
 
-          const recipeResponse = await fetch("/api/add-recipe", {
-            method: "POST",
-            body: JSON.stringify({
-              ...recipeInfo,
-              imageUrl: uploadedUrl,
-              userId,
-              created: new Date().toISOString(),
-            }),
-          });
+          if (mode === "editReady" && existingRecipe) {
+            recipeId = existingRecipe.recipe.recipe_id;
+            const recipeResponse = await fetch("/api/update-recipe", {
+              method: "POST",
+              body: JSON.stringify({
+                ...recipeInfo,
+                imageUrl: uploadedUrl,
+                recipeId: recipeId,
+              }),
+            });
+            if (!recipeResponse.ok) {
+              throw new Error("Failed to update recipe");
+            }
+            const ingredientResponse = await fetch("/api/update-ingredient", {
+              method: "POST",
+              body: JSON.stringify({
+                recipeId: recipeId,
+                ingredients,
+              }),
+            });
+            if (!ingredientResponse.ok) {
+              throw new Error("Failed to update ingredients");
+            }
+            const tagResponse = await fetch("/api/update-tag", {
+              method: "POST",
+              body: JSON.stringify({
+                recipeId: recipeId,
+                tags,
+              }),
+            });
+            if (!tagResponse.ok) {
+              throw new Error("Failed to update tags");
+            } 
+          }
+          else {
+            const recipeResponse = await fetch("/api/add-recipe", {
+              method: "POST",
+              body: JSON.stringify({
+                ...recipeInfo,
+                imageUrl: uploadedUrl,
+                userId,
+                created: new Date().toISOString(),
+              }),
+            });
 
-          if (!recipeResponse.ok) {
-            throw new Error("Failed to add recipe");
-          }
-          const recipeIdJson = await recipeResponse.json();
-          const recipeId = recipeIdJson.recipeId;
-          const ingredientResponse = await fetch("/api/add-ingredient", {
-            method: "POST",
-            body: JSON.stringify({
-              recipeId,
-              ingredients,
-            }),
-          });
-          if (!ingredientResponse.ok) {
-            throw new Error("Failed to add ingredients");
-          }
-          const tagResponse = await fetch("/api/add-tag", {
-            method: "POST",
-            body: JSON.stringify({
-              recipeId,
-              tags,
-            }),
-          });
-          if (!tagResponse.ok) {
-            throw new Error("Failed to add tags");
+            if (!recipeResponse.ok) {
+              throw new Error("Failed to add recipe");
+            }
+            const recipeIdJson = await recipeResponse.json();
+            recipeId = recipeIdJson.recipeId;
+            const ingredientResponse = await fetch("/api/add-ingredient", {
+              method: "POST",
+              body: JSON.stringify({
+                recipeId,
+                ingredients,
+              }),
+            });
+            if (!ingredientResponse.ok) {
+              throw new Error("Failed to add ingredients");
+            }
+            const tagResponse = await fetch("/api/add-tag", {
+              method: "POST",
+              body: JSON.stringify({
+                recipeId,
+                tags,
+              }),
+            });
+            if (!tagResponse.ok) {
+              throw new Error("Failed to add tags");
+            }
           }
           // Reset Form
           setRecipeInfo({
@@ -384,9 +422,9 @@ export default function RecipeForm({ mode, userId, onSubmit, existingRecipe }: A
                     <div className="mb-4">
                     <Image
                       src={
-                      mode === "editReady" && existingRecipe?.recipe.recipe_image
-                        ? existingRecipe.recipe.recipe_image
-                        : imageFile ? URL.createObjectURL(imageFile) : ""
+                      mode === "editReady" && imageFile
+                        ? imageFile ? URL.createObjectURL(imageFile) : ""
+                        : existingRecipe?.recipe.recipe_image || ""
                       }
                       alt="Selected Recipe Image"
                       width={200}

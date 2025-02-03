@@ -297,3 +297,137 @@ export async function deleteRecipe(recipeId: number): Promise<void> {
         throw new Error("Failed to delete recipe");
     }
 }
+
+export async function updateRecipe(recipeId: number, name: string, servings: number, description: string, instructions: string, 
+    mealType: MealType, image: string, privacyStatus: PrivacyStatus): Promise<void> {
+    try {
+        await sql`UPDATE recipe SET recipe_name = ${name}, recipe_servings = ${servings}, recipe_description = ${description}, 
+        recipe_instructions = ${instructions}, meal_type = ${mealType}, recipe_image = ${image}, privacy_status = ${privacyStatus} WHERE recipe_id = ${recipeId}`;
+    } catch (error) {
+        console.error("Error updating recipe:", error);
+        throw new Error("Failed to update recipe");
+    }
+}
+
+export async function updateRecipeIngredients(recipeId: number, updatedIngredients: { ingredientName: string, quantity: number, unit: string, preparationMethod: string }[]): Promise<void> {
+  try {
+    // Fetch existing ingredients for the recipe
+    const existingIngredients = await sql`
+      SELECT i.ingredient_name FROM recipe_ingredients ri
+      JOIN ingredients i ON ri.ingredient_id = i.ingredient_id
+      WHERE ri.recipe_id = ${recipeId}
+    `;
+
+    const existingIngredientNames = existingIngredients.rows.map(row => row.ingredient_name);
+
+    // Determine ingredients to remove
+    const updatedIngredientNames = updatedIngredients.map(ingredient => toTitleCase(ingredient.ingredientName));
+    const ingredientsToRemove = existingIngredientNames.filter(name => !updatedIngredientNames.includes(name));
+
+    // Remove ingredients that are no longer present
+    if (ingredientsToRemove.length > 0) {
+      const pgIngredientsToRemove = toPostgresArray(ingredientsToRemove);
+
+      await sql`
+        DELETE FROM recipe_ingredients
+        WHERE recipe_id = ${recipeId} AND ingredient_id IN (
+          SELECT ingredient_id FROM ingredients WHERE ingredient_name = ANY(${pgIngredientsToRemove}::text[])
+        )
+      `;
+    }
+
+    // Insert or update the remaining ingredients
+    for (const ingredient of updatedIngredients) {
+      const ingredientName = toTitleCase(ingredient.ingredientName);
+
+      // Insert the ingredient into the ingredients table if it doesn't already exist
+      await sql`
+        INSERT INTO ingredients (ingredient_name) 
+        VALUES (${ingredientName})
+        ON CONFLICT (ingredient_name) DO NOTHING
+      `;
+
+      // Fetch the ingredient ID from the ingredients table
+      const ingredientId = await sql`
+        SELECT ingredient_id FROM ingredients WHERE ingredient_name = ${ingredientName}
+      `;
+
+      const ingredientIdValue = ingredientId.rows[0].ingredient_id;
+
+      // Insert or update the recipe_ingredients table with the new quantity, unit, and preparation method
+      await sql`
+        INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, preparation_method)
+        VALUES (${recipeId}, ${ingredientIdValue}, ${ingredient.quantity}, ${ingredient.unit}, ${ingredient.preparationMethod})
+        ON CONFLICT (recipe_id, ingredient_id) 
+        DO UPDATE SET quantity = ${ingredient.quantity}, unit = ${ingredient.unit}, preparation_method = ${ingredient.preparationMethod}
+      `;
+    }
+  } catch (error) {
+    console.error("Error updating ingredients:", error);
+    throw new Error("Failed to update ingredients");
+  }
+}
+
+export async function updateRecipeTags(recipeId: number, updatedTags: { tagName: string }[]): Promise<void> {
+  try {
+    // Fetch existing tags for the recipe
+    const existingTags = await sql`
+      SELECT t.tag_name FROM recipe_tags rt
+      JOIN tags t ON rt.tag_id = t.tag_id
+      WHERE rt.recipe_id = ${recipeId}
+    `;
+
+    const existingTagNames = existingTags.rows.map(row => row.tag_name);
+
+    // Determine tags to remove
+    const updatedTagNames = updatedTags.map(tag => toTitleCase(tag.tagName));
+    const tagsToRemove = existingTagNames.filter(name => !updatedTagNames.includes(name));
+
+    // Remove tags that are no longer present
+    if (tagsToRemove.length > 0) {
+      const pgTagsToRemove = toPostgresArray(tagsToRemove);
+      await sql`
+        DELETE FROM recipe_tags
+        WHERE recipe_id = ${recipeId} AND tag_id IN (
+          SELECT tag_id FROM tags WHERE tag_name = ANY(${pgTagsToRemove}::text[])
+        )
+      `;
+    }
+
+    // Insert or update the remaining tags
+    for (const tag of updatedTags) {
+      const tagName = toTitleCase(tag.tagName);
+
+      // Insert the tag into the tags table if it doesn't already exist
+      await sql`
+        INSERT INTO tags (tag_name) 
+        VALUES (${tagName})
+        ON CONFLICT (tag_name) DO NOTHING
+      `;
+
+      // Fetch the tag ID from the tags table
+      const tagId = await sql`
+        SELECT tag_id FROM tags WHERE tag_name = ${tagName}
+      `;
+
+      const tagIdValue = tagId.rows[0].tag_id;
+
+      // Insert or update the recipe_tags table with the new tag ID
+      await sql`
+        INSERT INTO recipe_tags (recipe_id, tag_id)
+        VALUES (${recipeId}, ${tagIdValue})
+        ON CONFLICT (recipe_id, tag_id) 
+        DO NOTHING
+      `;
+    }
+  } catch (error) {
+    console.error("Error updating tags:", error);
+    throw new Error("Failed to update tags");
+  }
+}
+
+function toPostgresArray(arr: string[]): string {
+  return `{${arr
+    .map((s) => `"${s.replace(/"/g, '\\"')}"`)
+    .join(",")}}`;
+}
