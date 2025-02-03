@@ -68,6 +68,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, userId }) => {
 
   return (
     <>
+    {(mode === "view" || mode === "add") && (
       <button
         type="button"
         className={`${
@@ -79,6 +80,8 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, userId }) => {
       >
         {mode === "add" ? "Cancel" : "Add Recipe"}
       </button>
+    )}
+      {(mode !== "add") && (
       <button
         type="button"
         className={`${
@@ -90,6 +93,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, userId }) => {
       >
         {(mode === "edit" || mode === "editReady") ? "Cancel" : "Edit Recipe"}
       </button>
+      )}
       {(mode === "view" || mode === "edit") && (
         <section className="p-6 bg-gray-100 rounded-lg mb-6 col-span-3 shadow-lg">
           <h2 className="text-3xl font-semibold mb-4">Recipe List</h2>
