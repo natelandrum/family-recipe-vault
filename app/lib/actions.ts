@@ -102,7 +102,7 @@ export async function validateRecipeForm(prevState: RecipeState, formData: FormD
             const parsedIngredient = JSON.parse(ingredient as string);
             return { 
                 name: parsedIngredient.ingredientName, 
-                quantity: parseInt(parsedIngredient.quantity), 
+                quantity: parseFloat(parsedIngredient.quantity), 
                 unit: parsedIngredient.unit, 
                 preparationMethod: parsedIngredient.preparationMethod || '' 
             };
@@ -289,3 +289,11 @@ export async function getRecipes(): Promise<Recipe[]> {
     }
 }
 
+export async function deleteRecipe(recipeId: number): Promise<void> {
+    try {
+        await sql`DELETE FROM recipe WHERE recipe_id = ${recipeId}`;
+    } catch (error) {
+        console.error("Error deleting recipe:", error);
+        throw new Error("Failed to delete recipe");
+    }
+}
