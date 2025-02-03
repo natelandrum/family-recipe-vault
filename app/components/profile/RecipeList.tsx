@@ -6,6 +6,8 @@ import Image from "next/image";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
+import Link from "next/link";
+
 
 interface RecipeListProps {
   recipes: Recipe[];
@@ -100,6 +102,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, userId }) => {
           {recipeList.length > 0 ? (
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {recipeList.map((recipe) => (
+                <Link key={recipe.recipe_id}href={`../../recipe/${recipe.recipe_id}`}>
                 <li
                   key={recipe.recipe_id}
                   className="bg-white overflow-hidden p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
@@ -146,11 +149,13 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, userId }) => {
                     </p>
                   </div>
                 </li>
+                </Link>
               ))}
             </ul>
           ) : (
             <p className="text-gray-700">No recipes found.</p>
           )}
+
         </section>
       )}
       {mode === "add" && (
