@@ -271,7 +271,7 @@ export async function addTag(recipeId: number, tagName: string): Promise<void> {
 
 export async function getRecipes(): Promise<Recipe[]> {
     try {
-        const result = await sql`SELECT * FROM recipe ORDER BY created_on DESC`;
+        const result = await sql`SELECT * FROM recipe WHERE privacy_status = 'Community' ORDER BY created_on DESC`;
         return result.rows.map(row => ({
             recipe_id: row.recipe_id,
             recipe_name: row.recipe_name,
