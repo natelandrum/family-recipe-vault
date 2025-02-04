@@ -5,7 +5,6 @@ import { getRecipesByUser, getFamilyGroupByUser } from "../lib/data";
 import UserInfo from "../components/profile/UserInfo";
 import RecipeList from "../components/profile/RecipeList";
 import FamilyGroup from "../components/profile/FamilyGroup";
-import AddRecipeForm from "../components/profile/AddRecipeForm";
 
 export default async function ProfilePage() {
     const session = await getServerSession();
@@ -22,12 +21,13 @@ export default async function ProfilePage() {
             const familyGroup = await getFamilyGroupByUser(user.id);
 
             return (
-                <div className="container mx-auto p-4 space-y-6">
-                    <UserInfo name={user.name} email={user.email} />
-                    <RecipeList recipes={recipes} />
-                    <FamilyGroup familyGroup={familyGroup} />
-                    <AddRecipeForm currentAdd={{ currentAdd: true }} userId={user.id} />
+              <div className="container mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <UserInfo name={user.name} email={user.email} />
+                <FamilyGroup familyGroup={familyGroup} />
+                <div className="md:col-span-3">
+                  <RecipeList recipes={recipes} userId={user.id} />
                 </div>
+              </div>
             );
         }
     }
