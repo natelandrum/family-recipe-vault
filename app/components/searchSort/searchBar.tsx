@@ -18,7 +18,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
       placeholder="Search for recipes..."
       value={query}
       onChange={handleSearch}
-      className="p-2 border rounded-lg w-full focus:outline-none focus:ring focus:ring-blue-300"
+      className="p-2 border rounded-lg w-full focus:outline-none focus:ring focus:ring-blue-300 mr-14"
     />
   );
 }
