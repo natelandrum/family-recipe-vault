@@ -10,7 +10,7 @@ export default function SortDropdown({ onSortChange, onMealTypeChange }: SortDro
         onChange={(e) => onSortChange(e.target.value)}
         className="p-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
       >
-        <option className="detail" value="sort_food">Sort</option>
+        <option className="detail" value="sort_food">Filter</option>
         <option value="all">All</option>
         <option value="name">Name</option>
         <option value="date">Date</option>
