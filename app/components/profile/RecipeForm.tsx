@@ -422,7 +422,7 @@ export default function RecipeForm({ mode, userId, onSubmit, existingRecipe }: A
                     <div className="mb-4">
                     <Image
                       src={
-                      mode === "editReady" && imageFile
+                      (mode === "editReady" || mode === "add") && imageFile
                         ? imageFile ? URL.createObjectURL(imageFile) : ""
                         : existingRecipe?.recipe.recipe_image || ""
                       }
