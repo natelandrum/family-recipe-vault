@@ -1,10 +1,11 @@
-"use client";
+'use client'
 
-import React from "react";
-import { Family } from "@/app/lib/definitions";
+import React from 'react'
+import Link from 'next/link'
+import { Family } from '@/app/lib/definitions'
 
 interface FamilyGroupProps {
-  familyGroup: Family[];
+  familyGroup: Family[]
 }
 
 const FamilyGroup: React.FC<FamilyGroupProps> = ({ familyGroup }) => {
@@ -18,7 +19,11 @@ const FamilyGroup: React.FC<FamilyGroupProps> = ({ familyGroup }) => {
               key={family.family_id}
               className="bg-white p-4 rounded-lg shadow"
             >
-              <p className="text-lg">{family.family_name}</p>
+              <Link href={`/family/${family.family_id}`}>
+                <a className="text-lg font-semibold text-blue-500 hover:underline">
+                  {family.family_name}
+                </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -26,7 +31,7 @@ const FamilyGroup: React.FC<FamilyGroupProps> = ({ familyGroup }) => {
         <p>No family group found.</p>
       )}
     </section>
-  );
-};
+  )
+}
 
-export default FamilyGroup;
+export default FamilyGroup
