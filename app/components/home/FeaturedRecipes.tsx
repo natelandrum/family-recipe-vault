@@ -49,6 +49,14 @@ export default function FeaturedRecipes() {
           </div>
         ))}
       </div>
+      <div className="mt-8">
+          <a
+            href="/recipes"
+            className="bg-[var(--color-dark)] hover:bg-[var(--color-accent)] text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-300"
+          >
+            See More
+          </a>
+        </div>
     </section>
   );
 }

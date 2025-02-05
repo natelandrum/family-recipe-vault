@@ -98,6 +98,31 @@ export async function getFamilyGroupByUser(userId: number): Promise<Family[]> {
     }
 }
 
+export async function getFamilyGroupById(familyId: number): Promise<Family> {
+    try {
+        const response = await sql`
+            SELECT family_id, family_name FROM family WHERE family_id = ${familyId}`;
+        
+        // Verifica que se obtuvieron resultados antes de intentar acceder
+        if (response.rows.length === 0) {
+            throw new Error("No family found");
+        }
+        
+        const family = response.rows[0];
+        
+        // Asegúrate de que ambos valores estén presentes y del tipo adecuado
+        return { 
+            family_id: String(family.family_id),  // Convertir a string si es necesario
+            family_name: family.family_name 
+        };
+        
+    } catch (error) {
+        console.error("Error fetching family group by ID:", error);
+        throw new Error("Failed to fetch family group by ID");
+    }
+}
+
+
 export async function getEditFields(recipeId: number) {
     try {
         const recipe = await getRecipeById(recipeId);
