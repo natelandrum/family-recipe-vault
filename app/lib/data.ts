@@ -1,7 +1,7 @@
 "use server";
 
 import { sql } from "@vercel/postgres";
-import { Family, Ingredient, Recipe, RecipeWithAuthor } from "./definitions";
+import { Family, FamilyRequest, Ingredient, Recipe, RecipeWithAuthor } from "./definitions";
 
 
 export async function getRecipesByUser(userId: number): Promise<Recipe[]> {
@@ -136,5 +136,22 @@ export async function getEditFields(recipeId: number) {
     } catch (error) {
         console.error("Error fetching edit fields:", error);
         throw new Error("Failed to fetch edit fields");
+    }
+}
+
+export async function getFamilyRequestsByUserId(userId: number): Promise<FamilyRequest[]> {
+    try {
+        const response = await sql`
+            SELECT request_id, user_id, name, fr.family_id, family_name
+            FROM family_requests as fr
+            JOIN family as f
+            ON fr.family_id = f.family_id
+            JOIN users as u
+            ON fr.user_id = u.id
+            WHERE recipient_user_id = ${userId} AND status = 'pending'`;
+        return response.rows as FamilyRequest[];
+    } catch (error) {
+        console.error("Error fetching notifications by user:", error);
+        throw new Error("Failed to fetch notifications by user");
     }
 }

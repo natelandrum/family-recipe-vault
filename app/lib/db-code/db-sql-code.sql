@@ -116,3 +116,15 @@ CREATE TABLE contact_messages (
     message TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS family_requests (
+    request_id SERIAL PRIMARY KEY,    -- Unique identifier for the request
+    user_id INT NOT NULL,             -- User making the request (requester)
+    recipient_user_id INT NOT NULL,   -- User who should receive the request (approver)
+    family_id INT NOT NULL,           -- Family being requested to join
+    status VARCHAR(20) DEFAULT 'pending', -- Request status: pending, accepted, rejected
+    created_at TIMESTAMP DEFAULT NOW(),  -- Timestamp for request creation
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (recipient_user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (family_id) REFERENCES family(family_id) ON DELETE CASCADE
+);

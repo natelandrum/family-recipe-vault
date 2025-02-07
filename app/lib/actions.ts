@@ -5,6 +5,7 @@ import { sql } from "@vercel/postgres";
 import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";
 import { MealType, PrivacyStatus, Recipe, User } from "./definitions";
+import { request } from "http";
 
 
 const passwordValidation = new RegExp(
@@ -53,6 +54,15 @@ const RecipeSchema = z.object({
     tags: z.array(z.string().min(1, { message: "Tag name is required" })),
 });
 
+const FamilyNameSchema = z.object({
+    familyName: z.string().min(1, { message: "Family name is required" }),
+})
+
+const JoinSchema = z.object({
+    familyName: z.string().min(1, { message: "Family name is required" }),
+    recipientEmail: z.string().email({ message: "Invalid email address" }),
+})
+
 export type AuthenticationState = {
     errors?: {
         email?: string[];
@@ -88,6 +98,22 @@ export type RecipeState = {
     },
     message?: string | null;
 };
+
+export type FamilyNameState = {
+    errors?: {
+        familyName?: string[];
+        userId?: string[];
+    }
+    message?: string | null;
+}
+
+export type JoinState = {
+    errors?: {
+        familyName?: string[];
+        recipientEmail?: string[];
+    }
+    message?: string | null;
+}
 
 export async function validateRecipeForm(prevState: RecipeState, formData: FormData): Promise<RecipeState> {
     const validatedFields = RecipeSchema.safeParse({
@@ -430,4 +456,151 @@ function toPostgresArray(arr: string[]): string {
   return `{${arr
     .map((s) => `"${s.replace(/"/g, '\\"')}"`)
     .join(",")}}`;
+}
+
+export async function validateFamilyGroup(prevState: FamilyNameState, formData: FormData): Promise<FamilyNameState> {
+    const validatedFields = FamilyNameSchema.safeParse({
+        familyName: formData.get("familyName"),
+    });
+
+    if (!validatedFields.success) {
+        return { ...prevState, errors: validatedFields.error.flatten().fieldErrors };
+    }
+    return { ...prevState, errors: {} };
+}
+
+export async function addNewFamilyGroup(familyName: string, userId: number): Promise<{ familyId: number, familyName: string } | { message: string }> {
+    try {
+        const familyId = await sql`INSERT INTO family (family_name) VALUES (${familyName}) RETURNING family_id`;
+        const familyIdValue = familyId.rows[0].family_id;
+        await sql`INSERT INTO user_family_group (id, family_id) VALUES (${userId}, ${familyIdValue})`;
+        return { familyId: familyIdValue, familyName: familyName };
+    } catch (error) {
+        console.error("Error adding family group:", error);
+        return { message: "Failed to create family group" };
+    }
+  
+}
+
+export async function editFamilyGroup(familyId: number, familyName: string): Promise<{ familyId: number, familyName: string } | { message: string }> {
+    try {
+        await sql`UPDATE family SET family_name = ${familyName} WHERE family_id = ${familyId}`;
+        return { familyId, familyName };
+    } catch (error) {
+        console.error("Error editing family group:", error);
+        return { message: "Failed to edit family group" };
+    }
+}
+
+export async function leaveFamilyGroup(userId: number, familyId: number): Promise<void> {
+    try {
+        await sql`DELETE FROM user_family_group WHERE id = ${userId} AND family_id = ${familyId}`;
+        const remainingMembers = await sql`SELECT * FROM user_family_group WHERE family_id = ${familyId}`;
+        if (remainingMembers.rowCount === 0) {
+            await sql`DELETE FROM family WHERE family_id = ${familyId}`;
+        }
+    } catch (error) {
+        console.error("Error leaving family group:", error);
+        throw new Error("Failed to leave family group");
+    }
+}
+
+export async function validateJoinFamilyGroup(prevState: JoinState, formData: FormData): Promise<JoinState> {
+    const validatedFields = JoinSchema.safeParse({
+        familyName: formData.get("familyName"),
+        recipientEmail: formData.get("recipientEmail"),
+    });
+
+    if (!validatedFields.success) {
+        return { ...prevState, errors: validatedFields.error.flatten().fieldErrors };
+    }
+    return { ...prevState, errors: {} };
+}
+
+export async function joinFamilyGroup(familyName: string, recipientEmail: string, userId: number): Promise<{ message: string }> {
+    try {
+      const recipientUserId = await sql`SELECT id FROM users WHERE email = ${recipientEmail}`;
+      if (recipientUserId.rowCount === 0) {
+        return { message: "Recipient not found" };
+      }
+      const recipientId = recipientUserId.rows[0].id;
+      
+      const familyId = await sql`SELECT family_id FROM family WHERE family_name = ${familyName}`;
+      if (familyId.rowCount === 0) {
+        return { message: "Family not found" };
+      }
+      const familyIdValue = familyId.rows[0].family_id;
+
+      const openRequest = await sql`
+        SELECT * FROM family_requests 
+        WHERE user_id = ${userId} AND recipient_user_id = ${recipientId} AND family_id = ${familyIdValue} AND status = 'pending'
+      `;
+      if (openRequest.rowCount && openRequest.rowCount > 0) {
+        return { message: "There is already an open request for this user and recipient in the specified family" };
+      }
+
+      const existingFamilyGroup = await sql`
+        SELECT * FROM user_family_group 
+        WHERE id = ${userId} AND family_id = ${familyIdValue} AND family_id IN (
+          SELECT family_id FROM user_family_group WHERE id = ${recipientId}
+        )
+      `;
+      if (existingFamilyGroup.rowCount && existingFamilyGroup.rowCount > 0) {
+        return { message: "User is already in a family group with the recipient" };
+      }
+
+      await sql`INSERT INTO family_requests (user_id, recipient_user_id, family_id) VALUES (${userId}, ${recipientId}, ${familyIdValue})`;
+      return { message: "Success" };
+
+    } catch (error) {
+      console.error("Error soliciting join family group:", error);
+      return { message: "Failed to solicit join family group" };
+    }
+}
+
+export async function approveFamilyGroup(requestId: number): Promise<{ message: string }> {
+    try {
+      const familyRequest = await sql`
+        SELECT * FROM family_requests 
+        WHERE request_id = ${requestId}
+      `;
+      if (familyRequest.rowCount === 0) {
+        return { message: "Request not found" };
+      }
+      const userId = familyRequest.rows[0].user_id;
+      const familyId = familyRequest.rows[0].family_id;
+
+      await sql`
+        INSERT INTO user_family_group (id, family_id) VALUES (${userId}, ${familyId})
+      `;
+      await sql`
+        UPDATE family_requests SET status = 'approved' WHERE request_id = ${requestId}
+      `;
+      return { message: "Success" };
+    }
+    catch (error) {
+      console.error("Error approving family group request:", error);
+      return { message: "Failed to approve family group request" };
+    }
+}
+
+export async function denyFamilyGroup(requestId: number): Promise<{ message: string }> {
+    try {
+      const familyRequest = await sql`
+        SELECT * FROM family_requests 
+        WHERE request_id = ${requestId}
+      `;
+      if (familyRequest.rowCount === 0) {
+        return { message: "No pending request found" };
+      }
+
+      await sql`
+        DELETE FROM family_requests WHERE request_id = ${requestId}
+      `;
+      return { message: "Success" };
+    }
+    catch (error) {
+      console.error("Error rejecting family group request:", error);
+      return { message: "Failed to reject family group request" };
+    }
 }
