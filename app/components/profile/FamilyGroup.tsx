@@ -117,7 +117,9 @@ const FamilyGroup: React.FC<FamilyGroupProps> = ({ familyGroup, requests, userId
     if (!editReady) {
       formData.append("userId", userId.toString());
     } else {
-      familyId && formData.append("familyId", familyId.toString());
+      if (familyId) {
+        formData.append("familyId", familyId.toString());
+      }
     }
     startTransition(() => {
       validateFamilyGroup(initialFamilyNameState, formData).then(async (validatedFamilyNameState) => {
@@ -368,7 +370,11 @@ const FamilyGroup: React.FC<FamilyGroupProps> = ({ familyGroup, requests, userId
         <div
           className="fixed z-10 inset-0 flex items-center justify-center bg-black bg-opacity-50"
           onClick={() => {
-            editReady ? setEditReady(!editReady) : setNewFamily(!newFamily);
+            if (editReady) {
+              setEditReady(!editReady);
+            } else {
+              setNewFamily(!newFamily);
+            }
             setFamilyName("");
           }}
         >
@@ -382,9 +388,11 @@ const FamilyGroup: React.FC<FamilyGroupProps> = ({ familyGroup, requests, userId
               </h3>
               <IconButton
                 onClick={() => {
-                  editReady
-                    ? setEditReady(!editReady)
-                    : setNewFamily(!newFamily);
+                  if (editReady) {
+                    setEditReady(!editReady);
+                  } else {
+                    setNewFamily(!newFamily);
+                  }
                   setFamilyName("");
                 }}
                 size="large"

@@ -5,7 +5,6 @@ import { sql } from "@vercel/postgres";
 import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";
 import { MealType, PrivacyStatus, Recipe, User } from "./definitions";
-import { request } from "http";
 
 
 const passwordValidation = new RegExp(
