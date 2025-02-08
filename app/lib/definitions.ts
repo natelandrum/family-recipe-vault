@@ -114,3 +114,11 @@ export enum PrivacyStatus {
     Family = 'Family'
 
 }
+
+export interface FamilyRequest {
+    request_id: number;
+    user_id: number;
+    name: string;
+    family_id: number;
+    family_name: string;
+}
