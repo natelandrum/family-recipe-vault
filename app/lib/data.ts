@@ -189,3 +189,4 @@ export async function getMealPlanRecipesByPlanID(plan_id: number): Promise<MealP
         console.error("Error fetching recipe ingredients:", error);
         throw new Error("Failed to fetch recipe ingredients");
     }
+}
