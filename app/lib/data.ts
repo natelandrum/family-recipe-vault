@@ -3,7 +3,6 @@
 import { sql } from "@vercel/postgres";
 import { Family, FamilyRequest, Ingredient, Recipe, RecipeWithAuthor, MealPlan, MealPlanRecipeData } from "./definitions";
 
-
 export async function getRecipesByUser(userId: number): Promise<Recipe[]> {
     try {
         const response = await sql`SELECT * FROM recipe WHERE user_id = ${userId}`;
@@ -27,11 +26,11 @@ export async function getRecipeById(recipeId: number): Promise<Recipe> {
 export async function getRecipeTags(recipeId: number): Promise<{ tagName: string }[]> {
     try {
         const response = await sql`
-        SELECT tag_name FROM tag 
-        JOIN recipe_tag 
-        ON tag.tag_id = recipe_tag.tag_id 
+        SELECT tag_name FROM tags
+        JOIN recipe_tags 
+        ON tags.tag_id = recipe_tags.tag_id 
         WHERE recipe_id = ${recipeId}`;
-        return response.rows.map(row => row.tag_name);
+        return response.rows.map(row => ({ tagName: row.tag_name }));
     } catch (error) {
         console.error("Error fetching recipe tags:", error);
         throw new Error("Failed to fetch recipe tags");
@@ -154,6 +153,7 @@ export async function getFamilyRequestsByUserId(userId: number): Promise<FamilyR
         console.error("Error fetching notifications by user:", error);
         throw new Error("Failed to fetch notifications by user");
     }
+
 }
 
 export async function getMealPlansByUserId(id: number): Promise<MealPlan[]> {
@@ -189,4 +189,3 @@ export async function getMealPlanRecipesByPlanID(plan_id: number): Promise<MealP
         console.error("Error fetching recipe ingredients:", error);
         throw new Error("Failed to fetch recipe ingredients");
     }
-}
