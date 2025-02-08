@@ -3,9 +3,9 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { RecipeDetailsCard } from "@/app/components/recipe/RecipeDetailsCard";
 
-// import Image from 'next/image';
+// import { RecipeWithAuthor } from "@/app/lib/definitions";
 
-// import AddToMealPlanButton from "@/app/components/menu-plan/AddToMealPlanButton";
+// import { CldImage } from 'next-cloudinary';
 
 export const metadata: Metadata = {
     title: "Recipe Details",
