@@ -2,21 +2,12 @@ import { fetchRecipeWithAuthorById } from "@/app/lib/data";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Image from 'next/image';
-
-// import { RecipeWithAuthor } from "@/app/lib/definitions";
-
-// import { CldImage } from 'next-cloudinary';
+import AddToMealPlanButton from "@/app/components/menu-plan/AddToMealPlanButton";
 
 export const metadata: Metadata = {
     title: "Recipe Details",
     description: "All you need to know to make a yummy dish.",
 };
-
-// interface PageProps {
-//     params: {
-//         recipe_id: number;
-//     };
-// }
 
 export default async function RecipePage(props: { params: Promise<{ recipe_id: string }> } ) {
     const params = await props.params;
@@ -27,25 +18,23 @@ export default async function RecipePage(props: { params: Promise<{ recipe_id: s
     }
 
     const recipe = await fetchRecipeWithAuthorById(recipe_id);
-
-    console.log(recipe)
-
+    
     return (
-        <div className="flex flex-col lg:flex-row items-stretch justify-center min-h-screen bg-gray-100 p-4 gap-8">
+        <div className="flex flex-col lg:flex-row items-stretch justify-center min-h-full bg-gray-100 p-4 gap-8">
     {/* Image Section */}
-    <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md lg:flex-1 h-[66vh] flex items-center justify-center">
+    <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-md lg:flex-1 h-auto flex items-center justify-center">
         <Image
             width={800}
             height={450}
             layout = "intrinsic"
             src={recipe.recipe_image || "/fallback-image.jpg"}
             alt={recipe.recipe_name}
-            className="rounded-lg object-cover w-full h-full"
+            className="rounded-lg object-cover w-full max-h-80 md:max-h-[450px] lg:max-h-[600px] h-auto"
         />
     </div>
 
     {/* Details Section */}
-    <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md lg:flex-1 h-[66vh] flex flex-col justify-between">
+    <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md lg:flex-1 flex flex-col justify-between h-auto">
         <h1 className="text-4xl font-bold text-center text-gray-800 mb-4">
             {recipe.recipe_name}
         </h1>
@@ -71,6 +60,12 @@ export default async function RecipePage(props: { params: Promise<{ recipe_id: s
                 </ul>
             </li>
         </ul>
+        <div className="mt-4">
+            <AddToMealPlanButton
+                recipeId={recipe.recipe_id}
+                recipeName={recipe.recipe_name}
+            />
+        </div>
     </div>
 </div>
 

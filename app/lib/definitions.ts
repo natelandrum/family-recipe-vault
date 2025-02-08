@@ -69,21 +69,28 @@ export interface HistoricalNote {
     note: string;
     user_id: number;
     recipe_id: number;
-    created_on: string;
+    created_on: Date;
 }
 
 export interface MealPlan {
     plan_id: number;
-    date: string;
+    date: Date;
     user_id: number;
 }
 
 export interface MealPlanRecipe {
-    mp_recipe_id: number;
+    plan_item_id: number;
     plan_id: number;
     recipe_id: number;
     total_servings: number;
     meal_type: MealType;
+    day: Date;
+}
+
+export interface MealPlanRecipeData extends MealPlanRecipe {
+    recipe_name: string;
+    recipe_servings: number
+    date: Date;
 }
 
 export interface ShoppingList {

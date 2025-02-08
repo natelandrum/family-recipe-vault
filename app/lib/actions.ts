@@ -268,6 +268,31 @@ export async function addTag(recipeId: number, tagName: string): Promise<void> {
   }
 }
 
+export async function addMealPlan( date: string, user_id: number ): Promise<void> {
+  try {
+     await sql`
+      INSERT INTO meal_plan (date, user_id)
+      VALUES (${date}, ${user_id})
+      RETURNING plan_id
+    `;
+  } catch (error) {
+    console.log("Error adding meal plan:", error);
+    throw new Error("Failed to add meal plan");
+  }
+}
+
+export async function addPlanRecipe(plan_id: number, recipe_id: number, total_servings: number, meal_type: MealType, day: string ): Promise<void> {
+  try {
+    await sql`
+      INSERT INTO meal_plan_recipe (plan_id, recipe_id, total_servings, meal_type, day)
+      VALUES (${plan_id}, ${recipe_id}, ${total_servings} , ${meal_type}, ${day}) 
+      RETURNING plan_item_id  
+    `;
+  } catch (error) {
+    console.log("Error adding recipe to meal plan:", error);
+    throw new Error("Failed to add recipe to meal plan");
+  }
+}
 
 export async function getRecipes(): Promise<Recipe[]> {
     try {

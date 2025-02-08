@@ -1,7 +1,7 @@
 "use server";
 
 import { sql } from "@vercel/postgres";
-import { Family, Recipe, RecipeWithAuthor } from "./definitions";
+import { Family, MealPlan, Recipe, RecipeWithAuthor, MealPlanRecipeData } from "./definitions";
 
 
 export async function getRecipesByUser(userId: number): Promise<Recipe[]> {
@@ -77,5 +77,40 @@ export async function getFamilyGroupByUser(userId: number): Promise<Family[]> {
     } catch (error) {
         console.error("Error fetching family group by user:", error);
         throw new Error("Failed to fetch family group by user");
+    }
+}
+
+export async function getMealPlansByUserId(id: number): Promise<MealPlan[]> {
+    try {
+        const response = await sql`
+        SELECT * FROM meal_plan WHERE user_id = ${id};`;
+        return response.rows as MealPlan[];
+    } catch (error) {
+        console.error("Error fetching recipe ingredients:", error);
+        throw new Error("Failed to fetch recipe ingredients");
+    }
+}
+
+export async function getMealPlanRecipesByPlanID(plan_id: number): Promise<MealPlanRecipeData[]> {
+    try {
+        const response = await sql`
+        SELECT 
+            mp.date AS start_date,
+            rp.recipe_id,
+            rp.plan_item_id,
+            r.recipe_name,
+            r.recipe_servings,
+            rp.total_servings,
+            rp.meal_type,
+            rp.day
+        FROM meal_plan mp
+        JOIN meal_plan_recipe rp ON mp.plan_id = rp.plan_id
+        JOIN recipe r ON rp.recipe_id = r.recipe_id
+        WHERE mp.plan_id = ${plan_id}
+        ORDER BY rp.day ASC, mp.date DESC;`;
+        return response.rows as MealPlanRecipeData[];
+    } catch (error) {
+        console.error("Error fetching recipe ingredients:", error);
+        throw new Error("Failed to fetch recipe ingredients");
     }
 }
