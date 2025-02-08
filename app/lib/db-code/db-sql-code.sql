@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS meal_plan_recipe (
     recipe_id INT NOT NULL,
     total_servings INT NOT NULL,
     meal_type meal_type NOT NULL,
+    day DATE NOT NULL,
     CONSTRAINT fk_plan FOREIGN KEY (plan_id) REFERENCES meal_plan (plan_id) ON DELETE CASCADE,
     CONSTRAINT fk_recipe FOREIGN KEY (recipe_id) REFERENCES recipe (recipe_id) ON DELETE CASCADE
 );

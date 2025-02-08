@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import MenuBook from "@mui/icons-material/MenuBook";
+
 
 export const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,6 +49,9 @@ export const HamburgerMenu = () => {
           </Link>
           <Link href="/recipes" className="text-2xl hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
             Recipes
+          </Link>
+          <Link href="/meal-plan" className="hover:text-[var(--color-accent)] nav-text">
+            <MenuBook /> Plan
           </Link>
           {session ? (
             <>
