@@ -15,7 +15,7 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="py-16 bg-white text-center">
+    <section className="bg-gray-50 py-16  text-center">
       <h2 className="text-5xl font-bold text-[var(--color-accent)] mb-8">
         What Our Users Say
       </h2>

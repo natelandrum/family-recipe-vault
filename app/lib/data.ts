@@ -103,16 +103,14 @@ export async function getFamilyGroupById(familyId: number): Promise<Family> {
         const response = await sql`
             SELECT family_id, family_name FROM family WHERE family_id = ${familyId}`;
         
-        // Verifica que se obtuvieron resultados antes de intentar acceder
         if (response.rows.length === 0) {
             throw new Error("No family found");
         }
         
         const family = response.rows[0];
         
-        // Asegúrate de que ambos valores estén presentes y del tipo adecuado
         return { 
-            family_id: String(family.family_id),  // Convertir a string si es necesario
+            family_id: String(family.family_id),  
             family_name: family.family_name 
         };
         
@@ -153,5 +151,19 @@ export async function getFamilyRequestsByUserId(userId: number): Promise<FamilyR
     } catch (error) {
         console.error("Error fetching notifications by user:", error);
         throw new Error("Failed to fetch notifications by user");
+    }
+}
+
+export async function getFamilyRecipes(familyId: number): Promise<Recipe[]> {
+    try {
+        const response = await sql`
+        SELECT r.* FROM recipe r
+        JOIN user_family_group ufg 
+        ON r.user_id = ufg.id
+        WHERE ufg.family_id = ${familyId}`;
+        return response.rows as Recipe[];
+    } catch (error) {
+        console.error("Error fetching family recipes:", error);
+        throw new Error("Failed to fetch family recipes");
     }
 }
