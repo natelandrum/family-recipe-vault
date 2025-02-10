@@ -25,24 +25,25 @@ const AddRecipeModal: React.FC<AddRecipeModalProps> = ({ show, onClose, recipeId
   const handleAddRecipe = async () => {
     if (!user) return;
     try {
-      let finalPlanId = selectedPlanId;
+      let finalPlanId: number = selectedPlanId;
 
       if (finalPlanId === 0) {
-        const newPlan = await fetch("/api/add-meal-plan", {
+        const data = await fetch("/api/add-meal-plan", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ date: selectedDay, user_id: user.id }),
         });
          
-        finalPlanId = await newPlan.json();
+        const newPlan = await data.json();
+        finalPlanId = newPlan.plan_id;
         setSelectedPlanId(finalPlanId);
       }
 
-      if (selectedPlanId !==0 ) {
+      if (finalPlanId) {
         console.log("This is new selectedPlanId", selectedPlanId)
         const newMeal: MealPlanRecipe = {
           plan_item_id: Math.random(), 
-          plan_id: selectedPlanId, 
+          plan_id: finalPlanId, 
           recipe_id: recipeId,
           total_servings: totalServings,
           meal_type: mealType,
@@ -56,7 +57,7 @@ const AddRecipeModal: React.FC<AddRecipeModalProps> = ({ show, onClose, recipeId
         const response = await fetch("/api/add-plan-recipe", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ plan_id: selectedPlanId, recipe_id: recipeId, total_servings: totalServings, meal_type: mealType, day: selectedDay }),
+          body: JSON.stringify({ plan_id: finalPlanId, recipe_id: recipeId, total_servings: totalServings, meal_type: mealType, day: selectedDay }),
         });
 
         if (!response.ok) throw new Error("Failed to create a new meal plan");

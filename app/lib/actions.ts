@@ -4,7 +4,7 @@ import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";
-import { MealType, PrivacyStatus, Recipe, User } from "./definitions";
+import { MealPlan, MealType, PrivacyStatus, Recipe, User } from "./definitions";
 
 
 const passwordValidation = new RegExp(
@@ -293,13 +293,14 @@ export async function addTag(recipeId: number, tagName: string): Promise<void> {
   }
 }
 
-export async function addMealPlan( date: string, user_id: number ): Promise<void> {
+export async function addMealPlan( date: string, user_id: number ): Promise<MealPlan["plan_id"]> {
   try {
-     await sql`
+     const planId = await sql`
       INSERT INTO meal_plan (date, user_id)
       VALUES (${date}, ${user_id})
       RETURNING plan_id
     `;
+    return planId.rows[0].plan_id
   } catch (error) {
     console.log("Error adding meal plan:", error);
     throw new Error("Failed to add meal plan");
