@@ -1,7 +1,9 @@
 import Image from 'next/image';
+import AddToMealPlanButton from '@/app/components/menu-plan/AddToMealPlanButton';
 
 interface RecipeDetailsCardProps {
   recipe: {
+    recipe_id: number;
     recipe_image: string;
     recipe_name: string;
     author_name: string;
@@ -55,6 +57,13 @@ export const RecipeDetailsCard: React.FC<RecipeDetailsCardProps> = ({ recipe }) 
             </ul>
           </li>
         </ul>
+        <div className="mt-4">
+            <AddToMealPlanButton
+                recipeId={recipe.recipe_id}
+                recipeName={recipe.recipe_name}
+            />
+        </div>
+
       </div>
     </div>
   );
