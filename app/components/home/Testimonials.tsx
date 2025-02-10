@@ -26,7 +26,7 @@ export default function Testimonials() {
             className="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl transition duration-300"
           >
             <p className="italic text-gray-600 h-32">&quot;{quote}&quot;</p>
-            <h4 className="mt-4 text-2xl font-bold text-[var(--color-dark)]">- {name}</h4>
+            <h3 className="mt-4 text-2xl font-bold text-[var(--color-dark)]">- {name}</h3>
           </div>
         ))}
       </div>
