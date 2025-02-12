@@ -31,7 +31,7 @@ export default function RecipesPage() {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-5xl font-bold text-center mb-6">Recipes</h1>
+      <h1 className="text-5xl font-bold text-center mb-6">Community Recipes</h1>
       <RecipesList recipes={recipes} />
     </div>
   );

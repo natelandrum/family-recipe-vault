@@ -258,6 +258,7 @@ export async function addIngredient(recipeId: number, ingredientName: string, qu
     await sql`
       INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit, preparation_method) 
       VALUES (${recipeId}, ${ingredientIdValue}, ${quantity}, ${unit}, ${preparationMethod})
+      ON CONFLICT (recipe_id, ingredient_id) DO NOTHING 
     `;
   } catch (error) {
     console.error("Error adding ingredient:", error);
@@ -286,6 +287,7 @@ export async function addTag(recipeId: number, tagName: string): Promise<void> {
     await sql`
       INSERT INTO recipe_tags (recipe_id, tag_id) 
       VALUES (${recipeId}, ${tagIdValue})
+      ON CONFLICT (recipe_id, tag_id) DO NOTHING
     `;
   } catch (error) {
     console.error("Error adding tag:", error);

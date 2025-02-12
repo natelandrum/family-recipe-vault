@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import SearchBar from "../searchSort/searchBar";
@@ -50,12 +52,12 @@ export default function RecipeList({ recipes }: RecipeListProps) {
 
   return (
     <div>
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between m-4">
         <SearchBar onSearch={handleSearch} />
         <SortDropdown onSortChange={handleSort} onMealTypeChange={handleMealTypeFilter} />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-4">
         {filteredRecipes.map((recipe) => (
           <motion.div
             key={recipe.recipe_id}

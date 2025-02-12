@@ -82,7 +82,7 @@ export async function fetchRecipeWithAuthorById( recipe_id: string) {
     }
 }
 
-export async function getFamilyGroupByUser(userId: number): Promise<Family[]> {
+export async function getFamilyGroupsByUserId(userId: number): Promise<Family[]> {
     try {
         const response = await sql`
             SELECT family.family_id, family.family_name
@@ -97,14 +97,14 @@ export async function getFamilyGroupByUser(userId: number): Promise<Family[]> {
     }
 }
 
-export async function getFamilyGroupById(familyId: number): Promise<Family> {
+export async function getFamilyGroupById(familyId: number): Promise<Family | null> {
     try {
         const response = await sql`
             SELECT family_id, family_name FROM family WHERE family_id = ${familyId}`;
         
         // Verifica que se obtuvieron resultados antes de intentar acceder
         if (response.rows.length === 0) {
-            throw new Error("No family found");
+            return null;
         }
         
         const family = response.rows[0];
@@ -190,3 +190,92 @@ export async function getMealPlanRecipesByPlanID(plan_id: number): Promise<MealP
         throw new Error("Failed to fetch recipe ingredients");
     }
 }
+
+export async function getFeaturedRecipes(): Promise<Recipe[]> {
+    try {
+        const response = await sql`
+        SELECT recipe.* FROM recipe 
+        JOIN featured_recipes 
+        ON recipe.recipe_id = featured_recipes.recipe_id`;
+        return response.rows as Recipe[];
+    } catch (error) {
+        console.error("Error fetching featured recipes:", error);
+        throw new Error("Failed to fetch featured recipes");
+    }
+}
+
+export async function getRecipesByFamilyId(familyId: number): Promise<Recipe[]> {
+    try {
+        const response = await sql`
+        SELECT * FROM recipe as r
+        JOIN user_family_group as ufg
+        ON r.user_id = ufg.id
+        WHERE ufg.family_id = ${familyId}
+        `;
+        return response.rows as Recipe[];
+    } catch (error) {
+        console.error("Error fetching recipes by family:", error);
+        throw new Error("Failed to fetch recipes by family");
+    }
+}
+
+export async function checkRecipeAccess(recipeId: number, userId?: number): Promise<boolean> {
+  try {
+    // Fetch the recipe's privacy status and author ID
+    const { rows } = await sql`
+      SELECT privacy_status, user_id 
+      FROM recipe 
+      WHERE recipe_id = ${recipeId}
+    `;
+    const recipe = rows[0];
+    
+    // If no recipe is found, deny access.
+    if (!recipe) {
+      return false;
+    }
+    
+    // If the recipe is public, grant access.
+    if (recipe.privacy_status === 'Community') {
+      return true;
+    }
+    
+    // If no user is provided, deny access.
+    if (!userId) {
+      return false;
+    }
+    
+    // If the user is the author, grant access.
+    if (recipe.user_id === userId) {
+      return true;
+    }
+    
+    // If the recipe is meant for Family, check if the user shares a family group with the recipe's author.
+    if (recipe.privacy_status === 'Family') {
+      // Retrieve the user's family groups.
+      const userFamilyGroups = await getFamilyGroupsByUserId(userId);
+      
+      // Retrieve the recipe author's family groups directly.
+      const { rows: recipeAuthorFamilyGroups } = await sql`
+        SELECT family_id
+        FROM user_family_group
+        WHERE id = ${recipe.user_id}
+      `;
+      
+      // Check for any common family group.
+      const hasCommonFamilyGroup = recipeAuthorFamilyGroups.some((rfg) =>
+        userFamilyGroups.some((ufg) => ufg.family_id === rfg.family_id)
+      );
+      
+      if (hasCommonFamilyGroup) {
+        return true;
+      }
+    }
+    
+    // If none of the conditions pass, deny access.
+    return false;
+  } catch (error) {
+    console.error("Error checking recipe access:", error);
+    throw new Error("Failed to check recipe access");
+  }
+}
+
