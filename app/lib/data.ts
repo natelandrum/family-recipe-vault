@@ -1,7 +1,7 @@
 "use server";
 
 import { sql } from "@vercel/postgres";
-import { Family, FamilyRequest, Ingredient, Recipe, RecipeWithAuthor, MealPlan, MealPlanRecipeData } from "./definitions";
+import { Family, FamilyRequest, Ingredient, Recipe, RecipeWithAuthor, MealPlan, MealPlanRecipeData, RecipeDetailIngredients } from "./definitions";
 
 export async function getRecipesByUser(userId: number): Promise<Recipe[]> {
     try {
@@ -53,6 +53,23 @@ export async function getRecipeIngredients(recipeId: number): Promise<Ingredient
                 preparation_method: row.preparation_method
             };
         })
+    } catch (error) {
+        console.error("Error fetching recipe ingredients:", error);
+        throw new Error("Failed to fetch recipe ingredients");
+    }
+}
+
+export async function getRecipeDetailIngredients(recipeId: number): Promise<RecipeDetailIngredients[]> {
+    try {
+        const data = await sql<RecipeDetailIngredients>`
+        SELECT ri.ingredient_id, i.ingredient_name, ri.quantity, ri.unit, ri.preparation_method 
+        FROM recipe_ingredients ri 
+        JOIN ingredients i 
+        ON ri.ingredient_id = i.ingredient_id 
+        WHERE ri.recipe_id = ${recipeId}`;
+
+        const ingredients = data.rows;
+        return ingredients as RecipeDetailIngredients[];
     } catch (error) {
         console.error("Error fetching recipe ingredients:", error);
         throw new Error("Failed to fetch recipe ingredients");

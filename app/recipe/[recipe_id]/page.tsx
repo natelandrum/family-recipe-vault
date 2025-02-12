@@ -1,9 +1,10 @@
-import { fetchRecipeWithAuthorById, checkRecipeAccess } from "@/app/lib/data";
+import { fetchRecipeWithAuthorById, checkRecipeAccess, getRecipeDetailIngredients } from "@/app/lib/data";
 import { notFound, redirect } from "next/navigation";
 import { Metadata } from "next";
 import { RecipeDetailsCard } from "@/app/components/recipe/RecipeDetailsCard";
 import { getServerSession } from "next-auth";
 import { getUser } from "@/app/lib/actions";
+import { RecipeDetailIngredients } from "@/app/lib/definitions";
 
 export const metadata: Metadata = {
   title: "Recipe Details",
@@ -27,6 +28,8 @@ export default async function RecipePage(props: { params: Promise<{ recipe_id: s
     notFound();
   }
 
+  const detailIngredients: RecipeDetailIngredients[] = await getRecipeDetailIngredients(recipeIdNumber);
+  
   // Check user session and access rights
   let hasAccess = false;
   const session = await getServerSession();
@@ -56,7 +59,7 @@ export default async function RecipePage(props: { params: Promise<{ recipe_id: s
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <RecipeDetailsCard recipe={recipeWithImage} />
+      <RecipeDetailsCard recipe={recipeWithImage} detailIngredients={detailIngredients} />
     </div>
   );
 }
