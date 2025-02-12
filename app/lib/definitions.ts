@@ -64,6 +64,10 @@ export interface RecipeIngredient {
     preparation_method?: string;
 }
 
+export interface RecipeDetailIngredients extends RecipeIngredient {
+    ingredient_name: string;
+}
+
 export interface HistoricalNote {
     note_id: number;
     note: string;
