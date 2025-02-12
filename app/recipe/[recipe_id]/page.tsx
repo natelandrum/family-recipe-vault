@@ -1,43 +1,62 @@
-import { fetchRecipeWithAuthorById } from "@/app/lib/data";
-import { notFound } from "next/navigation";
+import { fetchRecipeWithAuthorById, checkRecipeAccess } from "@/app/lib/data";
+import { notFound, redirect } from "next/navigation";
 import { Metadata } from "next";
 import { RecipeDetailsCard } from "@/app/components/recipe/RecipeDetailsCard";
-
-// import { RecipeWithAuthor } from "@/app/lib/definitions";
-
-// import { CldImage } from 'next-cloudinary';
+import { getServerSession } from "next-auth";
+import { getUser } from "@/app/lib/actions";
 
 export const metadata: Metadata = {
-    title: "Recipe Details",
-    description: "All you need to know to make a yummy dish.",
+  title: "Recipe Details",
+  description: "All you need to know to make a yummy dish.",
 };
 
-// interface PageProps {
-//     params: {
-//         recipe_id: number;
-//     };
-// }
+export default async function RecipePage(props: { params: Promise<{ recipe_id: string }> }) {
+  // Parse the recipe_id from params
+  const { recipe_id } = await props.params;
+  if (!recipe_id) {
+    notFound();
+  }
+  const recipeIdNumber = parseInt(recipe_id, 10);
+  if (isNaN(recipeIdNumber)) {
+    notFound();
+  }
 
-export default async function RecipePage(props: { params: Promise<{ recipe_id: string }> } ) {
-    const params = await props.params;
-    const recipe_id = params.recipe_id;
-    
-    if (!recipe_id) {
-        notFound();
+  // Fetch the recipe details (with its author)
+  const recipe = await fetchRecipeWithAuthorById(recipe_id);
+  if (!recipe) {
+    notFound();
+  }
+
+  // Check user session and access rights
+  let hasAccess = false;
+  const session = await getServerSession();
+
+  if (session?.user?.email) {
+    const user = await getUser(session.user.email);
+    const userId = user?.id;
+    if (userId) {
+      hasAccess = await checkRecipeAccess(recipeIdNumber, userId);
+      if (!hasAccess) {
+        redirect("/profile");
+      }
     }
+  } else {
+    // When user is not logged in, verify access based solely on the recipe.
+    hasAccess = await checkRecipeAccess(recipeIdNumber);
+    if (!hasAccess) {
+      redirect("/profile");
+    }
+  }
 
-    const recipe = await fetchRecipeWithAuthorById(recipe_id);
+  // Provide a fallback image if no recipe image is available
+  const recipeWithImage = {
+    ...recipe,
+    recipe_image: recipe.recipe_image || "/fallback-image.jpg",
+  };
 
-    console.log(recipe)
-    const recipeWithImage = {
-        ...recipe,
-        recipe_image: recipe.recipe_image || "/fallback-image.jpg"
-    };
-
-    return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <RecipeDetailsCard recipe={recipeWithImage} />
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <RecipeDetailsCard recipe={recipeWithImage} />
     </div>
-
-    );
+  );
 }

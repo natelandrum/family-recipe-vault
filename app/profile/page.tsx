@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { getUser } from "../lib/actions";
-import { getRecipesByUser, getFamilyGroupByUser, getFamilyRequestsByUserId } from "../lib/data";
+import { getRecipesByUser, getFamilyGroupsByUserId, getFamilyRequestsByUserId } from "../lib/data";
 import UserInfo from "../components/profile/UserInfo";
 import RecipeList from "../components/profile/RecipeList";
 import FamilyGroup from "../components/profile/FamilyGroup";
@@ -18,7 +18,7 @@ export default async function ProfilePage() {
 
         if (user?.id) {
             const recipes = await getRecipesByUser(user.id);
-            const familyGroup = await getFamilyGroupByUser(user.id);
+            const familyGroup = await getFamilyGroupsByUserId(user.id);
             const familyRequests = await getFamilyRequestsByUserId(user.id);
             const requests = familyRequests.map(request => {
               return {

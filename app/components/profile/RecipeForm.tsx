@@ -252,6 +252,9 @@ export default function RecipeForm({ mode, userId, onSubmit, existingRecipe }: A
                     const response = await axios.post("/api/image-upload", {
                       file: reader.result,
                     });
+                    if (response.status === 413) {
+                      alert("Image size is too large. Please upload an image less than 5MB.");
+                    }
                     resolve(response.data.url);
                   } catch (error) {
                     reject(error);

@@ -129,3 +129,10 @@ CREATE TABLE IF NOT EXISTS family_requests (
     FOREIGN KEY (recipient_user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (family_id) REFERENCES family(family_id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS featured_recipes (
+  id SERIAL PRIMARY KEY,
+  recipe_id INTEGER NOT NULL,
+  created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_recipe FOREIGN KEY (recipe_id) REFERENCES recipe (recipe_id) ON DELETE CASCADE
+);

@@ -2,11 +2,10 @@
 import RecipeForm from "@/app/components/profile/RecipeForm";
 import React, { useState } from "react";
 import { Recipe } from "@/app/lib/definitions";
-import Image from "next/image";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
-import Link from "next/link";
+import RecipeCard from "../public_recipes/RecipeCard";
 
 interface RecipeListProps {
   recipes: Recipe[];
@@ -96,58 +95,42 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, userId }) => {
         <section className="p-6 bg-gray-100 rounded-lg mb-6 col-span-3 shadow-lg">
           <h2 className="text-3xl font-semibold mb-4">Recipe List</h2>
           {recipeList.length > 0 ? (
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {recipeList.map((recipe) => (
-                <li
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {recipeList.map((recipe) => (                
+                  <div 
                   key={recipe.recipe_id}
-                  className="bg-white overflow-hidden p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 h-full flex flex-col justify-between"
-                >
-                  <div className="flex items-center justify-between w-full mb-2">
-                    <Link href={`/recipe/${recipe.recipe_id}`} className="flex-grow">
-                      <h3 className="text-3xl font-semibold text-center">{recipe.recipe_name}</h3>
-                    </Link>
+                  className="relative"
+                  >
+                    <RecipeCard recipe={recipe} />
                     {mode === "edit" && (
-                      <div className="flex z-10">
+                      <div className="flex z-20 top-0 right-0 absolute">
                         <IconButton
                           aria-label="edit"
-                          size="large"
+                          size="medium"
                           onClick={(e) => {
                             e.stopPropagation();
                             e.preventDefault();
                             handleRecipeEdit(recipe.recipe_id);
                           }}
                         >
-                          <EditIcon fontSize="large" />
+                          <EditIcon fontSize="medium" />
                         </IconButton>
                         <IconButton
                           aria-label="delete"
-                          size="large"
+                          size="medium"
                           onClick={(e) => {
                             e.stopPropagation();
                             e.preventDefault();
                             handleRecipeDelete(recipe.recipe_id);
                           }}
                         >
-                          <DeleteIcon fontSize="large" color="error" />
+                          <DeleteIcon fontSize="medium" color="error" />
                         </IconButton>
                       </div>
                     )}
-                  </div>
-                  <Link href={`/recipe/${recipe.recipe_id}`} className="flex-grow flex flex-col justify-center items-center">
-                    <Image
-                      src={recipe.recipe_image || "/default-recipe-image.webp"}
-                      alt={recipe.recipe_name}
-                      width={400}
-                      height={400}
-                      className="rounded-lg mb-2 h-52 w-80 object-cover"
-                    />
-                    <p className="line-clamp-3 text-gray-700 mt-auto">
-                      {recipe.recipe_description}
-                    </p>
-                  </Link>
-                </li>
+                  </div>                
               ))}
-            </ul>
+            </div>
           ) : (
             <p className="text-gray-700">No recipes found.</p>
           )}
