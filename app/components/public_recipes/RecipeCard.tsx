@@ -8,14 +8,14 @@ interface RecipeCardProps {
 
 export default function RecipeCard({ recipe }: RecipeCardProps) {
   return (
-    <div className="border hover:z-10 rounded-lg p-4 shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 bg-white relative">
+    <div className="border hover:z-10 h-full rounded-lg p-4 shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 bg-white relative">
       <Link href={`/recipe/${recipe.recipe_id}`}>
         <p className="flex items-center justify-center text-center text-lg font-bold line-clamp-2 h-14 mt-4">
           {recipe.recipe_name}
         </p>
         <div className="relative">
           {/* Apply 'peer' to the description */}
-          <p className="text-gray-600 line-clamp-3 h-18 peer">
+          <p className="text-gray-600 line-clamp-3 h-20 peer">
             {recipe.recipe_description}
           </p>
           {/* Tooltip with Arrow (Now with `z-10`) */}
