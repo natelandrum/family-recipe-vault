@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from "next/image";
 import { HamburgerMenu } from './HamburgerMenu';
-import MenuBook from "@mui/icons-material/MenuBook";
+import { MenuBook, Home, Info, ManageSearch, AccountCircle } from "@mui/icons-material";
 
 function AuthButton() {
     const { data: session } = useSession();
@@ -15,7 +15,7 @@ function AuthButton() {
               href="/profile"
               className="text-black hover:text-[var(--color-accent)] nav-text"
             >
-              {session?.user?.name}
+              <AccountCircle />{session?.user?.name}
             </Link>
             <br />
             <button
@@ -61,19 +61,19 @@ export default function NavMenu() {
               href="/"
               className="text-black hover:text-[var(--color-accent)] nav-text"
             >
-              Home
+              <Home /> Home
             </Link>
             <Link
               href="/about"
               className="text-black hover:text-[var(--color-accent)] nav-text"
             >
-              About
+              <Info /> About
             </Link>
             <Link
               href="/recipes"
               className="text-black hover:text-[var(--color-accent)] nav-text"
             >
-              Recipes
+              <ManageSearch /> Recipes
             </Link>
             <Link
               href="/meal-plan"

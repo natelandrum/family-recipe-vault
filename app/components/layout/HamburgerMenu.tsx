@@ -4,8 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import MenuBook from "@mui/icons-material/MenuBook";
-
+import { MenuBook, Home, Info, ManageSearch, AccountCircle } from "@mui/icons-material";
 
 export const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,13 +41,13 @@ export const HamburgerMenu = () => {
         </div>
         <div className="flex flex-col space-y-4 p-4">
           <Link href="/" className="text-black text-2xl hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
-            Home
+            <Home /> Home
           </Link>
           <Link href="/about" className="text-black text-2xl hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
-            About
+            <Info /> About
           </Link>
           <Link href="/recipes" className="text-black text-2xl hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
-            Recipes
+            <ManageSearch /> Recipes
           </Link>
           <Link href="/meal-plan" className="text-black hover:text-[var(--color-accent)] nav-text">
             <MenuBook /> Plan
@@ -56,7 +55,7 @@ export const HamburgerMenu = () => {
           {session ? (
             <>
               <Link href="/profile" className="text-black hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
-                {session?.user?.name}
+                <AccountCircle /> {session?.user?.name}
               </Link>
               <button className="bg-[var(--color-dark)] hover:bg-[var(--color-accent)] text-white py-1 px-4 rounded-lg" onClick={() => { signOut(); toggleMenu(); }}>
                 Sign Out

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MealType, MealPlanRecipe, MealPlan } from "@/app/lib/definitions";
+import { getMealPlanRecipesByPlanID } from "@/app/lib/data";
 import { useUser } from "@/app/lib/hooks/useUser";
 
 interface AddRecipeModalProps {
@@ -15,6 +16,8 @@ const AddRecipeModal: React.FC<AddRecipeModalProps> = ({ show, onClose, recipeId
   const [totalServings, setTotalServings] = useState<number>(4);
   const [selectedPlanId, setSelectedPlanId] = useState<number>(0);
   const [selectedDay, setSelectedDay] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>(""); 
+
   const { user } = useUser();
 
   console.log("Prop data sent for userPlans", userMealPlans.flat());
@@ -24,7 +27,19 @@ const AddRecipeModal: React.FC<AddRecipeModalProps> = ({ show, onClose, recipeId
  
   const handleAddRecipe = async () => {
     if (!user) return;
+
     try {
+      const currentPlanRecipes = await getMealPlanRecipesByPlanID(selectedPlanId);
+
+      const mealExists = currentPlanRecipes.find((recipe) => {
+        return recipe.day.toISOString().split("T")[0] === selectedDay && recipe.meal_type === mealType;
+      });
+
+      if (mealExists) {
+        alert(`Meal is already assigned to ${selectedDay} for ${mealType}. Please select a different day.`);
+        return;
+      }
+
       let finalPlanId: number = selectedPlanId;
 
       if (finalPlanId === 0) {
@@ -62,7 +77,12 @@ const AddRecipeModal: React.FC<AddRecipeModalProps> = ({ show, onClose, recipeId
 
         if (!response.ok) throw new Error("Failed to create a new meal plan");
 
-        onClose();
+        setSuccessMessage("Meal added successfully to the plan!");
+
+        setTimeout(() => {
+          setSuccessMessage(""); 
+          onClose(); 
+        }, 3000);
       }
     } catch (error) {
       console.error('Error adding recipe to meal plan:', error);
@@ -163,6 +183,13 @@ const AddRecipeModal: React.FC<AddRecipeModalProps> = ({ show, onClose, recipeId
                 });
               })()}
             </select>
+          </div>
+        )}
+
+        {/* Success Message */}
+        {successMessage && (
+          <div className="bg-primary text-accent p-2 rounded-md mb-4">
+            {successMessage}
           </div>
         )}
 
