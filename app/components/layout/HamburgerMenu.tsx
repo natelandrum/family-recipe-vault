@@ -41,24 +41,24 @@ export const HamburgerMenu = () => {
           />
         </div>
         <div className="flex flex-col space-y-4 p-4">
-          <Link href="/" className="text-2xl hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
+          <Link href="/" className="text-black text-2xl hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
             Home
           </Link>
-          <Link href="/about" className="text-2xl hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
+          <Link href="/about" className="text-black text-2xl hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
             About
           </Link>
-          <Link href="/recipes" className="text-2xl hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
+          <Link href="/recipes" className="text-black text-2xl hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
             Recipes
           </Link>
-          <Link href="/meal-plan" className="hover:text-[var(--color-accent)] nav-text">
+          <Link href="/meal-plan" className="text-black hover:text-[var(--color-accent)] nav-text">
             <MenuBook /> Plan
           </Link>
           {session ? (
             <>
-              <Link href="/profile" className="hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
+              <Link href="/profile" className="text-black hover:text-[var(--color-accent)] nav-text" onClick={toggleMenu}>
                 {session?.user?.name}
               </Link>
-              <button className="bg-[var(--color-dark)] hover:bg-[var(--color-accent)] text-white nav-text py-1 px-4 rounded-lg" onClick={() => { signOut(); toggleMenu(); }}>
+              <button className="bg-[var(--color-dark)] hover:bg-[var(--color-accent)] text-white py-1 px-4 rounded-lg" onClick={() => { signOut(); toggleMenu(); }}>
                 Sign Out
               </button>
             </>
