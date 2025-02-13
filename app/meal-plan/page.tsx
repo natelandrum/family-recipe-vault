@@ -19,6 +19,8 @@ export default function MealPlan() {
 
     const fetchedMealPlans = await getMealPlansByUserId(user.id);
 
+    if (fetchedMealPlans.length === 0) return;
+
     const pastDates = fetchedMealPlans.map(plan => ({
       date: new Date(plan.date).toISOString().split("T")[0],
       plan_id: plan.plan_id,
@@ -42,8 +44,16 @@ export default function MealPlan() {
         }));
       })
     );
-    console.log("Fetched Meal Plans:", mealPlanRecipes.flat())
-    setMealPlans(mealPlanRecipes.flat() as MealPlanRecipeData[]);
+    const flattenedMealPlans = mealPlanRecipes.flat();
+    setMealPlans(flattenedMealPlans as MealPlanRecipeData[]);
+
+    const latestPlan = pastDates.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
+
+    if (latestPlan) {
+      setSelectedPlanId(latestPlan.plan_id);
+      setSelectedMealPlan(flattenedMealPlans.filter(plan => plan.plan_id === latestPlan.plan_id));
+    }
+
   }, [user]);
 
   useEffect(() => {
@@ -71,7 +81,7 @@ export default function MealPlan() {
   };
 
   return (
-    <div className="p-6 bg-gray-100 rounded-lg shadow-lg">
+    <div className="p-6 bg-white rounded-lg mt-6 shadow-lg">
       <h2 className="text-2xl font-bold mb-4">Weekly Meal Plan</h2>
 
       {/* Dropdown for past meal plans */}
@@ -79,7 +89,7 @@ export default function MealPlan() {
         <label htmlFor="mealPlanSelect"className="font-semibold">Select Plan: </label>
         <select
           id="mealPlanSelect"
-          value={selectedPlanId || ""}
+          value={selectedPlanId ?? ""}
           onChange={(e) => { 
             const selectedId = Number(e.target.value);
             setSelectedPlanId(selectedId);
