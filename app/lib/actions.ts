@@ -322,6 +322,15 @@ export async function addPlanRecipe(plan_id: number, recipe_id: number, total_se
   }
 }
 
+export async function deletePlanItem(planItemId: number): Promise<void> {
+  try {
+      await sql`DELETE FROM meal_plan_recipe WHERE plan_item_id = ${planItemId}`;
+  } catch (error) {
+      console.error("Error deleting plan item:", error);
+      throw new Error("Failed to delete plan item.");
+  }
+}
+
 export async function getRecipes(): Promise<Recipe[]> {
     try {
         const result = await sql`SELECT * FROM recipe WHERE privacy_status = 'Community' ORDER BY created_on DESC`;

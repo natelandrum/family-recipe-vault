@@ -20,7 +20,7 @@ export const RecipeDetailsCard: React.FC<RecipeDetailsCardProps> = ({ recipe, de
   const imageSrc = recipe.recipe_image || "/fallback-image.jpg";
   
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 gap-8">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white p-4 gap-8">
       {/* Details & Image Section */}
       <div className="bg-white p-8 rounded-lg shadow-lg w-full m:w-4/5 lg:w-4/5 h-full flex flex-col lg:flex-row gap-8">
         {/* Details Section */}

@@ -58,7 +58,7 @@ export default async function RecipePage(props: { params: Promise<{ recipe_id: s
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-white mt-6">
       <RecipeDetailsCard recipe={recipeWithImage} detailIngredients={detailIngredients} />
     </div>
   );

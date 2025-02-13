@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { MealPlanRecipeData, MealType } from "@/app/lib/definitions";
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 interface MealPlanViewProps {
   selectedMealPlan: MealPlanRecipeData[]; 
@@ -11,14 +13,48 @@ type MealPlanByDay = {
 };
 
 export default function MealPlanView({ selectedMealPlan }: MealPlanViewProps) {
-  if (!selectedMealPlan) {
+  const [mealPlan, setMealPlan] = useState<MealPlanRecipeData[]>(selectedMealPlan);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setMealPlan(selectedMealPlan);
+  }, [selectedMealPlan]);
+
+  if (!mealPlan) {
+    return <h2>Please select or create a new meal plan.</h2>;
+  };
+
+  if (!mealPlan || mealPlan.length === 0) {
     return <h2>Please select or create a new meal plan.</h2>;
   }
 
-  console.log("Selected Meal Plan Data coming to view:", selectedMealPlan)
-  
-  const planDays = Array.from({ length: selectedMealPlan.length }, (_, i) => {
-    const day = new Date(selectedMealPlan[0].day);
+  const handleDelete = async (planItemId: number) => {
+    if  (loading) return;
+
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/delete-plan-item/${planItemId}`, { method: "DELETE" });
+
+      if (!response.ok) {
+        throw new Error(`Failed to delete meal. Status: ${response.status}`);
+      }
+
+      setMealPlan((prevPlan) => {
+        const updatedPlan = prevPlan.filter((meal) => meal.plan_item_id !== planItemId);
+        console.log("Updated Meal Plan:", updatedPlan);
+        return updatedPlan;
+      });
+
+    } catch (error) {
+      console.error("Error deleting meal:", error);
+    } finally {
+      setLoading(false);
+    }
+
+  };
+ 
+  const planDays = Array.from({ length: mealPlan.length }, (_, i) => {
+    const day = new Date(mealPlan[0].day);
     day.setDate(day.getDate() + i);
     return day.toISOString().split("T")[0];
   });
@@ -27,12 +63,12 @@ export default function MealPlanView({ selectedMealPlan }: MealPlanViewProps) {
 
 
   const uniqueDays = Array.from(
-    new Set(selectedMealPlan.map((meal) => new Date(meal.day).toISOString().split("T")[0]))
+    new Set(mealPlan.map((meal) => new Date(meal.day).toISOString().split("T")[0]))
   ).sort();
 
   console.log("Unique Days:", uniqueDays)
 
-  const filteredPlans = selectedMealPlan.filter((plan) => 
+  const filteredPlans = mealPlan.filter((plan) => 
     planDays.includes(
       plan.day instanceof Date ? plan.date.toISOString().split("T")[0] : plan.day
     )
@@ -71,7 +107,13 @@ export default function MealPlanView({ selectedMealPlan }: MealPlanViewProps) {
             Object.entries(mealPlanByDay[day]).map(([mealType, meal]) => (
               meal ? (
                 <div key={meal.plan_item_id} className="mb-2">
-                  <strong>{mealType}:</strong> {meal.recipe_name} (Servings:{" "} {meal.total_servings})
+                  <strong>{mealType}:</strong> {meal.recipe_name} {" "}
+                  <RemoveCircleOutlineIcon 
+                    className="text-highlight cursor-pointer hover:text-dark transition duration-200"
+                    fontSize="small"
+                    onClick={() => handleDelete(meal.plan_item_id)}
+                  /><br></br>
+                  (Servings:{" "} {meal.total_servings})
                 </div>
               ) : (
                 <div key={mealType} className="mb-2">
