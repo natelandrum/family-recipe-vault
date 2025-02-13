@@ -1,15 +1,20 @@
 import { NextResponse } from 'next/server';
 import { deletePlanItem } from '@/app/lib/actions';
 
-export async function DELETE(req: Request, { params }: { params: { planItemId: number } }) {
+export async function DELETE(
+  req: Request, 
+  { params }: { params: Promise<{ planItemId: string }> }
+) {
   try {
-    const planItemId = params.planItemId;
+    const { planItemId } = await params;
 
-    if (!planItemId) {
+    const parsedPlanItemId = Number(planItemId);
+
+    if (isNaN(parsedPlanItemId)) {
       return NextResponse.json({ error: "Plan item ID is required."}, { status: 400 })
     }
 
-    await deletePlanItem(planItemId);
+    await deletePlanItem(Number(parsedPlanItemId));
 
     return NextResponse.json({ message: 'Success' }, { status: 200 });
   } catch (error) {
