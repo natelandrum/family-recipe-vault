@@ -24,8 +24,8 @@ export default function AboutPage() {
                 <div className="flex flex-wrap justify-center items-center">
                     <div className="p-4 md:p-6">
                         <Image
-                            src="/icon-user.png"
-                            alt="Team member"
+                            src="/nathan_profile_picture.jpeg"
+                            alt="Nathan profile picture"
                             width={172}
                             height={172}
                             className="rounded-full object-cover"
@@ -34,18 +34,8 @@ export default function AboutPage() {
                     </div>
                     <div className="p-4 md:p-6">
                         <Image
-                            src="/icon-user.png"
-                            alt="Team member"
-                            width={172}
-                            height={172}
-                            className="rounded-full object-cover"
-                        />
-                        <p className="text-center mt-2">Alma</p>
-                    </div>
-                    <div className="p-4 md:p-6">
-                        <Image
-                            src="/icon-user.png"
-                            alt="Team member"
+                            src="/leonora_profile_picture.jpeg"
+                            alt="Leonora profile picture"
                             width={172}
                             height={172}
                             className="rounded-full object-cover"
@@ -54,8 +44,18 @@ export default function AboutPage() {
                     </div>
                     <div className="p-4 md:p-6">
                         <Image
-                            src="/icon-user.png"
-                            alt="Team member"
+                            src="/alma_profile_picture.jpeg"
+                            alt="Alma profile picture"
+                            width={172}
+                            height={172}
+                            className="rounded-full object-cover"
+                        />
+                        <p className="text-center mt-2">Alma</p>
+                    </div>
+                    <div className="p-4 md:p-6">
+                        <Image
+                            src="/mouhamed_profile_picture.jpeg"
+                            alt="Mouhamed profile picture"
                             width={172}
                             height={172}
                             className="rounded-full object-cover"

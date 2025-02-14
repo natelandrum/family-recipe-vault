@@ -45,7 +45,7 @@ const AddToMealPlanButton: React.FC<AddToMealPlanButtonProps> = ({ recipeId, rec
       <button
         type="button"
         onClick={() => setShowModal(true)} // Show the modal on button click
-        className="bg-accent text-white px-4 py-2 rounded-md shadow-lg"
+        className="bg-accent hover:bg-primary text-white hover:text-black px-4 py-2 rounded-md shadow-lg mt-4"
       >
         Add {recipeName} to Meal Plan
       </button>

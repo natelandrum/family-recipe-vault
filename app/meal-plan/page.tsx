@@ -81,24 +81,24 @@ export default function MealPlan() {
   };
 
   return (
-    <div className="p-6 bg-white rounded-lg mt-6 shadow-lg">
-      <h2 className="text-2xl font-bold mb-4">Weekly Meal Plan</h2>
-
+    <div className="flex flex-col">
+    <div className="p-6 bg-white rounded-lg my-8 shadow-lg max-w-3xl mx-auto flex-grow">
+      <h2 className="text-4xl font-bold text-center mb-6">Weekly Meal Plan</h2>
+  
       {/* Dropdown for past meal plans */}
-      <div className="mb-4">
-        <label htmlFor="mealPlanSelect"className="font-semibold">Select Plan: </label>
+      <div className="mb-6">
+        <label htmlFor="mealPlanSelect" className="font-semibold text-lg">Select Plan:</label>
         <select
           id="mealPlanSelect"
           value={selectedPlanId ?? ""}
           onChange={(e) => { 
             const selectedId = Number(e.target.value);
             setSelectedPlanId(selectedId);
-
+  
             const selectedPlan = mealPlans.flat().filter(plan => plan.plan_id === selectedId);
             setSelectedMealPlan(selectedPlan);
-            
           }}
-          className="border rounded p-2 ml-2"
+          className="border rounded p-3 w-full mt-2"
           aria-label="Select a past meal plan"
           title="Select a past meal plan"
         >
@@ -110,16 +110,21 @@ export default function MealPlan() {
           ))}
         </select>
       </div>
-          
+  
       {/* Meal Plan View */}
-      { <MealPlanView selectedMealPlan={selectedMealPlan} /> }
-
+      {<MealPlanView selectedMealPlan={selectedMealPlan} />}
+  
       {/* Start New Plan Button */}
-      <div className="mt-6">
-        <button type="button" onClick={startNewPlan} className="bg-accent text-white px-4 py-2 rounded">
+      <div className="mt-8 text-center">
+        <button 
+          type="button" 
+          onClick={startNewPlan} 
+          className="bg-accent hover:bg-primary text-white hover:text-black px-6 py-3 rounded-lg text-lg hover:bg-accent-dark transition duration-300"
+        >
           Start New Meal Plan
         </button>
       </div>
+    </div>
     </div>
   );
 }

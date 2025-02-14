@@ -25,10 +25,10 @@ export const RecipeDetailsCard: React.FC<RecipeDetailsCardProps> = ({ recipe, de
       <div className="bg-white p-8 rounded-lg shadow-lg w-full m:w-4/5 lg:w-4/5 h-full flex flex-col lg:flex-row gap-8">
         {/* Details Section */}
         <div className='flex-1'>
-          <h1 className="text-4xl font-bold text-center text-gray-800 mb-4">
+          <h1 className="text-4xl font-bold text-center text-accent mb-1">
             {recipe.recipe_name}
           </h1>
-          <h2 className="text-2xl font-semibold text-center text-gray-700 mb-6">
+          <h2 className="text-2xl font-semibold text-center text-accent mb-8">
             <strong>By:</strong> {recipe.author_name}
           </h2>
           <ul className="space-y-4">

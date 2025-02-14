@@ -198,14 +198,14 @@ const AddRecipeModal: React.FC<AddRecipeModalProps> = ({ show, onClose, recipeId
           <button
             type="button"
             onClick={handleAddRecipe}
-            className="bg-accent text-white px-4 py-2 rounded-md"
+            className="bg-accent hover:bg-primary text-white hover:text-black px-4 py-2 rounded-md"
           >
             Add Recipe
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="ml-2 bg-dark text-white px-4 py-2 rounded-md"
+            className="ml-2 bg-dark hover:bg-highlight text-white hover:text-black px-4 py-2 rounded-md"
           >
             Close
           </button>

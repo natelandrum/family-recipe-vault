@@ -21,11 +21,11 @@ export default function MealPlanView({ selectedMealPlan }: MealPlanViewProps) {
   }, [selectedMealPlan]);
 
   if (!mealPlan) {
-    return <h2>Please select or create a new meal plan.</h2>;
+    return <h3 className="text-2xl">Please select or create a new meal plan.</h3>;
   };
 
   if (!mealPlan || mealPlan.length === 0) {
-    return <h2>Please select or create a new meal plan.</h2>;
+    return <h3 className="text-2xl">Please select or create a new meal plan.</h3>;
   }
 
   const handleDelete = async (planItemId: number) => {

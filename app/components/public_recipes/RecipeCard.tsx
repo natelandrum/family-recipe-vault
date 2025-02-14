@@ -1,38 +1,62 @@
+"use client"
 import { Recipe } from "@/app/lib/definitions";
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 
 interface RecipeCardProps {
   recipe: Recipe;
 }
 
 export default function RecipeCard({ recipe }: RecipeCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleDescription = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const maxLength = 90;
+
   return (
     <div className="border hover:z-10 h-full rounded-lg p-4 shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105 bg-white relative">
       <Link href={`/recipe/${recipe.recipe_id}`}>
-        <p className="flex items-center justify-center text-center text-lg font-bold line-clamp-2 h-14 mt-4">
+        <h3 className="text-3xl flex items-center justify-center text-center font-bold line-clamp-2 h-14 my-3">
           {recipe.recipe_name}
-        </p>
-        <div className="relative">
-          {/* Apply 'peer' to the description */}
-          <p className="text-gray-600 line-clamp-3 h-20 peer">
-            {recipe.recipe_description}
+        </h3>
+
+        <div
+          className={`relative overflow-hidden transition-all duration-500 ${
+            isExpanded ? "h-auto" : "h-20"
+          }`}
+        >
+          <p className="text-gray-600 recipe-description">
+            {isExpanded
+              ? recipe.recipe_description
+              : recipe.recipe_description.slice(0, maxLength)}
+            {recipe.recipe_description.length > maxLength && (
+              <span
+                onClick={(e) => {
+                  e.preventDefault();
+                  toggleDescription();
+                }}
+                className="text-[var(--color-dark)] cursor-pointer ml-2"
+              >
+                {isExpanded ? "See less" : "... See more"}
+              </span>
+            )}
           </p>
-          {/* Tooltip with Arrow (Now with `z-10`) */}
-          <div className="absolute w-full top-full mt-2 px-3 py-2 text-sm text-white bg-gray-900 rounded-lg shadow-md opacity-0 peer-hover:opacity-100 transition-opacity duration-1000">
-            {/* 🔺 Arrow at the top of the tooltip */}
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-gray-900"></div>
-            {recipe.recipe_description}
-          </div>
         </div>
+
         {recipe.recipe_image && (
-          <Image
-            src={recipe.recipe_image}
-            alt={recipe.recipe_name}
-            width={400}
-            height={400}
-            className="w-full h-48 object-cover rounded-md mt-4"
-          />
+          <div className={`mt-4 transition-all duration-500 ${isExpanded ? 'mt-6' : 'mt-4'}`}>
+            <Image
+              src={recipe.recipe_image}
+              alt={recipe.recipe_name}
+              width={400}
+              height={400}
+              className="w-full h-48 object-cover rounded-md"
+            />
+          </div>
         )}
       </Link>
     </div>
