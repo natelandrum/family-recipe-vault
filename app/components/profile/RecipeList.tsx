@@ -71,7 +71,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, userId }) => {
           className={`${
             mode === "add"
               ? "bg-red-600 hover:bg-red-800"
-              : "bg-blue-600 hover:bg-blue-800"
+              : "bg-accent hover:bg-primary text-white hover:text-black"
           } mr-4 text-white py-2 px-4 text-md rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 mb-2`}
           onClick={() => setMode(mode === "view" ? "add" : "view")}
         >
@@ -84,7 +84,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, userId }) => {
           className={`${
             mode === "edit" || mode === "editReady"
               ? "bg-red-600 hover:bg-red-800"
-              : "bg-orange-600 hover:bg-orange-800"
+              : "bg-dark hover:bg-highlight text-white hover:text-black"
           } text-white py-2 px-4 text-md rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 mb-2`}
           onClick={() => setMode(mode === "view" ? "edit" : "view")}
         >

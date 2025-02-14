@@ -259,7 +259,7 @@ const FamilyGroup: React.FC<FamilyGroupProps> = ({ familyGroup, requests, userId
         </div>
         <section className="p-4 relative w-full bg-gray-100 rounded-lg mb-6 shadow-lg">
           <div className="flex justify-between mb-4">
-            <h2 className="text-2xl font-semibold mb-2">Family Group</h2>
+            <h2 className="text-3xl font-semibold mb-2">Family Group</h2>
             {localRequests?.length > 0 && (
               <IconButton onClick={handleNotifications}>
                 <Badge
@@ -284,7 +284,7 @@ const FamilyGroup: React.FC<FamilyGroupProps> = ({ familyGroup, requests, userId
                   <div className="flex justify-between items-center">
                     <Link
                       href={`/family/${family.family_id}`}
-                      className="text-lg font-semibold text-blue-500 hover:underline"
+                      className="text-lg font-semibold text-dark hover:underline"
                     >
                       {family.family_name}
                     </Link>
