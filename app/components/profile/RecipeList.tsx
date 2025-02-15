@@ -106,10 +106,6 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, userId }) => {
 
   return (
     <>
-    <div className="flex justify-between mb-4">
-      <SearchBar onSearch={handleSearch} />
-      <SortDropdown onSortChange={handleSort} onMealTypeChange={handleMealTypeFilter} />
-    </div>
       {(mode === "view" || mode === "add") && (
         <button
           type="button"
@@ -139,41 +135,45 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, userId }) => {
       {(mode === "view" || mode === "edit") && (
         <section className="p-6 bg-gray-100 rounded-lg mb-6 col-span-3 shadow-lg">
           <h2 className="text-3xl font-semibold mb-4">Recipe List</h2>
+          <div className="flex justify-between mb-4">
+            <SearchBar onSearch={handleSearch} />
+            <SortDropdown
+              onSortChange={handleSort}
+              onMealTypeChange={handleMealTypeFilter}
+            />
+          </div>
           {recipeList.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {recipeList.map((recipe) => (                
-                  <div 
-                  key={recipe.recipe_id}
-                  className="relative"
-                  >
-                    <RecipeCard recipe={recipe} />
-                    {mode === "edit" && (
-                      <div className="flex z-20 top-0 right-0 absolute">
-                        <IconButton
-                          aria-label="edit"
-                          size="medium"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            handleRecipeEdit(recipe.recipe_id);
-                          }}
-                        >
-                          <EditIcon fontSize="medium" />
-                        </IconButton>
-                        <IconButton
-                          aria-label="delete"
-                          size="medium"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            handleRecipeDelete(recipe.recipe_id);
-                          }}
-                        >
-                          <DeleteIcon fontSize="medium" color="error" />
-                        </IconButton>
-                      </div>
-                    )}
-                  </div>                
+              {recipeList.map((recipe) => (
+                <div key={recipe.recipe_id} className="relative">
+                  <RecipeCard recipe={recipe} />
+                  {mode === "edit" && (
+                    <div className="flex z-20 top-0 right-0 absolute">
+                      <IconButton
+                        aria-label="edit"
+                        size="medium"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          handleRecipeEdit(recipe.recipe_id);
+                        }}
+                      >
+                        <EditIcon fontSize="medium" />
+                      </IconButton>
+                      <IconButton
+                        aria-label="delete"
+                        size="medium"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          handleRecipeDelete(recipe.recipe_id);
+                        }}
+                      >
+                        <DeleteIcon fontSize="medium" color="error" />
+                      </IconButton>
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           ) : (
