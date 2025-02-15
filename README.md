@@ -9,7 +9,6 @@ The Family Recipe Vault enables users to:
 - Securely store family recipes.
 - Add historical notes or stories behind each recipe.
 - Share recipes within family groups.
-- Control access levels (editable or view-only) for shared recipes.
 
 ## Features
 
@@ -38,9 +37,12 @@ The Family Recipe Vault enables users to:
 
 - User authentication for secure access to the application.
 - Family-based access control for shared recipes.
-- Recipe publishers decide whether recipes are editable or view-only.
 
-### Additional Features (Optional Enhancements)
+### Menu Plan
+
+- Add recipes to a weekly menu plan
+
+### Additional Features (Coming Soon)
 
 - Automatic ingredient-to-shopping-list conversion.
 - Generate sharable recipe PDFs.

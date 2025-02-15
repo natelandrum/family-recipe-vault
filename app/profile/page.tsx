@@ -5,6 +5,12 @@ import { getRecipesByUser, getFamilyGroupsByUserId, getFamilyRequestsByUserId } 
 import UserInfo from "../components/profile/UserInfo";
 import RecipeList from "../components/profile/RecipeList";
 import FamilyGroup from "../components/profile/FamilyGroup";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Profile",
+  description: "Your access to your recipes and family group",
+};
 
 export default async function ProfilePage() {
     const session = await getServerSession();
