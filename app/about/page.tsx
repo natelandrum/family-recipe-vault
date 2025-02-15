@@ -40,7 +40,7 @@ export default function AboutPage() {
                             height={172}
                             className="rounded-full object-cover"
                         />
-                        <p className="text-center mt-2">Leonora</p>
+                        <p className="text-center mt-2">Lenora</p>
                     </div>
                     <div className="p-4 md:p-6">
                         <Image
