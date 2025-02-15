@@ -1,0 +1,642 @@
+-- TRUNCATE TABLE ingredients;
+-- TRUNCATE TABLE shopping_list_item;
+--    DROP TABLE shopping_list_item;
+-- TRUNCATE TABLE recipe_ingredients;
+-- DROP TABLE recipe_ingredients;
+-- DROP TABLE ingredients;
+-- SELECT * FROM recipe_ingredients;
+-- SELECT * FROM ingredients;
+-- SELECT * FROM shopping_list_item;
+-- CREATE TABLE IF NOT EXISTS ingredients (
+--     ingredient_id SERIAL PRIMARY KEY,
+--     ingredient_name VARCHAR(255) NOT NULL UNIQUE
+-- );
+-- CREATE TABLE IF NOT EXISTS recipe_ingredients (
+--     recipe_id INT NOT NULL,
+--     ingredient_id INT NOT NULL,
+--     quantity DECIMAL(10,2) NOT NULL,
+--     unit VARCHAR(50) NOT NULL,
+--     preparation_method VARCHAR(255),
+--     PRIMARY KEY (recipe_id, ingredient_id),
+--     CONSTRAINT fk_recipe FOREIGN KEY (recipe_id) REFERENCES recipe (recipe_id) ON DELETE CASCADE,
+--     CONSTRAINT fk_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredients (ingredient_id) ON DELETE CASCADE
+-- );
+-- INSERT INTO shopping_list_item (list_id, ingredient_id, quantity, units) VALUES
+-- (1, 1, 2, 'Tomatoes'),
+-- (2, 2, 3, 'Garlic cloves'),
+-- (3, 3, 1, 'Olive Oil tablespoon'),
+-- (4, 4, 2, 'Lemon'),
+-- (5, 5, 1, 'Cucumber'),
+-- (6, 6, 1, 'Red Onion'),
+-- (7, 7, 4, 'Eggs'),
+-- (8, 8, 2, 'Bell Pepper'),
+-- (9, 9, 3, 'Carrots'),
+-- (10, 10, 1, 'Potato'),
+-- (11, 11, 1, 'Chicken Breast'),
+-- (12, 12, 2, 'Avocados'),
+-- (13, 13, 5, 'Tomato'),
+-- (14, 14, 3, 'Garlic clove'),
+-- (15, 15, 2, 'Red Onion'),
+-- (16, 16, 2, 'Bell Pepper'),
+-- (17, 17, 1, 'Lettuce head'),
+-- (18, 18, 4, 'Eggs'),
+-- (19, 19, 2, 'Carrots'),
+-- (20, 20, 1, 'Chicken Breast'),
+-- (21, 21, 1, 'Spinach'),
+-- (22, 22, 1, 'Sweet Potato'),
+-- (23, 23, 1, 'Cucumber'),
+-- (24, 24, 1, 'Feta Cheese'),
+-- (25, 25, 2, 'Zucchini'),
+-- (26, 26, 1, 'Bacon strip'),
+-- (27, 27, 2, 'Chicken Legs'),
+-- (28, 28, 3, 'Tomatoes'),
+-- (29, 29, 1, 'Olive Oil'),
+-- (30, 30, 2, 'Bell Pepper'),
+-- (31, 31, 2, 'Lettuce'),
+-- (32, 32, 3, 'Carrots'),
+-- (33, 33, 4, 'Garlic clove'),
+-- (34, 34, 1, 'Spinach'),
+-- (35, 35, 2, 'Eggs'),
+-- (36, 36, 1, 'Sweet Potato'),
+-- (37, 37, 2, 'Red Onion'),
+-- (38, 38, 1, 'Avocado'),
+-- (39, 39, 1, 'Cucumber'),
+-- (40, 40, 3, 'Tomatoes');
+-- CREATE TABLE IF NOT EXISTS shopping_list_item (
+--     item_id SERIAL PRIMARY KEY,
+--     list_id INT NOT NULL,
+--     ingredient_id INT NOT NULL,
+--     quantity DECIMAL(10,2) NOT NULL,
+--     units VARCHAR(20),
+--     is_checked BOOLEAN DEFAULT FALSE,
+--     CONSTRAINT fk_list FOREIGN KEY (list_id) REFERENCES shopping_list (list_id) ON DELETE CASCADE,
+--     CONSTRAINT fk_ingredient FOREIGN KEY (ingredient_id) REFERENCES ingredients (ingredient_id) ON DELETE CASCADE
+-- );
+-- INSERT INTO recipe_ingredients (
+--         recipe_id,
+--         ingredient_id,
+--         quantity,
+--         unit,
+--         preparation_method
+--     )
+-- VALUES -- Spaghetti Bolognese
+--     (1, 8, 1, 'pound', 'ground'),
+--     -- Ground Beef
+--     (1, 4, 1, 'medium', 'chopped'),
+--     -- Onion
+--     (1, 6, 1, 'medium', 'chopped'),
+--     -- Carrot
+--     (1, 7, 1, 'stalk', 'chopped'),
+--     -- Celery
+--     (1, 2, 2, 'cloves', 'minced'),
+--     -- Garlic
+--     (1, 1, 2, 'cups', 'diced'),
+--     -- Tomatoes
+--     (1, 24, 2, 'tablespoons', 'simmered'),
+--     -- Tomato Paste
+--     (1, 70, 1, 'cup', 'optional'),
+--     -- Red Wine
+--     (1, 136, 2, 'tablespoons', 'used for sautéing'),
+--     -- Olive Oil
+--     (1, 10, 1, 'teaspoon', 'mixed'),
+--     -- Italian Seasoning
+--     (1, 39, 1, 'teaspoon', 'to taste'),
+--     -- Salt
+--     (1, 40, 1, 'teaspoon', 'to taste'),
+--     -- Pepper
+--     (1, 13, 1, 'pound', 'boiled'),
+--     -- Spaghetti
+--     -- Chicken Alfredo
+--     (2, 1, 1, 'pound', 'cut into pieces'),
+--     -- Chicken Breast
+--     (2, 9, 2, 'tablespoons', 'sautéed'),
+--     -- Olive Oil
+--     (2, 14, 1, 'cup', 'grated'),
+--     -- Parmesan Cheese
+--     (2, 15, 1, 'cup', 'prepared'),
+--     -- Fettuccine Pasta
+--     (2, 16, 2, 'tablespoons', 'melted'),
+--     -- Butter
+--     (2, 17, 1, 'cup', 'heavy'),
+--     -- Heavy Cream
+--     -- Vegan Tacos
+--     (3, 18, 1, 'avocado', 'diced'),
+--     -- Avocado
+--     (3, 19, 1, 'cup', 'salsa'),
+--     -- Salsa
+--     (3, 20, 1, 'leaf', 'shredded'),
+--     -- Lettuce
+--     (3, 21, 1, 'tomato', 'sliced'),
+--     -- Tomatoes
+--     (3, 22, 1, 'tablespoon', 'fresh'),
+--     -- Lime Juice
+--     (3, 23, 1, 'teaspoon', 'optional'),
+--     -- Cilantro
+--     (3, 24, 2, 'corn tortillas', 'heated'),
+--     -- Corn Tortillas
+--     -- Beef Stew
+--     (4, 1, 2, 'pounds', 'cut into chunks'),
+--     -- Beef
+--     (4, 25, 2, 'cups', 'sautéed'),
+--     -- Beef Broth
+--     (4, 4, 2, 'stalks', 'diced'),
+--     -- Celery
+--     (4, 2, 1, 'large', 'chopped'),
+--     -- Onion
+--     (4, 26, 1, 'bay leaf', 'added whole'),
+--     -- Bay Leaves
+--     (4, 27, 1, 'teaspoon', 'sprinkled'),
+--     -- Thyme
+--     (4, 5, 2, 'cloves', 'minced'),
+--     -- Garlic
+--     (4, 6, 3, 'medium', 'chopped'),
+--     -- Tomatoes
+--     (4, 28, 4, 'medium', 'peeled and diced'),
+--     -- Potatoes
+--     -- Salmon with Lemon
+--     (5, 29, 4, 'fillets', 'grilled'),
+--     -- Salmon
+--     (5, 30, 1, 'lemon', 'sliced'),
+--     -- Lemon
+--     (5, 31, 1, 'teaspoon', 'chopped'),
+--     -- Dill
+--     -- Pancakes
+--     (6, 32, 1, 'cup', 'sifted'),
+--     -- Flour
+--     (6, 33, 1, 'teaspoon', 'baking'),
+--     -- Baking Powder
+--     (6, 34, 1, 'tablespoon', 'sugar'),
+--     -- Sugar
+--     (6, 35, 1, 'pinch', 'added'),
+--     -- Salt
+--     (6, 36, 1, 'cup', 'milk'),
+--     -- Milk
+--     (6, 37, 1, 'egg', 'beaten'),
+--     -- Egg
+--     (6, 9, 2, 'tablespoons', 'melted'),
+--     -- Butter
+--     -- Caesar Salad
+--     (7, 38, 4, 'cups', 'torn'),
+--     -- Romaine Lettuce
+--     (7, 39, 1, 'cup', 'grated'),
+--     -- Parmesan Cheese
+--     (7, 40, 1, 'cup', 'croutons'),
+--     -- Croutons
+--     (7, 41, 2, 'tablespoons', 'mixed'),
+--     -- Caesar Dressing
+--     (8, 42, 1, 'cup', 'sliced'),
+--     -- Bell Pepper
+--     (8, 43, 1, 'cup', 'sliced'),
+--     -- Zucchini
+--     (8, 44, 1, 'cup', 'sliced'),
+--     -- Mushrooms
+--     (8, 45, 1, 'cup', 'sliced'),
+--     -- Carrot
+--     (8, 46, 2, 'tablespoons', 'stir-fried'),
+--     -- Soy Sauce
+--     (8, 9, 1, 'tablespoon', 'used for sautéing'),
+--     -- Olive Oil
+--     (8, 47, 1, 'teaspoon', 'freshly ground'),
+--     -- Ginger
+--     (9, 48, 1, 'dough', 'rolled out'),
+--     -- Pizza Dough
+--     (9, 49, 1, 'cup', 'sliced'),
+--     -- Mozzarella Cheese
+--     (9, 1, 2, 'medium', 'sliced'),
+--     -- Tomatoes
+--     (9, 50, 1, 'teaspoon', 'chopped'),
+--     -- Basil
+--     (10, 51, 1, 'pound', 'cut into pieces'),
+--     -- Chicken Breast
+--     (10, 52, 2, 'tablespoons', 'cooked'),
+--     -- Curry Powder
+--     (10, 53, 1, 'cup', 'coconut'),
+--     -- Coconut Milk
+--     (10, 2, 1, 'medium', 'chopped'),
+--     -- Onion
+--     (10, 5, 2, 'cloves', 'minced'),
+--     -- Garlic
+--     (10, 6, 1, 'cup', 'diced'),
+--     -- Tomatoes
+--     (10, 9, 2, 'tablespoons', 'used for cooking'),
+--     -- Olive Oil
+--     (11, 1, 1, 'pound', 'ground'),
+--     -- Ground Beef
+--     (11, 54, 8, 'small', 'softened'),
+--     -- Taco Shells
+--     (11, 55, 1, 'cup', 'shredded'),
+--     -- Lettuce
+--     (11, 21, 1, 'tomato', 'diced'),
+--     -- Tomato
+--     (11, 56, 1, 'cup', 'shredded'),
+--     -- Cheddar Cheese
+--     (11, 57, 1, 'tablespoon', 'chopped'),
+--     -- Cilantro
+--     (11, 58, 1, 'tablespoon', 'salsa'),
+--     -- Salsa
+--     (12, 39, 6, 'medium', 'peeled and sliced'),
+--     -- Apples
+--     (12, 60, 1, 'cup', 'sugar'),
+--     -- Sugar
+--     (12, 22, 2, 'tablespoons', 'flour'),
+--     -- Flour
+--     (12, 62, 1, 'teaspoon', 'ground'),
+--     -- Cinnamon
+--     (12, 63, 1, 'pie crust', 'pre-baked'),
+--     -- Pie Crust
+--     (13, 14, 2, 'slices', 'buttered'),
+--     -- Bread
+--     (13, 65, 2, 'slices', 'cheddar'),
+--     -- Cheddar Cheese
+--     (13, 9, 1, 'tablespoon', 'spread'),
+--     -- Butter
+--     (14, 66, 1, 'pound', 'ground'),
+--     -- Ground Beef
+--     (14, 67, 2, 'cups', 'ricotta'),
+--     -- Ricotta Cheese
+--     (14, 68, 12, 'noodles', 'boiled'),
+--     -- Lasagna Noodles
+--     (14, 2, 1, 'small', 'chopped'),
+--     -- Onion
+--     (14, 69, 1, 'cup', 'sauce'),
+--     -- Tomato Sauce
+--     (14, 70, 1, 'teaspoon', 'dried'),
+--     -- Oregano
+--     (14, 9, 2, 'tablespoons', 'for greasing'),
+--     -- Olive Oil
+--     (15, 1, 1, 'pound', 'breaded'),
+--     -- Chicken Breast
+--     (15, 71, 1, 'cup', 'parmesan'),
+--     -- Parmesan Cheese
+--     (15, 72, 1, 'cup', 'mozzarella'),
+--     -- Mozzarella Cheese
+--     (15, 69, 1, 'cup', 'sauce'),
+--     -- Tomato Sauce
+--     (15, 9, 2, 'tablespoons', 'for frying'),
+--     -- Olive Oil
+--     (16, 73, 1, 'pound', 'boiled'),
+--     -- Ziti Pasta
+--     (16, 74, 2, 'cups', 'shredded'),
+--     -- Mozzarella Cheese
+--     (16, 69, 1, 'cup', 'sauce'),
+--     -- Tomato Sauce
+--     (16, 9, 1, 'tablespoon', 'used for greasing'),
+--     -- Olive Oil
+--     -- Pork Chops
+--     (17, 75, 4, 'chops', 'seasoned'),
+--     (17, 9, 2, 'tablespoons', 'for frying'),
+--     (17, 76, 1, 'teaspoon', 'freshly ground'),
+--     (17, 77, 1, 'teaspoon', 'freshly ground'),
+--     -- Shrimp Scampi
+--     (18, 78, 1, 'pound', 'peeled and deveined'),
+--     (18, 9, 3, 'tablespoons', 'used for sautéing'),
+--     (18, 5, 4, 'cloves', 'minced'),
+--     (18, 79, 1, 'cup', 'white'),
+--     (18, 13, 1, 'tablespoon', 'freshly chopped'),
+--     -- Egg Salad
+--     (19, 81, 6, 'eggs', 'boiled and chopped'),
+--     (19, 82, 2, 'tablespoons', 'mayonnaise'),
+--     (19, 83, 1, 'teaspoon', 'mustard'),
+--     (19, 84, 1, 'teaspoon', 'dried'),
+--     (19, 9, 1, 'teaspoon', 'for mixing'),
+--     -- Fruit Salad
+--     (20, 85, 1, 'cup', 'cut into cubes'),
+--     (20, 86, 1, 'cup', 'sliced'),
+--     (20, 87, 1, 'cup', 'sliced'),
+--     (20, 88, 1, 'cup', 'sliced'),
+--     (20, 89, 1, 'tablespoon', 'honey drizzled'),
+--     -- Chocolate Cake
+--     (21, 90, 1, 'cup', 'all-purpose flour'),
+--     (21, 91, 1, 'cup', 'sugar'),
+--     (
+--         21,
+--         16,
+--         3,
+--         'tablespoons',
+--         'unsweetened cocoa powder'
+--     ),
+--     (21, 93, 1, 'teaspoon', 'baking powder'),
+--     (21, 9, 1, 'cup', 'butter'),
+--     (21, 94, 2, 'eggs', 'beaten'),
+--     -- Beef Burritos
+--     (22, 1, 1, 'pound', 'ground'),
+--     (22, 54, 6, 'large', 'flour'),
+--     (22, 21, 1, 'cup', 'diced'),
+--     (22, 56, 1, 'cup', 'shredded'),
+--     (22, 57, 1, 'tablespoon', 'chopped'),
+--     (22, 95, 1, 'tablespoon', 'sour cream'),
+--     -- Vegetable Soup
+--     (23, 96, 1, 'cup', 'diced'),
+--     (23, 41, 1, 'cup', 'diced'),
+--     (23, 13, 1, 'cup', 'sliced'),
+--     (23, 2, 1, 'onion', 'chopped'),
+--     (23, 9, 2, 'tablespoons', 'for sautéing'),
+--     (23, 48, 4, 'cups', 'vegetable broth'),
+--     (23, 100, 1, 'teaspoon', 'dried'),
+--     -- Eggplant Parmesan
+--     (24, 101, 2, 'eggplants', 'sliced'),
+--     (24, 69, 1, 'cup', 'tomato sauce'),
+--     (24, 74, 2, 'cups', 'mozzarella'),
+--     (24, 102, 1, 'cup', 'parmesan'),
+--     (24, 9, 2, 'tablespoons', 'used for frying'),
+--     (25, 103, 2, 'racks', 'baby back'),
+--     (25, 9, 1, 'cup', 'for grilling'),
+--     (25, 104, 1, 'cup', 'BBQ sauce'),
+--     (25, 46, 2, 'tablespoons', 'brown sugar'),
+--     (25, 106, 1, 'teaspoon', 'smoked paprika'),
+--     (26, 107, 4, 'onions', 'thinly sliced'),
+--     (26, 48, 4, 'cups', 'beef broth'),
+--     (26, 9, 2, 'tablespoons', 'butter'),
+--     (26, 108, 1, 'teaspoon', 'dried thyme'),
+--     (26, 109, 1, 'cup', 'gruyere cheese'),
+--     (27, 38, 1, 'pie', 'pre-baked crust'),
+--     (27, 3, 4, 'eggs', 'beaten'),
+--     (27, 112, 1, 'cup', 'heavy cream'),
+--     (27, 113, 1, 'cup', 'chopped'),
+--     (27, 114, 1, 'cup', 'shredded'),
+--     (
+--         28,
+--         115,
+--         2,
+--         'chicken breasts',
+--         'boiled and shredded'
+--     ),
+--     (28, 96, 1, 'carrot', 'sliced'),
+--     (28, 9, 1, 'tablespoon', 'used for sautéing'),
+--     (28, 48, 6, 'cups', 'chicken broth'),
+--     (28, 116, 2, 'cups', 'egg noodles'),
+--     (29, 23, 4, 'bell peppers', 'cored and cleaned'),
+--     (29, 1, 1, 'pound', 'ground'),
+--     (29, 118, 1, 'cup', 'cooked rice'),
+--     (29, 14, 1, 'cup', 'tomato sauce'),
+--     (29, 74, 1, 'cup', 'shredded'),
+--     (30, 120, 2, 'bananas', 'mashed'),
+--     (30, 90, 1, 'cup', 'all-purpose flour'),
+--     (30, 91, 1, 'cup', 'sugar'),
+--     (30, 121, 1, 'teaspoon', 'baking soda'),
+--     (30, 9, 1, 'stick', 'butter'),
+--     (31, 122, 1, 'pound', 'white fish fillets'),
+--     (31, 123, 1, 'teaspoon', 'ground cumin'),
+--     (31, 9, 2, 'tablespoons', 'for sautéing'),
+--     (31, 42, 6, 'small', 'corn tortillas'),
+--     (31, 125, 1, 'cup', 'shredded cabbage'),
+--     (32, 1, 1, 'can', 'crushed'),
+--     (32, 126, 1, 'cup', 'fresh basil leaves'),
+--     (32, 9, 2, 'tablespoons', 'for sautéing'),
+--     (32, 48, 4, 'cups', 'vegetable broth'),
+--     (32, 65, 1, 'cup', 'heavy cream'),
+--     (33, 128, 1, 'pound', 'ground lamb'),
+--     (33, 96, 2, 'carrots', 'diced'),
+--     (33, 48, 1, 'cup', 'beef broth'),
+--     (33, 129, 4, 'potatoes', 'mashed'),
+--     (33, 74, 1, 'cup', 'shredded'),
+--     (34, 130, 1, 'cup', 'black beans'),
+--     (34, 131, 1, 'cup', 'quinoa'),
+--     (34, 9, 2, 'tablespoons', 'for frying'),
+--     (34, 132, 1, 'teaspoon', 'ground cumin'),
+--     (34, 133, 4, 'buns', 'whole wheat'),
+--     -- Fettuccine Carbonara
+--     (35, 43, 1, 'pound', 'fettuccine pasta'),
+--     (35, 44, 4, 'eggs', 'beaten'),
+--     (35, 18, 1, 'cup', 'parmesan cheese, grated'),
+--     (35, 45, 6, 'slices', 'crispy bacon, chopped'),
+--     (35, 9, 2, 'tablespoons', 'for sautéing'),
+--     -- Lentil Soup
+--     (36, 47, 1, 'cup', 'lentils, rinsed'),
+--     (36, 139, 2, 'carrots', 'diced'),
+--     (36, 4, 1, 'onion', 'chopped'),
+--     (36, 48, 4, 'cups', 'vegetable broth'),
+--     (36, 49, 1, 'teaspoon', 'ground cumin'),
+--     -- Mushroom Risotto
+--     (37, 50, 1, 'cup', 'arborio rice'),
+--     (37, 48, 2, 'cups', 'vegetable broth'),
+--     (37, 15, 1, 'cup', 'mushrooms, sliced'),
+--     (37, 46, 1, 'tablespoon', 'butter'),
+--     (37, 18, 1, 'cup', 'parmesan cheese, grated'),
+--     -- Tiramisu
+--     (38, 53, 1, 'package', 'ladyfinger biscuits'),
+--     (38, 54, 1, 'cup', 'coffee'),
+--     (38, 51, 1, 'cup', 'mascarpone cheese'),
+--     (38, 52, 1, 'cup', 'heavy cream'),
+--     (
+--         38,
+--         55,
+--         1,
+--         'tablespoon',
+--         'cocoa powder, for dusting'
+--     ),
+--     -- Caprese Salad
+--     (39, 1, 2, 'tomatoes', 'sliced'),
+--     (39, 56, 1, 'ball', 'mozzarella cheese, sliced'),
+--     (39, 58, 1, 'cup', 'fresh basil'),
+--     (39, 9, 2, 'tablespoons', 'for drizzling'),
+--     (39, 57, 1, 'tablespoon', 'balsamic vinegar'),
+--     -- Chocolate Mousse
+--     (40, 52, 1, 'cup', 'heavy cream'),
+--     (40, 58, 8, 'ounces', 'dark chocolate, melted'),
+--     (40, 35, 1, 'teaspoon', 'vanilla extract'),
+--     (40, 60, 2, 'tablespoons', 'sugar'),
+--     (40, 39, 1, 'pinch', 'salt'),
+--     (62, 22, 2, 'slices', 'toasted'),
+--     (62, 122, 2, 'tablespoons', 'spread'),
+--     (62, 123, 1, 'banana', 'sliced'),
+--     (62, 33, 1, 'tablespoon', 'optional'),
+--     (63, 22, 2, 'slices', 'toasted'),
+--     (63, 65, 1, 'avocado', 'mashed'),
+--     (63, 10, 1, 'tablespoon', 'freshly squeezed'),
+--     (63, 39, 1, 'pinch', 'sprinkle'),
+--     (63, 40, 1, 'pinch', 'sprinkle'),
+--     (63, 115, 1, 'pinch', 'optional'),
+--     (64, 21, 1, 'cup', 'plain'),
+--     (64, 14, 1, 'tablespoon', 'optional'),
+--     (64, 124, 1, 'cup', 'mixed'),
+--     (64, 125, 1, 'cup', 'crunchy'),
+--     (65, 126, 4, 'large', 'diced'),
+--     (65, 45, 6, 'slices', 'crumbled'),
+--     (65, 127, 8, 'ounces', 'softened'),
+--     (65, 17, 1, 'cup', 'shredded'),
+--     (65, 86, 4, 'cups', 'low sodium'),
+--     (65, 2, 2, 'cloves', 'minced'),
+--     (65, 4, 1, 'medium', 'chopped'),
+--     (65, 6, 2, 'stems', 'chopped'),
+--     (65, 7, 1, 'sprinkle', 'garnish'),
+--     (66, 8, 1, 'pound', 'cooked'),
+--     (66, 24, 1, 'large', 'chopped'),
+--     (66, 25, 1, 'clove', 'minced'),
+--     (66, 26, 1, 'can', 'added'),
+--     (66, 5, 1, 'can', 'added'),
+--     (66, 56, 1, 'tablespoon', 'mixed'),
+--     (66, 128, 2, 'cups', 'grated'),
+--     (66, 13, 1, 'pound', 'cooked'),
+--     (80, 8, 1, 'pound', 'cooked'),
+--     (80, 24, 1, 'large', 'chopped'),
+--     (80, 25, 1, 'clove', 'minced'),
+--     (80, 26, 1, 'can', 'added'),
+--     (80, 5, 1, 'can', 'added'),
+--     (80, 56, 1, 'tablespoon', 'mixed'),
+--     (80, 128, 2, 'cups', 'grated'),
+--     (80, 13, 1, 'pound', 'cooked'),
+--     (81, 129, 6, 'large', 'peeled and sliced'),
+--     (81, 130, 1, 'cup', 'added'),
+--     (81, 36, 1, 'teaspoon', 'added'),
+--     (81, 37, 1, 'teaspoon', 'added'),
+--     (81, 60, 1, 'tablespoon', 'squeezed'),
+--     (81, 131, 1, 'package', 'bought'),
+--     (82, 83, 1, 'pound', 'sliced thin'),
+--     (82, 132, 1, 'cup', 'diced'),
+--     (82, 76, 1, 'medium', 'chopped'),
+--     (82, 133, 1, 'clove', 'minced'),
+--     (82, 41, 1, 'tablespoon', 'added'),
+--     (82, 116, 1, 'tablespoon', 'added'),
+--     (82, 14, 1, 'tablespoon', 'added'),
+--     (82, 17, 2, 'tablespoons', 'freshly squeezed'),
+--     (83, 134, 4, 'mini', 'halved and seeded'),
+--     (83, 127, 1, 'cup', 'added'),
+--     (83, 135, 1, 'cup', 'shredded'),
+--     (83, 58, 1, 'cup', 'sliced'),
+--     (83, 136, 1, 'teaspoon', 'sprinkle'),
+--     (84, 70, 2, 'slices', 'cooked and sliced'),
+--     (84, 1, 1, 'cup', 'crisp'),
+--     (84, 45, 1, 'avocado', 'sliced'),
+--     (84, 65, 2, 'leaves', 'fresh'),
+--     (84, 137, 1, 'tomato', 'sliced'),
+--     (84, 138, 1, 'tablespoon', 'spread');
+-- INSERT INTO ingredients (ingredient_name) VALUES 
+-- ('Tomato'),
+-- ('Garlic'),
+-- ('Olive'),
+-- ('Onion'),
+-- ('Basil'),
+-- ('Carrot'),
+-- ('Celery'),
+-- ('Ground Beef'),
+-- ('Chicken Breast'),
+-- ('Lemon'),
+-- ('Spinach'),
+-- ('Zucchini'),
+-- ('Eggplant'),
+-- ('Bell Pepper'),
+-- ('Mushrooms'),
+-- ('Cucumber'),
+-- ('Cheddar Cheese'),
+-- ('Parmesan Cheese'),
+-- ('Feta Cheese'),
+-- ('Cottage Cheese'),
+-- ('Yogurt'),
+-- ('Tortilla'),
+-- ('Chicken Broth'),
+-- ('Tomato Paste'),
+-- ('Canned Tomatoes'),
+-- ('Pasta'),
+-- ('Rice'),
+-- ('Quinoa'),
+-- ('Coconut Milk'),
+-- ('Almonds'),
+-- ('Chia Seeds'),
+-- ('Oats'),
+-- ('Honey'),
+-- ('Maple Syrup'),
+-- ('Vanilla Extract'),
+-- ('Cinnamon'),
+-- ('Nutmeg'),
+-- ('Baking Powder'),
+-- ('Salt'),
+-- ('Pepper'),
+-- ('Cilantro'),
+-- ('Parsley'),
+-- ('Fettuccine Pasta'),
+-- ('Eggs'),
+-- ('Bacon'),
+-- ('Butter'),
+-- ('Lentils'),
+-- ('Vegetable Broth'),
+-- ('Ground Cumin'),
+-- ('Arborio Rice'),
+-- ('Mascarpone Cheese'),
+-- ('Heavy Cream'),
+-- ('Ladyfinger Biscuits'),
+-- ('Coffee'),
+-- ('Cocoa Powder'),
+-- ('Mozzarella Cheese'),
+-- ('Balsamic Vinegar'),
+-- ('Dark Chocolate'),
+-- ('Sugar'),
+-- ('Chicken Thighs'),
+-- ('Tomato Sauce'),
+-- ('Avocado'),
+-- ('Iceberg Lettuce'),
+-- ('Shredded Cheese'),
+-- ('Bacon Bits'),
+-- ('Croutons'),
+-- ('Lettuce'),
+-- ('Bread Crumbs'),
+-- ('Shrimp'),
+-- ('White Wine'),
+-- ('Parmesan'),
+-- ('Cayenne Pepper'),
+-- ('Chili Powder'),
+-- ('Taco Shells'),
+-- ('Green Bell Peppers'),
+-- ('Red Onion'),
+-- ('Plum Tomatoes'),
+-- ('Mushroom Soup'),
+-- ('Pineapple'),
+-- ('Chicken Sausage'),
+-- ('Beef Broth'),
+-- ('Tomato Puree'),
+-- ('Diced Tomatoes'),
+-- ('Chickpeas'),
+-- ('Broccoli'),
+-- ('Chicken Drumsticks'),
+-- ('Pita Bread'),
+-- ('Shallots'),
+-- ('Ginger'),
+-- ('Soy Sauce'),
+-- ('Garam Masala'),
+-- ('Gouda Cheese'),
+-- ('Chopped Bacon'),
+-- ('Canned Peas'),
+-- ('Mozzarella'),
+-- ('Sausages'),
+-- ('Lemon Zest'),
+-- ('Baking Soda'),
+-- ('Sweet Corn'),
+-- ('Tarragon'),
+-- ('White Wine Vinegar'),
+-- ('Pine Nuts'),
+-- ('Poppy Seeds'),
+-- ('Chili Flakes'),
+-- ('Lime'),
+-- ('Vegetable Oil'),
+-- ('Chicken Legs'),
+-- ('Oregano'),
+-- ('Thyme'),
+-- ('Sour Cream'),
+-- ('Chili Sauce'),
+-- ('Sesame Oil'),
+-- ('Coconut Oil'),
+-- ('Tamarind'),
+-- ('Chicken Wings'),
+-- ('Oatmeal'),
+-- ('Mint'),
+-- ('Sour Dough Bread'),
+-- ('Carrots'),
+-- ('Fresh Basil'),
+-- ('Bread'),
+-- ('Peanut Butter'),
+-- ('Banana'),
+-- ('Mixed Berries'),
+-- ('Granola'),
+-- ('Potatoes'),
+-- ('Cream Cheese'),
+-- ('Ricotta Cheese'),
+-- ('Apple'),
+-- ('Pie Crust'),
+-- ('Flour'),
+-- ('Pork'),
+-- ('Taco Seasoning'),
+-- ('Mini Bell Peppers'),
+-- ('Shredded Mozzarella Cheese'),
+-- ('Olive Oil'),
+-- ('Sandwich Bread'),
+-- ('Mayonnaise');
