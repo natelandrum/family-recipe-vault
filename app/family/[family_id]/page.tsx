@@ -6,7 +6,7 @@ import {
 import { notFound, redirect } from "next/navigation";
 import { FamilyGroupDetailsCard } from "@/app/components/family/FamilyGroupDetailsCard";
 import { Metadata } from "next";
-import RecipeList from "@/app/components/public_recipes/RecipesList";
+import RecipeList from "@/app/components/public_recipes/RecipesListing";
 import { getServerSession } from "next-auth";
 import { getUser } from "@/app/lib/actions";
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import RecipeForm from "@/app/components/profile/RecipeForm";
 import React, { useState } from "react";
@@ -6,6 +7,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import RecipeCard from "../public_recipes/RecipeCard";
+import SortDropdown from "../searchSort/sortDropdown";
+import SearchBar from "../searchSort/searchBar";
 
 interface RecipeListProps {
   recipes: Recipe[];
@@ -16,6 +19,8 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, userId }) => {
   const [mode, setMode] = useState<"view" | "add" | "edit" | "editReady">("view");
   const [recipeList, setRecipeList] = useState<Recipe[]>(recipes);
   const [recipe, setRecipe] = useState();
+  const [sortBy, setSortBy] = useState("name");
+  const [selectedMealType, setSelectedMealType] = useState("All");
 
   const handleRecipeSubmit = (newRecipe: Recipe) => {
     if (mode === "editReady") {
@@ -62,9 +67,49 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, userId }) => {
       setMode("editReady");
     }
   };
+  
+  // Handle Sorting
+  const handleSort = (sortBy: string) => {
+    setSortBy(sortBy);
+    const sortedRecipes = [...recipeList].sort((a, b) => {
+      if (sortBy === "name") return a.recipe_name.localeCompare(b.recipe_name);
+      if (sortBy === "date")
+        return new Date(b.created_on).getTime() - new Date(a.created_on).getTime();
+      if (sortBy === "meal_type") return a.meal_type.localeCompare(b.meal_type);
+      return 0;
+    });
+    setRecipeList(sortedRecipes);
+  };
+
+  // Handle Meal Type Filtering
+  const handleMealTypeFilter = (mealType: string) => {
+    setSelectedMealType(mealType);
+    if (mealType === "All") {
+      setRecipeList(recipes);
+    } else {
+      setRecipeList(recipes.filter((recipe) => recipe.meal_type === mealType));
+    }
+  };
+
+  // Handle Search Logic
+  const handleSearch = (query: string) => {
+    if (query.trim() === "") {
+      setRecipeList(recipes);
+    } else {
+      setRecipeList(
+        recipes.filter((recipe) =>
+          recipe.recipe_name.toLowerCase().includes(query.toLowerCase())
+        )
+      );
+    }
+  };
 
   return (
     <>
+    <div className="flex justify-between mb-4">
+      <SearchBar onSearch={handleSearch} />
+      <SortDropdown onSortChange={handleSort} onMealTypeChange={handleMealTypeFilter} />
+    </div>
       {(mode === "view" || mode === "add") && (
         <button
           type="button"
