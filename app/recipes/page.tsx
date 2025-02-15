@@ -1,6 +1,6 @@
 "use client";
 
-import RecipesList from "@/app/components/public_recipes/RecipesList";
+import RecipesList from "@/app/components/public_recipes/RecipesListing";
 import { getRecipes } from "@/app/lib/actions";
 import { Recipe } from "@/app/lib/definitions";
 import { useState, useEffect } from "react";
