@@ -94,7 +94,7 @@ export default function MealPlanView({ selectedMealPlan }: MealPlanViewProps) {
   console.log("Meal Plans by day:", mealPlanByDay)
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {uniqueDays.map((day, index) => (
         <div key={index} className="bg-white p-4 rounded-lg shadow-md min-h-[150px]">
           <h2 className="text-2xl font-semibold mb-2">

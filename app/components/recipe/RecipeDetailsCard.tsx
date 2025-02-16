@@ -20,9 +20,9 @@ export const RecipeDetailsCard: React.FC<RecipeDetailsCardProps> = ({ recipe, de
   const imageSrc = recipe.recipe_image || "/fallback-image.jpg";
   
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white p-4 gap-8">
+    <div className="flex flex-col items-center justify-center min-h-screen rounded-lg shadow-lg bg-gray-100 mb-6 p-4 gap-8">
       {/* Details & Image Section */}
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full m:w-4/5 lg:w-4/5 h-full flex flex-col lg:flex-row gap-8">
+      <div className="bg-white border p-8 rounded-lg shadow-lg h-full flex flex-col lg:flex-row gap-8">
         {/* Details Section */}
         <div className='flex-1'>
           <h1 className="text-4xl font-bold text-center text-accent mb-1">
@@ -48,7 +48,7 @@ export const RecipeDetailsCard: React.FC<RecipeDetailsCardProps> = ({ recipe, de
           />
         </div>
       </div>
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full m:w-4/5 lg:w-4/5 h-full flex flex-col justify-between">
+      <div className="bg-white p-8 rounded-lg shadow-lg h-full flex flex-col w-full justify-between">
         <strong>Ingredients:</strong>
         <div className="grid grid-cols-[1fr,1fr,2fr,2fr] gap-x-4 gap-y-2 mt-2 text-left border-t pt-2">
           {/* Column Headers */}
