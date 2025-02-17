@@ -82,7 +82,7 @@ export default function MealPlan() {
 
   return (
     <div className="flex flex-col">
-    <div className="p-6 bg-white rounded-lg my-8 shadow-lg max-w-3xl mx-auto flex-grow">
+    <div className="p-6 bg-gray-100 rounded-lg my-8 shadow-lg max-w-4xl mx-auto flex-grow">
       <h2 className="text-4xl font-bold text-center mb-6">Weekly Meal Plan</h2>
   
       {/* Dropdown for past meal plans */}
